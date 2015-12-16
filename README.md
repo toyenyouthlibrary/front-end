@@ -1,4 +1,4 @@
-Front-end (Python with Django)
+Frontend (Python with Django)
 ==============================
 
 #### Requires:
