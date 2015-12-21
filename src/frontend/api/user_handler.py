@@ -31,7 +31,6 @@ class UserHandler:
 
         return User.create(username, firstname, lastname, address, phone, email, birth)
 
-
     @staticmethod
     def delete_user(username):
         parameters = {
@@ -45,9 +44,6 @@ class UserHandler:
 
         if dictionary["error"] > 0:
             raise Exception(dictionary["message"])
-
-
-
 
     @staticmethod
     def get_user(username):
