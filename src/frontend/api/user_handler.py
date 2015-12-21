@@ -3,6 +3,7 @@ import requests
 from api.user import User
 
 base_url = "*"
+base_url = "http://www.tryggestad.com/liblog/"
 create_user_path = "create_user.php"
 get_user_path = "get_user.php"
 
