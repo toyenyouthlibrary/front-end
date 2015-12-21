@@ -25,4 +25,4 @@ class Tests(unittest.TestCase):
 
         user_equivalent = UserHandler.get_user(test_username)
 
-        self.assertEqual(user, user)
+        self.assertEqual(user, user_equivalent)
