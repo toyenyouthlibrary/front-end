@@ -1,6 +1,3 @@
-import json
-
-
 class User:
     @staticmethod
     def create(username, firstname, lastname, address, phone, email, birth):
@@ -15,9 +12,6 @@ class User:
 
         return user
 
-    """
-    TODO: Parse JSON and return a User object
-    """
     @staticmethod
     def parse(dictionary):
         user = User()
