@@ -1,3 +1,6 @@
+import json
+
+
 class User:
     @staticmethod
     def create(username, firstname, lastname, address, phone, email, birth):
@@ -7,8 +10,8 @@ class User:
         user.lastname = lastname
         user.address = address
         user.phone = phone
-        user.birth = birth
         user.email = email
+        user.birth = birth
 
         return user
 
