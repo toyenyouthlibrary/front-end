@@ -19,5 +19,14 @@ class User:
     TODO: Parse JSON and return a User object
     """
     @staticmethod
-    def parse(json):
-        return User()
+    def parse(dictionary):
+        user = User()
+        user.username = dictionary["username"]
+        user.firstname = dictionary["firstname"]
+        user.lastname = dictionary["lastname"]
+        user.address = dictionary["address"]
+        user.phone = dictionary["phone"]
+        user.email = dictionary["email"]
+        user.birth = dictionary["birth"]
+
+        return user
