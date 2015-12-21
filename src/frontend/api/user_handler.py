@@ -22,12 +22,12 @@ class UserHandler:
         }
 
         response = requests.post(base_url + create_user_path, data=parameters)
-        dictionary = json.loads(response.text)
+        object = json.loads(response.text)
 
         # Parse JSON and throw an exception if the user could not be created
 
-        if dictionary["error"] > 0:
-            raise Exception(dictionary["message"])
+        if object["error"] > 0:
+            raise Exception(object["message"])
 
         return User.create(username, firstname, lastname, address, phone, email, birth)
 
@@ -38,12 +38,12 @@ class UserHandler:
         }
 
         response = requests.post(base_url + delete_user_path, data=parameters)
-        dictionary = json.loads(response.text)
+        object = json.loads(response.text)
 
         # Parse JSON and throw an exception if the user could not be deleted
 
-        if dictionary["error"] > 0:
-            raise Exception(dictionary["message"])
+        if object["error"] > 0:
+            raise Exception(object["message"])
 
     @staticmethod
     def get_user(username):
@@ -52,12 +52,12 @@ class UserHandler:
         }
 
         response = requests.post(base_url + get_user_path, data=parameters)
-        dictionary = json.loads(response.text)
+        object = json.loads(response.text)
 
         # Parse JSON and create User object, or throw an exception if the user does not exist
 
-        if dictionary["error"] > 0:
-            raise Exception(dictionary["message"])
+        if object["error"] > 0:
+            raise Exception(object["message"])
 
-        return User.parse(dictionary.user)
+        return User.parse(object.user)
 
