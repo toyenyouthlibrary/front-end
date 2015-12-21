@@ -13,14 +13,14 @@ class User:
         return user
 
     @staticmethod
-    def parse(dictionary):
+    def parse(object):
         user = User()
-        user.username = dictionary["username"]
-        user.firstname = dictionary["firstname"]
-        user.lastname = dictionary["lastname"]
-        user.address = dictionary["address"]
-        user.phone = dictionary["phone"]
-        user.email = dictionary["email"]
-        user.birth = dictionary["birth"]
+        user.username = object["username"]
+        user.firstname = object["firstname"]
+        user.lastname = object["lastname"]
+        user.address = object["address"]
+        user.phone = object["phone"]
+        user.email = object["email"]
+        user.birth = object["birth"]
 
         return user
