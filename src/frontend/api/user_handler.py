@@ -31,6 +31,24 @@ class UserHandler:
 
         return User.create(username, firstname, lastname, address, phone, email, birth)
 
+
+    @staticmethod
+    def delete_user(username):
+        parameters = {
+            'username': username,
+        }
+
+        response = requests.post(base_url + delete_user_path, data=parameters)
+        dictionary = json.loads(response.text)
+
+        # Parse JSON and throw an exception if the user could not be deleted
+
+        if dictionary["error"] > 0:
+            raise Exception(dictionary["message"])
+
+
+
+
     @staticmethod
     def get_user(username):
         parameters = {
