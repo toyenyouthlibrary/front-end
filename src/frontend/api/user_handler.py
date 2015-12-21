@@ -21,10 +21,12 @@ class UserHandler:
         }
 
         response = requests.post(base_url + create_user_path, data=parameters)
+        dictionary = json.loads(response.text)
 
-        """
-        TODO: Parse JSON and throw an exception if the user could not be created
-        """
+        # Parse JSON and throw an exception if the user could not be created
+
+        if dictionary["error"] > 0:
+            raise Exception(dictionary["message"])
 
         return User.create(username, firstname, lastname, address, phone, email, birth)
 
@@ -35,9 +37,12 @@ class UserHandler:
         }
 
         response = requests.post(base_url + get_user_path, data=parameters)
+        dictionary = json.loads(response.text)
 
-        """
-        TODO: Parse JSON and create User object, or throw exception if the user does not exist
-        """
+        # Parse JSON and create User object, or throw an exception if the user does not exist
 
-        return User.parse(json.loads(response))
+        if dictionary["error"] > 0:
+            raise Exception(dictionary["message"])
+
+        return User.parse(dictionary.user)
+
