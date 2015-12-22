@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}{{"Opprett bruker"}}{% endblock %}
+
+
+{% block content %}
+
+<h2><span class="label label-primary">Opprett en bruker</span></h2>
+<br>
+
+
+<form method="POST" action="{{url_create_response}}">
+
+    <label for="username">Brukernavn:</label>
+    <input type="text" name="username" /><br />
+
+    <label for="rfid">RFID:</label>
+    <input type="number" name="rfid" /><br />
+
+    <label for="firstname">Fornavn:</label>
+    <input type="text" name="firstname" /><br />
+
+    <input type="submit" value="Go!" />
+
+    </form>
+
+<!---<a href="{{url_create_response}}" class="btn btn-default">Logg inn</a>--->
+
+{% endblock %}
