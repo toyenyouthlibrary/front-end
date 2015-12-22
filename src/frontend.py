@@ -1,9 +1,14 @@
-from flask import Flask, url_for, request
+from flask import Flask, url_for, request, render_template
 import user
 
 app = Flask(__name__)
 
-
+def url_list():
+    return {
+        'url_css': url_for('static', filename='liblog.css'),
+        'url_create_user': url_for('create_user'),
+        'url_frontpage': url_for('hello'),
+    }
 
 @app.route("/")
 def hello():
@@ -33,6 +38,9 @@ def create_user():
         <label for="rfid">RFID:</label>
         <input type="number" name="rfid" /><br />
 
+        <label for="firstname">Fornavn:</label>
+        <input type="text" name="firstname" /><br />
+
         <input type="submit" value="Go!" />
 
         </form>
@@ -41,22 +49,25 @@ def create_user():
 @app.route("/create_response/", methods=['POST'])
 def create_response():
 
-    user_ = user.User(request.form["username"], request.form["rfid"])
+    user_ = user.User(request.form["username"], request.form["rfid"],
+                      firstname=request.form["firstname"])
     try:
         user_.create_in_database()
     except ConnectionError as err:
         return 'Æddabædda! ' + str(err)
 
-    return "Bruker opprettet"
+    return "Bruker {} opprettet".format(user_)
 
 @app.route('/user/<username>')
 def show_user_profile(username):
     # show the user profile for that user
-    return username
+    try:
+        user_ = user.read_user_from_database(username)
+    except ConnectionError as err:
+        return 'Æddabædda! ' + str(err)
 
-    user_ = user.read_user_from_database(username)
-
-    return user_
+    return render_template('user_profile.html', **url_list(),
+                           username=user_.username, **user_.details)
 
 if __name__ == "__main__":
     app.run(debug=True)
