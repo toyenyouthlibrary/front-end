@@ -9,6 +9,11 @@ class User():
         self.details = kwargs
 
 
+    def __str__(self):
+        details_str = ', '.join(['{}: {}'.format(k, v) for k, v in self.details.items()])
+        return '{} ({}) - {}'.format(self.username, self.rfid, details_str)
+
+
     def create_in_database(self):
         parameters = dict(username=self.username, rfid=self.rfid, **self.details)
         response = backend.request('create_user', data=parameters)
@@ -29,7 +34,7 @@ class User():
         # Parse JSON and throw an exception if the user could not be deleted
 
         if object["error"]:
-            raise ConnectionError(object["error"])
+            raise ConnectionError('Feil i databasen: ' + object["error"])
 
         return object
 
@@ -41,10 +46,9 @@ def read_user_from_database(username):
     object = json.loads(response.text)
 
     # Parse JSON and create User object, or throw an exception if the user does not exist
-
     error = object.pop('error')
     if error:
-        raise ConnectionError(error)
+        raise ConnectionError('Feil i databasen: ' + error)
 
     return User(**object)
 
