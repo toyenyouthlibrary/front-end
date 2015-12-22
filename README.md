@@ -1,12 +1,12 @@
-Frontend (Python with Django)
+Frontend (Python with Flask)
 ==============================
 
 #### Requires:
 * Python 3.4+
-* Django 1.9+
+* Flask
 * [Requests](http://docs.python-requests.org/en/latest/) (Python library)
 
 #### Installation:
 1. Install Python
-2. `$ pip install django`
+2. `$ pip install flask`
 3. `$ pip install requests`
