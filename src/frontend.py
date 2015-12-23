@@ -3,12 +3,15 @@ import user
 
 app = Flask(__name__)
 
+
 def url_list():
     return {
         'url_css': url_for('static', filename='liblog.css'),
         'url_create_user': url_for('create_user'),
         'url_frontpage': url_for('hello'),
+        'url_create_response': url_for('create_response')
     }
+
 
 @app.route("/")
 def hello():
@@ -23,32 +26,13 @@ def hello():
                       )
 
 
-
 @app.route("/create/")
 def create_user():
-    return  """
-        <p>Who do you want me to say "Hi" to?</p>
+    return render_template('create_user.html', **url_list())
 
-        <form method="POST" action="%s">
-
-
-        <label for="username">Brukernavn:</label>
-        <input type="text" name="username" /><br />
-
-        <label for="rfid">RFID:</label>
-        <input type="number" name="rfid" /><br />
-
-        <label for="firstname">Fornavn:</label>
-        <input type="text" name="firstname" /><br />
-
-        <input type="submit" value="Go!" />
-
-        </form>
-        """ % (url_for('create_response'),)
 
 @app.route("/create_response/", methods=['POST'])
 def create_response():
-
     user_ = user.User(request.form["username"], request.form["rfid"],
                       firstname=request.form["firstname"])
     try:
@@ -57,6 +41,7 @@ def create_response():
         return 'Æddabædda! ' + str(err)
 
     return "Bruker {} opprettet".format(user_)
+
 
 @app.route('/user/<username>')
 def show_user_profile(username):
