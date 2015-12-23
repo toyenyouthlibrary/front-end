@@ -3,7 +3,7 @@ Frontend (Python with Flask)
 
 #### Requires:
 * Python 3.4+
-* Flask
+* [Flask](http://flask.pocoo.org) (Python library)
 * [Requests](http://docs.python-requests.org/en/latest/) (Python library)
 
 #### Installation:
