@@ -8,8 +8,21 @@ h2 {
 
 #create_user_btn {
     border: 3px solid #73AD21;
+
+    margin-left: 290px;
+    margin-top: 5px;
+
+
+
+    float: left;
 }
 
 #log_in_btn {
     border: 3px solid #73AD21;
+
+    margin-right: 290px;
+    margin-top: 5px;
+
+    float: right;
+
 }
