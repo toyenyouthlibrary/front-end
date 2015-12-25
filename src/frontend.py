@@ -40,7 +40,7 @@ def welcome():
 @app.route("/create_response/", methods=['POST'])
 def create_response():
     user_ = user.User(request.form["username"], request.form["rfid"],
-                      firstname=request.form["firstname"])
+                      firstname=request.form["firstname"], email=request.form["email"])
     try:
         user_.create_in_database()
     except ConnectionError as err:
