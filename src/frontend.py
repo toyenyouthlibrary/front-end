@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 def url_list():
     return {
-        'url_css': url_for('static', filename='liblog.css'),
+        'url_css': url_for('static', filename='style.css'),
         'url_create_user': url_for('create_user'),
         'url_frontpage': url_for('welcome'),
         'url_create_response': url_for('create_response'),
