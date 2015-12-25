@@ -8,11 +8,13 @@ def url_list():
     return {
         'url_css': url_for('static', filename='liblog.css'),
         'url_create_user': url_for('create_user'),
-        'url_frontpage': url_for('hello'),
-        'url_create_response': url_for('create_response')
+        'url_frontpage': url_for('welcome'),
+        'url_create_response': url_for('create_response'),
+
+
     }
 
-
+'''
 @app.route("/")
 def hello():
     user_ = user.User('apebabsen', '12345')
@@ -24,12 +26,16 @@ def hello():
            """.format(u=user_,
                       create_user=url_for('create_user'),
                       )
-
+'''
 
 @app.route("/create/")
 def create_user():
     return render_template('create_user.html', **url_list())
 
+
+@app.route("/")
+def welcome():
+    return render_template('welcome.html', **url_list())
 
 @app.route("/create_response/", methods=['POST'])
 def create_response():
