@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{"Opprett bruker"}}{% endblock %}
+
+
+{% block content %}
+
+<h1><span class="label label-primary">Lån en bok</span></h1>
+<br>
+
+
+<form method="POST" action="{{url_lend_book_response}}">
+
+    <label for="userrfid">Bruker RFID:</label>
+    <input type="text" name="userrfid" /><br />
+
+    <label for="bookrfid">Bok RFID:</label>
+    <input type="text" name="bookrfid" /><br />
+
+    <input type="submit" value="Go!" />
+
+</form>
+
+
+<!---<a href="{{url_create_response}}" class="btn btn-default">Logg inn</a>--->
+
+{% endblock %}

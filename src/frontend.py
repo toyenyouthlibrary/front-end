@@ -1,5 +1,7 @@
 from flask import Flask, url_for, request, render_template
+from src.book import *
 import user
+
 
 app = Flask(__name__)
 
@@ -10,23 +12,10 @@ def url_list():
         'url_create_user': url_for('create_user'),
         'url_frontpage': url_for('welcome'),
         'url_create_response': url_for('create_response'),
+        'url_lend_book_response': url_for('lend_book_response'),
 
 
     }
-
-'''
-@app.route("/")
-def hello():
-    user_ = user.User('apebabsen', '12345')
-
-    return """
-           <p>Hello {u.username}<br />your rfid is {u.rfid}</p>
-
-           <a href="{create_user}">Opprett en bruker</a>
-           """.format(u=user_,
-                      create_user=url_for('create_user'),
-                      )
-'''
 
 @app.route("/create/")
 def create_user():
@@ -48,6 +37,19 @@ def create_response():
 
     return "Bruker {} opprettet".format(user_)
 
+@app.route("/lend_book/")
+def lend_book():
+    return render_template('lend_book.html', **url_list())
+
+@app.route("/create_lend_book_response/", methods=['POST'])
+def lend_book_response():
+    try:
+        # FIXME - TypeError: lend_book() takes 0 positional arguments but 2 were given
+        book = lend_book(request.form["bookrfid"], request.form["userrfid"])
+    except ConnectionError as err:
+        return 'Æddabædda! ' + str(err)
+
+    return book
 
 @app.route('/user/<username>')
 def show_user_profile(username):

@@ -1,6 +1,8 @@
 import json
 import backend
 
+# TODO - Return an error message in JSON {"errors": "some string"} (Ask Tor)
+
 def lend_book(bookRFID, userRFID):
     parameters = {
         'book_rfid': bookRFID,
