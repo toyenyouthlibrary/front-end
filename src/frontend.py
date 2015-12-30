@@ -16,7 +16,7 @@ def create_user():
         except ConnectionError as err:
             return flask.render_template('error.html', error=err)
 
-        flask.flash("Bruker {} opprettet".format(user_))
+        flask.flash("Bruker med navn {} opprettet".format(user_.username))
         return flask.redirect(flask.url_for('create_user'))
 
     return flask.render_template('create_user.html')
