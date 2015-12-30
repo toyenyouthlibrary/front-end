@@ -3,7 +3,7 @@ import backend
 
 # TODO - Return an error message in JSON {"errors": "some string"} (Ask Tor)
 
-def lend_book(bookRFID, userRFID):
+def lend_book_rfid(bookRFID, userRFID):
     parameters = {
         'book_rfid': bookRFID,
         'user_rfid': userRFID,
