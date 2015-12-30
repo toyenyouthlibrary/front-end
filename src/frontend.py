@@ -44,12 +44,11 @@ def lend_book():
 @app.route("/create_lend_book_response/", methods=['POST'])
 def lend_book_response():
     try:
-        # FIXME - TypeError: lend_book() takes 0 positional arguments but 2 were given
-        book = lend_book(request.form["bookrfid"], request.form["userrfid"])
+        book = lend_book_rfid(request.form["bookrfid"], request.form["userrfid"])
     except ConnectionError as err:
         return 'Æddabædda! ' + str(err)
 
-    return book
+    return "{}".format(book)
 
 @app.route('/user/<username>')
 def show_user_profile(username):
