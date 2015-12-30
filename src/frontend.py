@@ -4,6 +4,7 @@ import user
 
 
 app = flask.Flask(__name__)
+app.config['SECRET_KEY'] = 'temmelighemmelig'
 
 
 @app.route("/create/", methods=['GET', 'POST'])
@@ -15,7 +16,8 @@ def create_user():
         except ConnectionError as err:
             return 'Æddabædda! ' + str(err)
 
-        return "Bruker {} opprettet".format(user_)
+        flask.flash("Bruker {} opprettet".format(user_))
+        return flask.redirect(flask.url_for('create_user'))
 
     return flask.render_template('create_user.html')
 
