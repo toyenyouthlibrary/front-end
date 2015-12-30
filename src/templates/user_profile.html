@@ -4,9 +4,11 @@
 
 <h2>Brukernavn: {{username}}</h2>
 
-{% if rfid %}
-<b>RFID:</b> {{rfid}}
+{% if userID %}
+<b>User ID:</b> {{userID}}
 {% endif %}
+
+<br>
 
 {% if firstname %}
 <b>Fornavn:</b> {{firstname}}
@@ -16,6 +18,12 @@
 
 {% if email %}
 <b>Email:</b> {{email}}
+{% endif %}
+
+<br>
+
+{% if rfid %}
+<b>RFID:</b> {{rfid}}
 {% endif %}
 
 <br>
