@@ -14,7 +14,7 @@ def create_user():
         try:
             user_.create_in_database()
         except ConnectionError as err:
-            return str(err)
+            return flask.render_template('error.html', error=err)
 
         flask.flash("Bruker med navn {} opprettet".format(user_.username))
         return flask.redirect(flask.url_for('create_user'))
@@ -35,7 +35,7 @@ def lend_book_response():
     try:
         book_ = book.lend_book_rfid(flask.request.form["bookrfid"], flask.request.form["userrfid"])
     except ConnectionError as err:
-        return 'Æddabædda! ' + str(err)
+        return flask.render_template('error.html', error=err)
 
     return "{}".format(book_)
 
@@ -45,7 +45,7 @@ def show_user_profile(username):
     try:
         user_ = user.read_user_from_database(username)
     except ConnectionError as err:
-        return 'Æddabædda! ' + str(err)
+        return flask.render_template('error.html', error=err)
 
     return flask.render_template('user_profile.html', username=user_.username,
                            rfid=user_.rfid, **user_.details)
