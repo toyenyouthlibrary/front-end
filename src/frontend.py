@@ -59,7 +59,7 @@ def show_user_profile(username):
         return 'Æddabædda! ' + str(err)
 
     return render_template('user_profile.html', **url_list(),
-                           username=user_.username, **user_.details)
+                           username=user_.username, rfid=user_.rfid, **user_.details)
 
 if __name__ == "__main__":
     app.run(debug=True)
