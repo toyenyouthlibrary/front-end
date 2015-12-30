@@ -1,5 +1,5 @@
 from flask import Flask, url_for, request, render_template
-from src.book import *
+import book
 import user
 
 
@@ -44,11 +44,11 @@ def lend_book():
 @app.route("/create_lend_book_response/", methods=['POST'])
 def lend_book_response():
     try:
-        book = lend_book_rfid(request.form["bookrfid"], request.form["userrfid"])
+        book_ = book.lend_book_rfid(request.form["bookrfid"], request.form["userrfid"])
     except ConnectionError as err:
         return 'Æddabædda! ' + str(err)
 
-    return "{}".format(book)
+    return "{}".format(book_)
 
 @app.route('/user/<username>')
 def show_user_profile(username):
