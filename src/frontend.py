@@ -6,25 +6,23 @@ import user
 app = Flask(__name__)
 
 
-@app.route("/create/")
+@app.route("/create/", methods=['GET', 'POST'])
 def create_user():
+    if request.form:
+        user_ = user.User(**request.form)
+        try:
+            user_.create_in_database()
+        except ConnectionError as err:
+            return 'Æddabædda! ' + str(err)
+
+        return "Bruker {} opprettet".format(user_)
+
     return render_template('create_user.html')
 
 
 @app.route("/")
 def welcome():
     return render_template('welcome.html')
-
-@app.route("/create_response/", methods=['POST'])
-def create_response():
-    user_ = user.User(request.form["username"], request.form["rfid"],
-                      firstname=request.form["firstname"], email=request.form["email"])
-    try:
-        user_.create_in_database()
-    except ConnectionError as err:
-        return 'Æddabædda! ' + str(err)
-
-    return "Bruker {} opprettet".format(user_)
 
 @app.route("/lend_book/")
 def lend_book():
