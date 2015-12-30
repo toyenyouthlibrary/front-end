@@ -5,9 +5,9 @@
 {% block content %}
 
 <h1 id="welcome_header"><span class="label label-primary">Velkommen til Tøyen barne og ungdomsbibliotek!</span></h1>
-<a href="{{url_create_user}}" class="btn btn-default" id="create_user_btn">Lag en bruker</a>
+<a href="{{ url_for('create_user') }}" class="btn btn-default" id="create_user_btn">Lag en bruker</a>
 
 
 
-<a href="{{url_log_in}}" class="btn btn-default" id="log_in_btn">Logg inn</a>
+<a href="{{ url_for('welcome') }}" class="btn btn-default" id="log_in_btn">Logg inn</a>
 {% endblock %}

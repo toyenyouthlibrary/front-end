@@ -6,25 +6,14 @@ import user
 app = Flask(__name__)
 
 
-def url_list():
-    return {
-        'url_css': url_for('static', filename='style.css'),
-        'url_create_user': url_for('create_user'),
-        'url_frontpage': url_for('welcome'),
-        'url_create_response': url_for('create_response'),
-        'url_lend_book_response': url_for('lend_book_response'),
-
-
-    }
-
 @app.route("/create/")
 def create_user():
-    return render_template('create_user.html', **url_list())
+    return render_template('create_user.html')
 
 
 @app.route("/")
 def welcome():
-    return render_template('welcome.html', **url_list())
+    return render_template('welcome.html')
 
 @app.route("/create_response/", methods=['POST'])
 def create_response():
@@ -39,7 +28,7 @@ def create_response():
 
 @app.route("/lend_book/")
 def lend_book():
-    return render_template('lend_book.html', **url_list())
+    return render_template('lend_book.html')
 
 @app.route("/create_lend_book_response/", methods=['POST'])
 def lend_book_response():
@@ -58,8 +47,8 @@ def show_user_profile(username):
     except ConnectionError as err:
         return 'Æddabædda! ' + str(err)
 
-    return render_template('user_profile.html', **url_list(),
-                           username=user_.username, rfid=user_.rfid, **user_.details)
+    return render_template('user_profile.html', username=user_.username,
+                           rfid=user_.rfid, **user_.details)
 
 if __name__ == "__main__":
     app.run(debug=True)
