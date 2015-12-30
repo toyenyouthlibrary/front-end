@@ -1,24 +1,24 @@
-from flask import Flask, request, render_template
+import flask
 import book
 import user
 
 
-app = Flask(__name__)
+app = flask.Flask(__name__)
 
 
 @app.route("/create/")
 def create_user():
-    return render_template('create_user.html')
+    return flask.render_template('create_user.html')
 
 
 @app.route("/")
 def welcome():
-    return render_template('welcome.html')
+    return flask.render_template('welcome.html')
 
 @app.route("/create_response/", methods=['POST'])
 def create_response():
-    user_ = user.User(request.form["username"], request.form["rfid"],
-                      firstname=request.form["firstname"], email=request.form["email"])
+    user_ = user.User(flask.request.form["username"], request.form["rfid"],
+                      firstname=flask.request.form["firstname"], email=flask.request.form["email"])
     try:
         user_.create_in_database()
     except ConnectionError as err:
@@ -28,12 +28,12 @@ def create_response():
 
 @app.route("/lend_book/")
 def lend_book():
-    return render_template('lend_book.html')
+    return flask.render_template('lend_book.html')
 
 @app.route("/create_lend_book_response/", methods=['POST'])
 def lend_book_response():
     try:
-        book_ = book.lend_book_rfid(request.form["bookrfid"], request.form["userrfid"])
+        book_ = book.lend_book_rfid(flask.request.form["bookrfid"], flask.request.form["userrfid"])
     except ConnectionError as err:
         return 'Æddabædda! ' + str(err)
 
@@ -47,7 +47,7 @@ def show_user_profile(username):
     except ConnectionError as err:
         return 'Æddabædda! ' + str(err)
 
-    return render_template('user_profile.html', username=user_.username,
+    return flask.render_template('user_profile.html', username=user_.username,
                            rfid=user_.rfid, **user_.details)
 
 if __name__ == "__main__":
