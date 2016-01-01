@@ -3,6 +3,7 @@ import book
 import user
 import flask_wtf
 import wtforms
+import random
 
 app = flask.Flask(__name__)
 app.config['SECRET_KEY'] = 'temmelighemmelig'
@@ -11,7 +12,7 @@ app.config['SECRET_KEY'] = 'temmelighemmelig'
 @app.route("/create/", methods=['GET', 'POST'])
 def create_user():
     if flask.request.form:
-        user_ = user.User(**flask.request.form)
+        user_ = user.User(rfid=random.randint(0, 1e20), **flask.request.form)
         try:
             user_.create_in_database()
         except ConnectionError as err:
