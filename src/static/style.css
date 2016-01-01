@@ -1,28 +1,58 @@
-h2 {
-    color: red;
+.container {
+    width: 100%;
+    height: 100%;
+    border: 2px solid black;
+    border-collapse: collapse;
+    padding: 0px;
 }
-
-#welcome_header {
-    text-align: center;
+tr {
+    border: 1px solid black;
 }
-
-#create_user_btn {
-    border: 3px solid #73AD21;
-
-    margin-left: 290px;
-    margin-top: 5px;
-
-
-
-    float: left;
+#header {
+    width: 100%;
+    height: 180px;
+    padding: 5px;
+    background-color: #4bffe4;
+    color: #ff0000;
 }
-
-#log_in_btn {
-    border: 3px solid #73AD21;
-
-    margin-right: 290px;
-    margin-top: 5px;
-
-    float: right;
-
+#header p {
+    font-size: 42px;
+    margin: auto;
+}
+#register {
+    width: 90%;
+    height: 100%;
+    padding: 5px;
+    margin: 10px;
+    background-color: #6bff9a;
+    color: #ff5581;
+    border-radius: 20px;
+    box-shadow: #888888 28px;
+    vertical-align: center;
+}
+#login {
+    width: 90%;
+    height: 100%;
+    padding: 5px;
+    margin: 10px 10px 10px 20px;
+    background-color: #ffeb00;
+    color: #583eff;
+    border-radius: 20px;
+    box-shadow: #888888 28px;
+    vertical-align: center;
+}
+.text {
+    margin: auto;
+    vertical-align: center;
+    padding: 20px;
+    height: 100%;
+}
+.title {
+    font-size: 36px;
+}
+.info {
+    font-size: 24px;
+}
+#login_form, #register_form {
+    display: none;
 }
