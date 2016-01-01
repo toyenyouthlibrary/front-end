@@ -1,7 +1,8 @@
 import flask
 import book
 import user
-
+import flask_wtf
+import wtforms
 
 app = flask.Flask(__name__)
 app.config['SECRET_KEY'] = 'temmelighemmelig'
@@ -26,18 +27,22 @@ def create_user():
 def welcome():
     return flask.render_template('welcome.html')
 
-@app.route("/lend_book/")
+class FormLendBook(flask_wtf.Form):
+    book_rfid = wtforms.IntegerField('Bok RFID' , validators=[wtforms.validators.number_range(0)])
+    user_rfid = wtforms.IntegerField('Bruker RFID ', validators=[wtforms.validators.DataRequired()])
+
+@app.route("/lend_book/", methods=['GET', 'POST'])
 def lend_book():
-    return flask.render_template('lend_book.html')
+    form = FormLendBook()
+    if form.validate_on_submit():
+        try:
+            book_ = book.lend_book_rfid(flask.request.form["book_rfid"], flask.request.form["user_rfid"])
+            flask.flash("Bok lånt!")
+        except ConnectionError as err:
+            return flask.render_template('error.html', error=err)
+        flask.redirect(flask.url_for('lend_book'))
 
-@app.route("/create_lend_book_response/", methods=['POST'])
-def lend_book_response():
-    try:
-        book_ = book.lend_book_rfid(flask.request.form["bookrfid"], flask.request.form["userrfid"])
-    except ConnectionError as err:
-        return flask.render_template('error.html', error=err)
-
-    return "{}".format(book_)
+    return flask.render_template('lend_book.html', form = form)
 
 @app.route('/user/<username>')
 def show_user_profile(username):
