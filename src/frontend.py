@@ -13,6 +13,7 @@ app.config['SECRET_KEY'] = 'temmelighemmelig'
 def create_user():
     if flask.request.form:
         user_ = user.User(rfid=random.randint(0, 1e20), **flask.request.form)
+        user_ = user.User(rfid=int(random.randint(0, 100000000000 - 1)), **flask.request.form)
         try:
             user_.create_in_database()
         except ConnectionError as err:
