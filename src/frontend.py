@@ -12,14 +12,13 @@ app.config['SECRET_KEY'] = 'temmelighemmelig'
 @app.route("/create/", methods=['GET', 'POST'])
 def create_user():
     if flask.request.form:
-        user_ = user.User(rfid=random.randint(0, 1e20), **flask.request.form)
         user_ = user.User(rfid=int(random.randint(0, 100000000000 - 1)), **flask.request.form)
         try:
             user_.create_in_database()
         except ConnectionError as err:
             return flask.render_template('error.html', error=err)
 
-        flask.flash("Bruker med navn {} opprettet".format(user_.username))
+        flask.flash("Bruker med navn {} og RFID {} opprettet".format(user_.username, user_.rfid))
         return flask.redirect(flask.url_for('create_user'))
 
     return flask.render_template('create_user.html')
@@ -59,4 +58,3 @@ def show_user_profile(username):
 
 if __name__ == "__main__":
     app.run(debug=True)
-
