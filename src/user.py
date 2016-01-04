@@ -70,9 +70,11 @@ def retrive_lended_books_by_user(username):
     object = json.loads(response)
 
     if object["error"]:
-        raise ConnectionError('Feil i databasen: ' + object["error"])
+        books = []
+    else:
+        for i in range(len(object["books"])):
+            books.append(object["books"][i])
 
-    for i in range(len(object["books"])):
-        books.append(object["books"][i])
+
 
     return books

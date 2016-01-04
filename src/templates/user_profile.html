@@ -28,7 +28,7 @@
 
 <br>
 <br>
-
+{% if books %}
 <table style="width: 1200px;margin: 5px;">
   <tr>
     <th>
@@ -60,6 +60,7 @@
    </tr>
 {% endfor %}
 </table>
+{% endif %}
 
 <a href="{{ url_for('create_user') }}" class="btn btn-default">Legg til bruker</a>
 
