@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}{{"Lån bok"}}{% endblock %}
+
+
+{% block content %}
+
+<h1><span class="label label-primary">Lån en bok</span></h1>
+<br>
+
+
+<form method="POST" action="{{ url_for('lend_book') }}">
+
+    {{ form.csrf_token }}
+
+
+    {{ form.book_rfid.label }} {{ form.book_rfid(size=15) }}
+    {% for error in form.book_rfid.errors %}
+      <span id="error">{{ error }}</span>
+    {% endfor %}
+    <br>
+
+
+    {{ form.user_rfid.label }} {{ form.user_rfid(size=15) }}
+    {% for error in form.user_rfid.errors %}
+      <span id="error">{{ error }}</span>
+    {% endfor %}
+    <br>
+
+    <input type="submit" value="Go">
+</form>
+
+</form>
+
+
+
+{% endblock %}

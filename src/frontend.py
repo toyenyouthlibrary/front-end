@@ -1,65 +1,68 @@
-from flask import Flask, url_for, request, render_template
+import flask
+import book
 import user
+import flask_wtf
+import wtforms
+import random
 
-app = Flask(__name__)
-
-
-def url_list():
-    return {
-        'url_css': url_for('static', filename='liblog.css'),
-        'url_create_user': url_for('create_user'),
-        'url_frontpage': url_for('welcome'),
-        'url_create_response': url_for('create_response'),
+app = flask.Flask(__name__)
+app.config['SECRET_KEY'] = 'temmelighemmelig'
 
 
-    }
-
-'''
-@app.route("/")
-def hello():
-    user_ = user.User('apebabsen', '12345')
-
-    return """
-           <p>Hello {u.username}<br />your rfid is {u.rfid}</p>
-
-           <a href="{create_user}">Opprett en bruker</a>
-           """.format(u=user_,
-                      create_user=url_for('create_user'),
-                      )
-'''
-
-@app.route("/create/")
+@app.route("/create/", methods=['GET', 'POST'])
 def create_user():
-    return render_template('create_user.html', **url_list())
+    if flask.request.form:
+        user_ = user.User(rfid=int(random.randint(0, 100000000000 - 1)), **flask.request.form)
+        try:
+            user_.create_in_database()
+        except ConnectionError as err:
+            return flask.render_template('error.html', error=err)
+
+        flask.flash("Bruker med navn {} og RFID {} opprettet".format(user_.username, user_.rfid))
+        return flask.redirect(flask.url_for('create_user'))
+
+    return flask.render_template('create_user.html')
 
 
 @app.route("/")
 def welcome():
-    return render_template('welcome.html', **url_list())
+    return flask.render_template('welcome.html')
 
-@app.route("/create_response/", methods=['POST'])
-def create_response():
-    user_ = user.User(request.form["username"], request.form["rfid"],
-                      firstname=request.form["firstname"])
-    try:
-        user_.create_in_database()
-    except ConnectionError as err:
-        return 'Æddabædda! ' + str(err)
+class FormLendBook(flask_wtf.Form):
+    book_rfid = wtforms.IntegerField('Bok RFID' , validators=[wtforms.validators.number_range(0)])
+    user_rfid = wtforms.IntegerField('Bruker RFID ', validators=[wtforms.validators.DataRequired()])
 
-    return "Bruker {} opprettet".format(user_)
+@app.route("/lend_book/", methods=['GET', 'POST'])
+def lend_book():
+    form = FormLendBook()
+    if form.validate_on_submit():
+        try:
+            book_ = book.lend_book_rfid(flask.request.form["book_rfid"], flask.request.form["user_rfid"])
+            flask.flash("Bok lånt!")
+        except ConnectionError as err:
+            return flask.render_template('error.html', error=err)
+        flask.redirect(flask.url_for('lend_book'))
 
+    return flask.render_template('lend_book.html', form = form)
 
 @app.route('/user/<username>')
 def show_user_profile(username):
     # show the user profile for that user
     try:
+        #Will return a array containing all the book dicts
+        books = user.retrive_lended_books_by_user(username)
+
+    except ConnectionError as err:
+        return flask.render_template('error.html', error=err)
+
+    try:
         user_ = user.read_user_from_database(username)
     except ConnectionError as err:
-        return 'Æddabædda! ' + str(err)
+        return flask.render_template('error.html', error=err)
 
-    return render_template('user_profile.html', **url_list(),
-                           username=user_.username, **user_.details)
+
+    return flask.render_template('user_profile.html', username=user_.username,
+                           rfid=user_.rfid, **user_.details, books=books)
 
 if __name__ == "__main__":
     app.run(debug=True)
-
