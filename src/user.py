@@ -67,7 +67,6 @@ def retrive_lended_books_by_user(username):
 
     response = backend.request('get_lended_books', data=parameters)
     response = response.text.replace(response.text[:3], '')
-    print(response)
     object = json.loads(response)
 
     if object["error"]:
@@ -77,5 +76,3 @@ def retrive_lended_books_by_user(username):
         books.append(object["books"][i])
 
     return books
-
-print(retrive_lended_books_by_user("jonna"))

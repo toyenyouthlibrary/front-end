@@ -34,8 +34,5 @@ def deliver_book(bookRFID):
 
 def get_book_info():
     r = requests.get('https://www.googleapis.com/books/v1/volumes?q=isbn:9788245003642')
-    print(r.text)
     object = json.loads(r.text)
 
-
-print(get_book_info())
