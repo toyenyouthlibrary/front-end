@@ -1,7 +1,7 @@
 import json
 import backend
+import requests
 
-# TODO - Return an error message in JSON {"errors": "some string"} (Ask Tor)
 
 def lend_book_rfid(bookRFID, userRFID):
     parameters = {
@@ -32,3 +32,10 @@ def deliver_book(bookRFID):
 
     return object
 
+def get_book_info():
+    r = requests.get('https://www.googleapis.com/books/v1/volumes?q=isbn:9788245003642')
+    print(r.text)
+    object = json.loads(r.text)
+
+
+print(get_book_info())
