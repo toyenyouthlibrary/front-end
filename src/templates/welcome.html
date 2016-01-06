@@ -1,63 +1,97 @@
-{% extends "base.html" %}
-{% block title %}{{"Velkommen!"}}{% endblock %}
+﻿<html>
+<head>
+    <title>Tøyen Ungomsbibliotek</title>
+    <link href='https://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
+    <style>
+    * {margin: 0;padding: 0;font-family: 'Questrial', sans-serif;}
+    
+    body, html{
+        background-color: #C5C122;
+    }
+    
+    #Header{
+        width: 100%;
+        background-color: #EE4444;
+        color: white;
+        position: relative;
+        padding: 4em 0;
+    }
+    #Header h1{
+        width: 100%;
+        text-align: center;
+        font-size: 45pt;
+    }
+    #CreateUser{
+        display: block;
+        background-color: #FF9933;
+        text-align: center;
+        padding: 4em 0 8em 0;
+    }
+    #CreateUser h2, #Info h2{
+        margin-bottom: 10px;
+        font-size: 35pt;
+        margin-bottom: 1em;
+    }
+    #CreateUser form{
+        margin: 0 auto;
+        display: inline-block;
+    }
+    #CreateUser form input{
+        padding: 5px;
+        margin-bottom: 5px;
+        display: block;
+        font-size: 20pt;
+        display: block;
+        width: 100%;
+        margin-bottom: 0.8em;
+        text-align: center;
+    }
+    ::-webkit-input-placeholder {
+       text-align: center;
+    }
 
-{% block content %}
-    <table class="container">
-        <tr>
-            <td colspan="2">
-                <div id="header">
-                    <p>Velkommen til Tøyen barne- og ungdomsbibliotek!</p>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div id="register" onclick="show_register()">
-                    <div class="text">
-                        <p class="title">Lag en ny bruker!</p>
-                        <p class="info">Du trenger bare et brukernavn!</p>
-                    </div>
-                    <div id="register_form">
-                        <form method="POST" action="/create/">
-                            <label for="r_username">Brukernavn: </label><input type="text" name="username" id="r_username">
-                            <input type="submit" name="register" value="Lag bruker">
-                            <input type="reset" name="reset" value="Avbryt" onclick="cancel()">
-                        </form>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div id="login" onclick="show_login()">
-                    <div class="text">
-                        <p class="title">Logg inn!</p>
-                        <p class="info">Legg din brikke på leseren eller skriv inn ditt brukernavn</p>
-                    </div>
-                    <div id="login_form">
-                        <form method="POST" action="login">
-                            <label for="l_username">Brukernavn: </label><input type="text" name="username" id="l_username">
-                            <input type="submit" name="login" value="Logg inn">
-                            <input type="reset" name="reset" value="Avbryt" onclick="cancel()">
-                        </form>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </table>
+    :-moz-placeholder { /* Firefox 18- */
+       text-align: center;  
+    }
 
-    <script>
-        function show_register() {
-            document.getElementById("login_form").style.display = "none";
-            document.getElementById("register_form").style.display = "block";
-        }
+    ::-moz-placeholder {  /* Firefox 19+ */
+       text-align: center;  
+    }
 
-        function show_login() {
-            document.getElementById("register_form").style.display = "none";
-            document.getElementById("login_form").style.display = "block";
-        }
+    :-ms-input-placeholder {  
+       text-align: center; 
+    }
+    #CreateUser b, #Info b{
+        font-size: 25pt;
+    }
+    #Info{
+        display: block;
+        background-color: #C5C122;
+        text-align: center;
+        padding: 8em 0;
+    }
+    #Info h2{
+        margin-bottom: 0.5em;
+    }
+    #Info b{
+        color: #F22;
+    }
+    </style>
+</head>
+<body>
 
-        function cancel() {
-            document.getElementById("register_form").style.display = "none";
-            document.getElementById("login_form").style.display = "none";
-        }
-    </script>
-{% endblock %}
+<div id="Header">
+    <h1>Velkommen til Tøyen barne- og ungdomsbibliotek</h1>
+</div>
+<div id="CreateUser">
+    <h2>Lag en bruker</h2>
+    <form action="/create/" method="POST">
+        <input type="text" name="username" placeholder="Brukernavn" />
+        <b>Scan brikken din etter du har skrevet inn brukernavn</b>
+    </form>
+</div><div id="Info">
+    <h2>Allerede registrert?</h2>
+    <b>Scan brikken din</b>
+</div>
+
+</body>

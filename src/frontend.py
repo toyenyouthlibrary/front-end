@@ -65,4 +65,4 @@ def show_user_profile(username):
                            rfid=user_.rfid, **user_.details, books=books)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)

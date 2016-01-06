@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}{{"Velkommen!"}}{% endblock %}
+
+{% block content %}
+    <table class="container">
+        <tr>
+            <td colspan="2">
+                <div id="header">
+                    <p>Velkommen til Tøyen barne- og ungdomsbibliotek!</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="register" onclick="show_register()">
+                    <div class="text">
+                        <p class="title">Lag en ny bruker!</p>
+                        <p class="info">Du trenger bare et brukernavn!</p>
+                    </div>
+                    <div id="register_form">
+                        <form method="POST" action="/create/">
+                            <label for="r_username">Brukernavn: </label><input type="text" name="username" id="r_username">
+                            <input type="submit" name="register" value="Lag bruker">
+                            <input type="reset" name="reset" value="Avbryt" onclick="cancel()">
+                        </form>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div id="login" onclick="show_login()">
+                    <div class="text">
+                        <p class="title">Logg inn!</p>
+                        <p class="info">Legg din brikke på leseren eller skriv inn ditt brukernavn</p>
+                    </div>
+                    <div id="login_form">
+                        <form method="POST" action="login">
+                            <label for="l_username">Brukernavn: </label><input type="text" name="username" id="l_username">
+                            <input type="submit" name="login" value="Logg inn">
+                            <input type="reset" name="reset" value="Avbryt" onclick="cancel()">
+                        </form>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        function show_register() {
+            document.getElementById("login_form").style.display = "none";
+            document.getElementById("register_form").style.display = "block";
+        }
+
+        function show_login() {
+            document.getElementById("register_form").style.display = "none";
+            document.getElementById("login_form").style.display = "block";
+        }
+
+        function cancel() {
+            document.getElementById("register_form").style.display = "none";
+            document.getElementById("login_form").style.display = "none";
+        }
+    </script>
+{% endblock %}
