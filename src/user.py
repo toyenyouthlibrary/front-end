@@ -33,8 +33,7 @@ class User():
         parameters = dict(username=self.username)
 
         response = backend.request('delete_user', data=parameters)
-        response = response.text.replace(response.text[:3], '')
-        object = json.loads(response)
+        object = json.loads(response.text[3:])
 
         # Parse JSON and throw an exception if the user could not be deleted
 
@@ -48,8 +47,7 @@ def read_user_from_database(username):
     parameters = dict(username=username)
 
     response = backend.request('get_user_info', data=parameters)
-    response = response.text.replace(response.text[:3], '')
-    object = json.loads(response)
+    object = json.loads(response.text[3:])
 
     # Parse JSON and create User object, or throw an exception if the user does not exist
 
@@ -66,8 +64,7 @@ def retrive_lended_books_by_user(username):
     parameters = dict(username=username)
 
     response = backend.request('get_lended_books', data=parameters)
-    response = response.text.replace(response.text[:3], '')
-    object = json.loads(response)
+    object = json.loads(response.text[3:])
 
     if object["error"]:
         books = []

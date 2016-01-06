@@ -10,8 +10,7 @@ def lend_book_rfid(bookRFID, userRFID):
     }
 
     response = backend.request('lend_book', data=parameters)
-    response = response.text.replace(response.text[:3], '')
-    object = json.loads(response)
+    object = json.loads(response.text[3:])
 
     if object["error"]:
             raise ConnectionError('Feil i databasen: ' + object["error"])
@@ -24,8 +23,7 @@ def deliver_book(bookRFID):
     }
 
     response = backend.request('deliver_book', data=parameters)
-    response = response.text.replace(response.text[:3], '')
-    object = json.loads(response)
+    object = json.loads(response.text[3:])
 
     if object["error"]:
         raise ConnectionError('Feil i databasen: ' + object["error"])
