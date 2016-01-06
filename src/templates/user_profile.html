@@ -28,38 +28,39 @@
 
 <br>
 <br>
+
 {% if books %}
-<table style="width: 1200px;margin: 5px;">
-  <tr>
-    <th>
-      Tittel
-    </th>
-    <th>
-      Utlånsdato
-    </th>
-    <th>
-      Innleveringsdato
-    </th>
-    <th>
-      RFID
-    </th>
-    <th>
-      ISBN
-    </th>
-  </tr>
-  {% for book in books %}
+    <table style="width: 1200px;margin: 5px;">
+      <tr>
+        <th>
+          Tittel
+        </th>
+        <th>
+          Utlånsdato
+        </th>
+        <th>
+          Innleveringsdato
+        </th>
+        <th>
+          RFID
+        </th>
+        <th>
+          ISBN
+        </th>
+      </tr>
+      {% for book in books %}
 
 
-   <tr>
-        <td> BOKTITTEL </td>
-        <td> {{ book["outDate"] }} </td>
-        <td> {{ book["inDate"] }} </td>
-        <td> {{ book["RFID"] }} </td>
-        <td> {{ book["ISBN"] }} </td>
+       <tr>
+            <td> BOKTITTEL </td>
+            <td> {{ book["outDate"] }} </td>
+            <td> {{ book["inDate"] }} </td>
+            <td> {{ book["RFID"] }} </td>
+            <td> {{ book["ISBN"] }} </td>
 
-   </tr>
-{% endfor %}
-</table>
+       </tr>
+    {% endfor %}
+    </table>
 {% endif %}
 
 <a href="{{ url_for('create_user') }}" class="btn btn-default">Legg til bruker</a>
