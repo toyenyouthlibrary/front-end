@@ -26,7 +26,7 @@ def create_user():
 
 @app.route("/")
 def welcome():
-    return flask.render_template('welcome.html')
+    return flask.render_template('admin/welcome.html')
 
 class FormLendBook(flask_wtf.Form):
     book_rfid = wtforms.IntegerField('Bok RFID' , validators=[wtforms.validators.number_range(0)])
@@ -63,6 +63,8 @@ def show_user_profile(username):
 
     return flask.render_template('user_profile.html', username=user_.username,
                            rfid=user_.rfid, **user_.details, books=books)
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
