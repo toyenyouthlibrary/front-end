@@ -65,4 +65,8 @@ def show_user_profile(username):
                            rfid=user_.rfid, **user_.details, books=books)
 
 if __name__ == "__main__":
+    app.run(debug=True)
+    '''
+    Use this if you want other people on the same network access the web-page too
     app.run(host='0.0.0.0', debug=True)
+    '''
