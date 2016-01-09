@@ -4,6 +4,7 @@ import user
 import flask_wtf
 import wtforms
 import random
+import admin
 
 app = flask.Flask(__name__)
 app.config['SECRET_KEY'] = 'temmelighemmelig'
@@ -16,17 +17,17 @@ def create_user():
         try:
             user_.create_in_database()
         except ConnectionError as err:
-            return flask.render_template('error.html', error=err)
+            return flask.render_template('user/error.html', error=err)
 
         flask.flash("Bruker med navn {} og RFID {} opprettet".format(user_.username, user_.rfid))
         return flask.redirect(flask.url_for('create_user'))
 
-    return flask.render_template('create_user.html')
+    return flask.render_template('user/create_user.html')
 
 
 @app.route("/")
 def welcome():
-    return flask.render_template('admin/welcome.html')
+    return flask.render_template('user/welcome.html')
 
 class FormLendBook(flask_wtf.Form):
     book_rfid = wtforms.IntegerField('Bok RFID' , validators=[wtforms.validators.number_range(0)])
@@ -40,10 +41,10 @@ def lend_book():
             book_ = book.lend_book_rfid(flask.request.form["book_rfid"], flask.request.form["user_rfid"])
             flask.flash("Bok lånt!")
         except ConnectionError as err:
-            return flask.render_template('error.html', error=err)
-        flask.redirect(flask.url_for('lend_book'))
+            return flask.render_template('user/error.html', error=err)
+        flask.redirect(flask.url_for('user/lend_book'))
 
-    return flask.render_template('lend_book.html', form = form)
+    return flask.render_template('user/lend_book.html', form = form)
 
 @app.route('/user/<username>')
 def show_user_profile(username):
@@ -53,16 +54,48 @@ def show_user_profile(username):
         books = user.retrive_lended_books_by_user(username)
 
     except ConnectionError as err:
-        return flask.render_template('error.html', error=err)
+        return flask.render_template('user/error.html', error=err)
 
     try:
         user_ = user.read_user_from_database(username)
     except ConnectionError as err:
-        return flask.render_template('error.html', error=err)
+        return flask.render_template('user/error.html', error=err)
 
 
-    return flask.render_template('user_profile.html', username=user_.username,
+    return flask.render_template('user/user_profile.html', username=user_.username,
                            rfid=user_.rfid, **user_.details, books=books)
+
+@app.route('/admin/')
+def admin_login():
+
+    return flask.render_template('admin/login.html')
+
+@app.route("/login_admin/", methods=['GET', 'POST'])
+def login_admin():
+    if flask.request.form:
+        try:
+
+            admin_ = admin.admin_login(flask.request.form["user"], flask.request.form["pass"])
+
+        except ConnectionError as err:
+            # TODO Move error.html outside of user
+            return flask.render_template('user/error.html', error=err)
+
+        flask.flash("Du er nå logget inn på admin panelet!")
+        return flask.redirect(flask.url_for('admin_book'))
+
+    return flask.render_template('admin/book.html')
+
+@app.route('/admin/book/')
+def admin_book():
+
+    try:
+        admin_ = admin.admin_fetch_all_books("109342903234")
+    except ConnectionError as err:
+        return flask.render_template('user/error.html', error=err)
+
+
+    return flask.render_template('admin/book.html', books=admin_["books"])
 
 
 

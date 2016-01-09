@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %} - LibLog</title>
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/ css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/ css" href="{{ url_for('static', filename='admin_css.css') }}">
 </head>
 <body>
 {% for message in get_flashed_messages() %}
@@ -16,6 +20,34 @@
   {{ message }}
 </div>
 {% endfor %}
+
+
+{% block sidebar %}
+<div id="Menu">
+   <ul>
+       <li style="padding-left: 0;padding: 10px 0">
+           <a href="../admin/" style="
+               font-size: 20pt;
+               height: initial;
+               line-height: initial;
+               text-align: center;">Admin panel</a>
+       </li>
+       <li><a href="?index=books">B&oslash;ker</a></li>
+       <ul>
+           <li><a href="?index=books/stats">Stats</a></li>
+           <li><a href="?index=books/upload">Last opp bok</a></li>
+           <li><a href="?index=books/borrower">Se l&aring;ner</a></li>
+           <li><a href="?index=books/log">Se l&aring;ne historikk</a></li>
+       </ul>
+       <li><a href="?index=users">Brukere</a></li>
+       <ul>
+           <li><a href="?index=users/stats">Stats</a></li>
+           <li><a href="?index=users/create">Lag bruker</a></li>
+       </ul>
+   </ul>
+</div>
+{% endblock %}
+
 
 {% block content %}{% endblock %}
 </body>

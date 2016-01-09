@@ -8,6 +8,8 @@ actions = {
     'lend_book': 'lend_book.php',
     'deliver_book': 'deliver_book.php',
     'get_lended_books': 'get_lended_books.php',
+    'admin_login': 'admin/index.php',
+    'admin_get_all_books': 'admin/index.php?index=books',
 }
 
 def request(action, data):

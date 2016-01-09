@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Adminpanel</title>
+</head>
+
+<link rel="stylesheet" type="text/ css" href="{{ url_for('static', filename='admin_css.css') }}">
+
+<body>
+
+<div style="background-color:#C5C122 ;width:500px;height:250px;margin:0 auto;margin-top: calc(50vh - 125px)">
+    <h2 style="text-align: center; font-family: Arial;padding-top: 30px;">Log inn</h2>
+   <form action="/login_admin/" method="POST" style="padding-left: 20px;padding-right: 20px;">
+       <table style="margin: 0 auto;">
+           <tbody>
+           <tr>
+               <td>Brukernavn</td>
+               <td><input type="text" maxlength="300" name="user" /></td>
+           </tr>
+           <tr>
+               <td>Passord</td>
+               <td><input type="text" maxlength="300" name="pass" /></td>
+           </tr><tr>
+               <td colspan=2><button style="width: 100%;cursor: pointer;">Login</button></td>
+           </tr>
+       </table>
+   </form>
+</div>
+</body>
+</html>

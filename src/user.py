@@ -17,7 +17,6 @@ class User():
 
 
     def create_in_database(self):
-        print(self.rfid)
         parameters = dict(username=self.username, rfid=self.rfid, **self.details)
 
         response = backend.request('create_user', data=parameters)
