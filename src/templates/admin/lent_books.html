@@ -1,0 +1,36 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}{{"Oversikt over lånte bøker"}}{% endblock %}
+
+
+{% block content %}
+
+{% if stats %}
+<div style="width: calc(100vw - 200px);margin-left: 200px;">
+    <table>
+      <tr>
+        <th>
+          Antall ganger utlånt
+        </th>
+        <th>
+          Antall ganger levert
+        </th>
+        <th>
+          Total utlånstid
+        </th>
+      </tr>
+      {% for i in stats %}
+
+
+       <tr style="width:100%">
+            <td> {{ stats[i]["total_outDates"] }} </td>
+            <td> {{ stats[i]["total_inDates"]}} </td>
+            <td> {{ stats[i]["total_time"] }} </td>
+
+       </tr>
+    {% endfor %}
+    </table>
+</div>
+{% endif %}
+
+
+{% endblock %}

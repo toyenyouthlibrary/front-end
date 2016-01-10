@@ -84,7 +84,7 @@ def login_admin():
         flask.flash("Du er nå logget inn på admin panelet!")
         return flask.redirect(flask.url_for('admin_book'))
 
-    return flask.render_template('admin/book.html')
+    return flask.render_template('admin/books_in_database.html')
 
 @app.route('/admin/book/')
 def admin_book():
@@ -95,9 +95,18 @@ def admin_book():
         return flask.render_template('user/error.html', error=err)
 
 
-    return flask.render_template('admin/book.html', books=admin_["books"])
+    return flask.render_template('admin/books_in_database.html', books=admin_["books"])
 
+@app.route('/admin/lent_books/')
+def admin_lent_books():
 
+    try:
+        admin_ = admin.admin_get_lent_books("109342903234")
+    except ConnectionError as err:
+        return flask.render_template('user/error.html', error=err)
+
+    print(admin_["stats"])
+    return flask.render_template('admin/lent_books.html', stats=admin_["stats"])
 
 if __name__ == "__main__":
     app.run(debug=True)
