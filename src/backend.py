@@ -10,8 +10,8 @@ actions = {
     'get_lended_books': 'get_lended_books.php',
     'admin_login': 'admin/index.php',
     'admin_get_all_books': 'admin/index.php?index=books',
-    'admin_get_lent_books': 'admin/index.php?index=books/stats',
-    'admin_get_all_users': 'admin/index.php?index=global/history',
+    'admin_get_lent_books': 'admin/index.php?index=global/history',
+    'admin_get_all_users': 'admin/index.php?index=users',
 }
 
 def request(action, data):

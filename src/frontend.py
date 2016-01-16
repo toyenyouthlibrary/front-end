@@ -42,7 +42,7 @@ def lend_book():
             flask.flash("Bok lånt!")
         except ConnectionError as err:
             return flask.render_template('user/error.html', error=err)
-        flask.redirect(flask.url_for('user/lend_book'))
+        flask.redirect(flask.url_for('lend_book'))
 
     return flask.render_template('user/lend_book.html', form = form)
 

@@ -9,22 +9,27 @@
     <table>
       <tr>
         <th>
-          Antall ganger utlånt
+          Tittel
         </th>
         <th>
-          Antall ganger levert
+          Brukernavn
         </th>
         <th>
-          Total utlånstid
+          Utlånsdato
         </th>
+        <th>
+          Innleveringsdato
+        </th>
+
       </tr>
-      {% for i in stats %}
+      {% for lent_book in history %}
 
 
        <tr style="width:100%">
-            <td> {{ stats[i]["total_outDates"] }} </td>
-            <td> {{ stats[i]["total_inDates"]}} </td>
-            <td> {{ stats[i]["total_time"] }} </td>
+            <td> {{ lent_book["book_title"] }} </td>
+            <td> {{ lent_book["username"] }} </td>
+            <td> {{ lent_book["outDate"]}} </td>
+            <td> {{ lent_book["inDate"] }} </td>
 
        </tr>
     {% endfor %}
