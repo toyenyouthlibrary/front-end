@@ -4,7 +4,8 @@ import backend
 def admin_login(username, password):
     parameters = {'user': username, 'pass': password}
     response = backend.request('admin_login', data=parameters)
-    object = json.loads(response.text[3:])
+    object = json.loads(response.text)
+    print(object)
     if object["error"]:
         raise ConnectionError('Feil i databasen: ' + object["error"])
 
@@ -14,7 +15,7 @@ def admin_fetch_all_books(userID):
     parameters = {'id': userID}
     response = backend.request('admin_get_all_books', data=parameters)
 
-    object = json.loads(response.text[6:])
+    object = json.loads(response.text)
     print(object)
     if object["error"]:
         raise ConnectionError('Feil i databasen: ' + object["error"])
@@ -24,8 +25,19 @@ def admin_fetch_all_books(userID):
 def admin_get_lent_books(userID):
     parameters = {'id': userID}
     response = backend.request('admin_get_lent_books', data=parameters)
+    print(response.text)
+    object = json.loads(response.text)
+    if object["error"]:
+        raise ConnectionError('Feil i databasen: ' + object["error"])
 
-    object = json.loads(response.text[6:])
+    return object
+
+def admin_get_users(userID):
+    parameters = {'id': userID}
+    response = backend.request('admin_get_all_users', data=parameters)
+
+    object = json.loads(response.text)
+
     if object["error"]:
         raise ConnectionError('Feil i databasen: ' + object["error"])
 

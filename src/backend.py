@@ -11,6 +11,7 @@ actions = {
     'admin_login': 'admin/index.php',
     'admin_get_all_books': 'admin/index.php?index=books',
     'admin_get_lent_books': 'admin/index.php?index=books/stats',
+    'admin_get_all_users': 'admin/index.php?index=global/history',
 }
 
 def request(action, data):

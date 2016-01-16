@@ -1,0 +1,46 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}{{"Oversikt over brukere"}}{% endblock %}
+
+
+{% block content %}
+
+{% if users %}
+<div style="width: calc(100vw - 200px);margin-left: 200px;">
+    <table>
+      <tr>
+        <th>
+          Navn
+        </th>
+        <th>
+          Registrert
+        </th>
+        <th>
+          Alder
+        </th>
+        <th>
+          ID
+        </th>
+        <th>
+         RFID
+        </th>
+      </tr>
+
+      {% for user in users %}
+
+
+       <tr style="width:100%">
+           <td> {{ user["name"] }} </td>
+           <td> {{ user["name"] }} </td>
+           <td> {{ user["age"] }} </td>
+           <td> {{ user["id"] }} </td>
+           <td> {{ user["rfid"] }} </td>
+
+
+       </tr>
+    {% endfor %}
+    </table>
+</div>
+{% endif %}
+
+
+{% endblock %}

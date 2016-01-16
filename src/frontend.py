@@ -105,8 +105,19 @@ def admin_lent_books():
     except ConnectionError as err:
         return flask.render_template('user/error.html', error=err)
 
-    print(admin_["stats"])
-    return flask.render_template('admin/lent_books.html', stats=admin_["stats"])
+
+    return flask.render_template('admin/lent_books.html', history=admin_["history"])
+
+@app.route('/admin/users_in_database/')
+def admin_users_in_database():
+
+    try:
+        admin_ = admin.admin_get_users("109342903234")
+    except ConnectionError as err:
+        return flask.render_template('user/error.html', error=err)
+
+    print(admin_)
+    return flask.render_template('admin/users_in_database.html', users=admin_["users"])
 
 if __name__ == "__main__":
     app.run(debug=True)
