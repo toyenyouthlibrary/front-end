@@ -81,7 +81,6 @@ def login_admin():
             # TODO Move error.html outside of user
             return flask.render_template('user/error.html', error=err)
 
-        flask.flash("Du er nå logget inn på admin panelet!")
         return flask.redirect(flask.url_for('admin_book'))
 
     return flask.render_template('admin/books_in_database.html')
