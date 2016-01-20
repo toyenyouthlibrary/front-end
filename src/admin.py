@@ -16,7 +16,6 @@ def admin_fetch_all_books(userID):
     response = backend.request('admin_get_all_books', data=parameters)
 
     object = json.loads(response.text)
-    print(object)
     if object["error"]:
         raise ConnectionError('Feil i databasen: ' + object["error"])
 
@@ -25,7 +24,7 @@ def admin_fetch_all_books(userID):
 def admin_get_lent_books(userID):
     parameters = {'id': userID}
     response = backend.request('admin_get_lent_books', data=parameters)
-    print(response.text)
+
     object = json.loads(response.text)
     if object["error"]:
         raise ConnectionError('Feil i databasen: ' + object["error"])
@@ -43,4 +42,5 @@ def admin_get_users(userID):
 
     return object
 
-#print(admin_get_lent_books("109342903234"))
+#109342903234
+print(admin_fetch_all_books("109342903234"))

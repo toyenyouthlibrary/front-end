@@ -5,6 +5,7 @@ import flask_wtf
 import wtforms
 import random
 import admin
+from flask_table import Table, Col, LinkCol
 
 app = flask.Flask(__name__)
 app.config['SECRET_KEY'] = 'temmelighemmelig'
