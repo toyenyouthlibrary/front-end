@@ -52,18 +52,12 @@ def lend_book():
 
 @app.route('/user/<username>')
 def show_user_profile(username):
-    # show the user profile for that user
-    try:
-        # Will return a array containing all the book dicts
-        books_ = user.retrive_lended_books_by_user(username)
-
-    except ConnectionError as err:
-        return flask.render_template('user/error.html', error=err)
-
     try:
         user_ = user.read_user_from_database(username)
     except ConnectionError as err:
         return flask.render_template('user/error.html', error=err)
+
+    books_ = user.retrive_lended_books_by_user(username)
 
     return flask.render_template('user/user_profile.html', username=user_.username,
                                  rfid=user_.rfid, **user_.details, books=books_["books"])

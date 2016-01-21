@@ -41,7 +41,7 @@ def read_user_from_database(username):
 
     response = backend.request('get_user_info', data=parameters)
     jsonobject = json.loads(response.text)
-
+    print(jsonobject)
     if jsonobject["error"]:
         raise ConnectionError('Feil i databasen: ' + jsonobject["error"])
 
@@ -55,6 +55,7 @@ def retrive_lended_books_by_user(username):
     jsonobject = json.loads(response.text)
 
     if jsonobject["error"]:
-        raise ConnectionError('Feil i databasen: ' + jsonobject["error"])
+        jsonobject["books"] = {}
 
     return jsonobject
+
