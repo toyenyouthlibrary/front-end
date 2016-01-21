@@ -17,6 +17,6 @@ actions = {
 
 }
 
+
 def request(action, data):
     return requests.post(base_url + actions[action], data=data)
-

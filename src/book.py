@@ -3,63 +3,67 @@ import backend
 import requests
 
 
-def lend_book_rfid(bookRFID, userRFID):
+def lend_book_rfid(bookrfid, userrfid):
     parameters = {
-        'book_rfid': bookRFID,
-        'user_rfid': userRFID,
+        'book_rfid': bookrfid,
+        'user_rfid': userrfid,
     }
 
     response = backend.request('lend_book', data=parameters)
-    object = json.loads(response.text)
+    jsonobject = json.loads(response.text)
 
-    if object["error"]:
-            raise ConnectionError('Feil i databasen: ' + object["error"])
+    if jsonobject["error"]:
+        raise ConnectionError('Feil i databasen: ' + jsonobject["error"])
 
-    return object
+    return jsonobject
 
-def deliver_book(bookRFID):
+
+def deliver_book(bookrfid):
     parameters = {
-        'book_rfid': bookRFID,
+        'book_rfid': bookrfid,
     }
 
     response = backend.request('deliver_book', data=parameters)
-    object = json.loads(response.text)
+    jsonobject = json.loads(response.text)
 
-    if object["error"]:
-        raise ConnectionError('Feil i databasen: ' + object["error"])
+    if jsonobject["error"]:
+        raise ConnectionError('Feil i databasen: ' + jsonobject["error"])
 
-    return object
+    return jsonobject
 
-def get_book_info(bookRFID):
+
+def get_book_info(bookrfid):
     parameters = {
-        'rfid': bookRFID,
+        'rfid': bookrfid,
     }
 
     response = backend.request('get_book_info', data=parameters)
-    object = json.loads(response.text)
+    jsonobject = json.loads(response.text)
 
-    if object["error"]:
-        raise ConnectionError('Feil i databasen: ' + object["error"])
+    if jsonobject["error"]:
+        raise ConnectionError('Feil i databasen: ' + jsonobject["error"])
 
-    return object
+    return jsonobject
 
-def give_feeback(user_rfid, book_rfid, type, value):
+
+def give_feeback(user_rfid, book_rfid, ratingtype, value):
     parameters = {
         'user_rfid': user_rfid,
         'book_rfid': book_rfid,
-        'type': type,
+        'type': ratingtype,
         'value': value,
     }
 
     response = backend.request('give_feedback', data=parameters)
-    object = json.loads(response.text)
+    jsonobject = json.loads(response.text)
 
-    if object["error"]:
-        raise ConnectionError('Feil i databasen: ' + object["error"])
+    if jsonobject["error"]:
+        raise ConnectionError('Feil i databasen: ' + jsonobject["error"])
 
-    return object
+    return jsonobject
+
 
 def google_books():
     r = requests.get('https://www.googleapis.com/books/v1/volumes?q=isbn:9788245003642')
-    object = json.loads(r.text)
+    jsonobject = json.loads(r.text)
 
