@@ -10,10 +10,14 @@ from flask_table import Table, Col, LinkCol
 app = flask.Flask(__name__)
 app.config['SECRET_KEY'] = 'temmelighemmelig'
 
+forbiddenNames = ["søren klype"]
 
 @app.route("/create/", methods=['GET', 'POST'])
 def create_user():
     if flask.request.form:
+        if flask.request.form["username"] in forbiddenNames:
+            return flask.render_template('user/error.html', error="Et slikt navn er ikke lov!")
+
         user_ = user.User(rfid=int(random.randint(0, 100000000000 - 1)), **flask.request.form)
         try:
             user_.create_in_database()
@@ -59,8 +63,7 @@ def show_user_profile(username):
 
     books_ = user.retrive_lended_books_by_user(username)
 
-    return flask.render_template('user/user_profile.html', username=user_.username,
-                                 rfid=user_.rfid, **user_.details, books=books_["books"])
+    return flask.render_template('user/user_profile.html', username=user_.username, **user_.details, books=books_["books"])
 
 
 @app.route('/admin/')
