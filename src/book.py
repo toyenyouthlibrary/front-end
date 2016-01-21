@@ -63,5 +63,3 @@ def google_books():
     r = requests.get('https://www.googleapis.com/books/v1/volumes?q=isbn:9788245003642')
     object = json.loads(r.text)
 
-#print(give_feeback("6", "1", "comment", "En satans bra bok"))
-print(get_book_info("1"))

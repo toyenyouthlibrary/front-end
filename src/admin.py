@@ -42,5 +42,3 @@ def admin_get_users(userID):
 
     return object
 
-#109342903234
-print(admin_fetch_all_books("109342903234"))
