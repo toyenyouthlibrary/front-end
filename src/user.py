@@ -1,8 +1,6 @@
 import json
 import backend
 
-books = []
-
 class User():
     def __init__(self, username, rfid, database_id=None, **kwargs):
         self.username = username
@@ -57,20 +55,12 @@ def read_user_from_database(username):
 
 
 def retrive_lended_books_by_user(username):
-    books = []
-
-
     parameters = dict(username=username)
 
     response = backend.request('get_lended_books', data=parameters)
     object = json.loads(response.text)
 
     if object["error"]:
-        books = []
-    else:
-        for i in range(len(object["books"])):
-            books.append(object["books"][i])
+        raise ConnectionError('Feil i databasen: ' + object["error"])
 
-
-
-    return books
+    return object
