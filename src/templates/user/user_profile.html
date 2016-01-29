@@ -4,30 +4,19 @@
 
 <h2>Brukernavn: {{username}}</h2>
 
-{% if userID %}
-<b>User ID:</b> {{userID}}<br>
-{% endif %}
-
-
-
-{% if firstname %}
-<b>Fornavn:</b> {{firstname}}
+<b>User ID:</b> {{details.userID}}</b>
 <br>
-{% endif %}
 
-
-
-{% if email %}
-<b>Email:</b> {{email}}
+<b>Fornavn:</b> {{details.firstname}}
 <br>
-{% endif %}
 
+<b>Email:</b> {{details.email}}
+<br>
 
-
-{% if rfid %}
 <b>RFID:</b> {{rfid}}
-{% endif %}
+<br>
 
+<p></p>
 <br>
 <br>
 

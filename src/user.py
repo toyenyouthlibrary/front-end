@@ -41,15 +41,7 @@ def read_user_from_database(username):
 
     response = backend.request('get_user_info', data=parameters)
     jsonobject = json.loads(response.text)
-
-    # TODO
-    '''
-    Theres a bug where the user RFID will not appear on the profile page. I think this comes from 'total_times_borrowed' being an integer
-    {'userID': '42', 'error': '', 'total_time_borrowed': {'hours': 0, 'months': 0, 'days': 0, 'minutes': 0, 'seconds': 0}, 'total_times_borrowed': 0, 'rfid': '57559467273', 'username': 'tv'}
-
-    '''
-
-
+    print(response.text)
     if jsonobject["error"]:
         raise ConnectionError('Feil i databasen: ' + jsonobject["error"])
 
@@ -67,5 +59,4 @@ def retrive_lended_books_by_user(username):
 
     return jsonobject
 
-print(read_user_from_database("tv"))
 

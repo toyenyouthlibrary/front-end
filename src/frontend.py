@@ -15,10 +15,12 @@ forbiddenNames = ["søren klype"]
 @app.route("/create/", methods=['GET', 'POST'])
 def create_user():
     if flask.request.form:
+        #Check if username is too edgy
         if flask.request.form["username"] in forbiddenNames:
             return flask.render_template('user/error.html', error="Et slikt navn er ikke lov!")
 
-        user_ = user.User(rfid=int(random.randint(0, 100000000000 - 1)), **flask.request.form)
+        user_ = user.User(**flask.request.form)
+
         try:
             user_.create_in_database()
         except ConnectionError as err:
@@ -58,12 +60,13 @@ def lend_book():
 def show_user_profile(username):
     try:
         user_ = user.read_user_from_database(username)
+
     except ConnectionError as err:
         return flask.render_template('user/error.html', error=err)
 
     books_ = user.retrive_lended_books_by_user(username)
 
-    return flask.render_template('user/user_profile.html', username=user_.username, **user_.details, books=books_["books"])
+    return flask.render_template('user/user_profile.html', username=user_.username, rfid=user_.rfid, details= user_.details, books=books_["books"])
 
 
 @app.route('/admin/')
@@ -114,7 +117,7 @@ def admin_users_in_database():
     except ConnectionError as err:
         return flask.render_template('user/error.html', error=err)
 
-    print(admin_)
+
     return flask.render_template('admin/users_in_database.html', users=admin_["users"])
 
 
