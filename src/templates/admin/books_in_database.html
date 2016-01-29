@@ -1,0 +1,40 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}{{"Oversikt over bøker i systemet"}}{% endblock %}
+
+
+{% block content %}
+
+{% if books %}
+<div style="width: calc(100vw - 200px);margin-left: 200px;">
+    <table>
+      <tr>
+        <th>
+          Tittel
+        </th>
+        <th>
+          Forfatter
+        </th>
+        <th>
+          Publiseringsdato
+        </th>
+        <th>
+          Antall
+        </th>
+      </tr>
+      {% for book in books %}
+
+
+       <tr style="width:100%">
+            <td> {{ book["title"] }} </td>
+            <td> {{ book["author"] }} </td>
+            <td> {{ book["published"] }} </td>
+            <td> {{ book["amount"] }} </td>
+
+       </tr>
+    {% endfor %}
+    </table>
+</div>
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}{{"Oversikt over lånte bøker"}}{% endblock %}
+
+
+{% block content %}
+
+{% if history %}
+<div style="width: calc(100vw - 200px);margin-left: 200px;">
+    <table>
+      <tr>
+        <th>
+          Tittel
+        </th>
+        <th>
+          Brukernavn
+        </th>
+        <th>
+          Utlånsdato
+        </th>
+        <th>
+          Innleveringsdato
+        </th>
+
+      </tr>
+      {% for lent_book in history %}
+
+
+       <tr style="width:100%">
+            <td> {{ lent_book["book_title"] }} </td>
+            <td> {{ lent_book["username"] }} </td>
+            <td> {{ lent_book["outDate"]}} </td>
+            <td> {{ lent_book["inDate"] }} </td>
+
+       </tr>
+    {% endfor %}
+    </table>
+</div>
+{% endif %}
+
+
+{% endblock %}
