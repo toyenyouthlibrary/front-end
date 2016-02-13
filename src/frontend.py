@@ -12,6 +12,17 @@ app.config['SECRET_KEY'] = 'temmelighemmelig'
 
 forbiddenNames = ["søren klype"]
 
+
+@app.route("/")
+def welcome():
+    return flask.render_template('user_interface/startscreen/welcome.html')
+
+
+@app.route("/start/")
+def startscreen():
+    return flask.render_template('user_interface/startscreen/start.html')
+
+"""
 @app.route("/create/", methods=['GET', 'POST'])
 def create_user():
     if flask.request.form:
@@ -30,11 +41,6 @@ def create_user():
         return flask.redirect(flask.url_for('create_user'))
 
     return flask.render_template('user/create_user.html')
-
-
-@app.route("/")
-def welcome():
-    return flask.render_template('user/welcome.html')
 
 
 class FormLendBook(flask_wtf.Form):
@@ -119,7 +125,7 @@ def admin_users_in_database():
 
 
     return flask.render_template('admin/users_in_database.html', users=admin_["users"])
-
+"""
 
 if __name__ == "__main__":
     app.run(debug=True)
