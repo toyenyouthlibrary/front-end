@@ -139,6 +139,22 @@ def lend_bookinfo():
 
 
 
+@app.route("/deliver/category/")
+def deliver_category():
+    return flask.render_template('user_interface/deliver book/bok_kategori.html')
+
+@app.route("/deliver/ratecomment/")
+def deliver_ratecomment():
+    return flask.render_template('user_interface/deliver book/bok_kommentar.html')
+
+@app.route("/deliver/delivered")
+def deliver_delivered():
+    return flask.render_template('user_interface/deliver book/bok_levert.html')
+
+@app.route("/deliver/scan")
+def deliver_scan():
+    return flask.render_template('user_interface/deliver book/levere_scan.html')
+
 """
 @app.route("/create/", methods=['GET', 'POST'])
 def create_user():

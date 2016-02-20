@@ -1,0 +1,103 @@
+{% extends "user_interface/base_user.html" %}
+{% block title %}{{"Velkommen"}}{% endblock %}
+
+{% block styleinline %}
+<link rel="stylesheet" href="fortawesome/font-awesome-4.5.0/css/font-awesome.min.css">
+<style>
+        p:first-of-type{
+            float:right;
+        }
+
+        img, #info{
+            display: inline-block;
+            vertical-align: top;
+        }
+        img{
+            width: 200px;
+            height: 300px;
+        }
+
+        #info{
+            width: calc(100% - 230px);
+            margin-left: 30px;
+        }
+
+        #info h3, #info h4{
+            margin-bottom: 0.5em;
+        }
+
+        h4:nth-of-type(2){
+            margin-top: 1em;
+        }
+
+        #stars i{
+            padding-right: 5px;
+            cursor: pointer;
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div id="container">
+    <p>Levere</p>
+    <div style="width: 100%;height: 4em;"></div>
+    <img /><div id="info">
+        <h3>Gratulerer, Nick!</h3>
+        <h4>Du har n&aring; levert tilbake Ronja R&oslash;verdatter.</h4>
+        <h4>Gi en stjerne</h4>
+        <div id="stars"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></div>
+    </div>
+
+    <span id="span"><a href="start.html"><i class="fa fa-times"></i></a></span>
+    <span id="span" class="right"><a href="bok_kommentar.html"><i class="fa fa-arrow-right"></i></a></span>
+</div>
+
+<script>
+window.onload = function(){
+    var stars_given = -1;
+    var stars_div = document.getElementById("stars");
+    var stars = stars_div.getElementsByTagName("i");
+    var color_original = "#000000";
+    for(var i = 0; i < stars.length; i++){
+        stars[i].addEventListener("mouseover", function(){
+            var index = getIndex(stars, this);
+            for(var x = 0; x < stars.length; x++){
+                var color = color_original;
+                if(x <= index){
+                    color = "#FF0000";
+                }
+                stars[x].style.color = color;
+            }
+        });
+        stars[i].addEventListener("mouseout", function(){
+            for(var x = 0; x < stars.length; x++){
+                if(stars_given == -1){
+                    stars[x].style.color = color_original;
+                }else{
+                    var color = color_original;
+                    if(x < stars_given){
+                        var color = "#FF0000";
+                    }
+                    stars[x].style.color = color;
+                }
+            }
+        });
+        stars[i].addEventListener("click", function(){
+            stars_given = getIndex(stars, this) + 1;
+        });
+    }
+};
+
+function getIndex(array, element){
+    for(var z = 0; z < array.length;z++){
+        if(array[z] == element){
+            return z;
+        }
+    }
+    return -1;
+}
+</script>
+
+{% endblock %}
