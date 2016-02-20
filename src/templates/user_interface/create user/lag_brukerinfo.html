@@ -1,0 +1,73 @@
+{% extends "user_interface/base_user.html" %}
+{% block title %}{{"Lag bruker"}}{% endblock %}
+
+{% block styleinline %}
+    <link rel="stylesheet" href="fortawesome/font-awesome-4.5.0/css/font-awesome.min.css">
+    <style>
+        p{
+            float:right;
+        }
+
+        table th{
+            text-align: left;
+        }
+
+        table tr td input{
+            width: 60px;
+            padding: 5px 5px 5px 0px;
+            border: 0;
+            border-bottom: 2px solid black;
+            outline: 0;
+            margin-bottom: 0.5em;
+        }
+        table tr td:first-of-type input{
+            width: 400px;
+        }
+
+        #span{
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div id="container">
+    <p>Lage en bruker</p>
+    <form>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan=2><i class="fa fa-pencil"></i> Fyll inn</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan=2><input type="text" name="fornavn" maxlength=300 placeholder="Fornavn" /></td>
+                </tr><tr>
+                    <td colspan=2><input type="text" name="etternavn" maxlength=300 placeholder="Etternavn" /></td>
+                </tr><tr>
+                    <td colspan=2><input type="text" name="fodselsdag" maxlength=300 placeholder="F&oslash;dselsdag (dd.mm.&aring;&aring;&aring;&aring;)" /></td>
+                </tr><tr>
+                    <td colspan=1><input type="text" name="gateadresse" maxlength=300 placeholder="Gateadresse" /></td>
+                    <td><input type="text" maxlength=100 name="gatenr" placeholder="Nr." /></td>
+                </tr><tr>
+                    <td colspan=2><input type="text" name="skole" maxlength=300 placeholder="Skole" /></td>
+                </tr><tr>
+                    <td colspan=2><input type="text" name="telefon" maxlength=300 placeholder="Telefon" /></td>
+                </tr><tr>
+                    <td colspan=2><input type="text" name="epost" maxlength=300 placeholder="E-post" /></td>
+                </tr><tr>
+                    <td colspan=2><input type="text" name="nick" maxlength=300 placeholder="Nick" /></td>
+                </tr>
+            </tbody>
+        </table>
+        <span id="span"><a href="../../../../../../Downloads/design/design/start.html"><i class="fa fa-times"></i></a> &nbsp; <a href="javascript:neste('scan_objekt.html')"><i class="fa fa-arrow-right"></i></a></span>
+    </form>
+
+</div>
+
+<script src="../../../../../../Downloads/design/design/script.js"></script>
+
+{% endblock %}

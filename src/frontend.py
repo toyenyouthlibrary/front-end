@@ -12,6 +12,24 @@ app.config['SECRET_KEY'] = 'temmelighemmelig'
 
 forbiddenNames = ["søren klype"]
 
+@app.route("/create/", methods=['GET', 'POST'])
+def create_user():
+    if flask.request.form:
+        #Check if username is too edgy
+        if flask.request.form["fornavn"] in forbiddenNames:
+            return flask.render_template('user/error.html', error="Et slikt navn er ikke lov!")
+
+        user_ = user.User(**flask.request.form)
+
+        try:
+            user_.create_in_database()
+        except ConnectionError as err:
+            return flask.render_template('user/error.html', error=err)
+
+        flask.flash("Bruker med navn {} og RFID {} opprettet".format(user_.username, user_.rfid))
+        return flask.redirect(flask.url_for('create_user'))
+
+    return flask.render_template('user_interface/create user/lag_brukerinfo.html')
 
 @app.route("/")
 def welcome():
