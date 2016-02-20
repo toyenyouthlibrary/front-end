@@ -1,0 +1,57 @@
+{% extends "user_interface/base_user.html" %}
+{% block title %}{{"Velkommen"}}{% endblock %}
+
+{% block styleinline %}
+<link rel="stylesheet" href="fortawesome/font-awesome-4.5.0/css/font-awesome.min.css">
+    <style>
+            p:first-of-type{
+                float:right;
+            }
+
+            p:nth-of-type(2){
+                padding-top: 15vh;
+                width: 50%;
+                display: block;
+            }
+
+            #links{
+                margin-top: 2em;
+            }
+
+            .link{
+                display: inline-block;
+                margin-left: 4em;
+                text-align: center;
+            }
+
+            .link p{
+                display: block;
+                margin-top: 0.5em;
+            }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div id="container">
+    <p>Logg inn</p>
+    <p>Velkommen, Nick!</p>
+    <div id="links">
+        <a href="/profile/change_info"><div class="link">
+            <div><i class="fa fa-user fa-3x"></i></div>
+            <p>Min profil</p>
+
+        </div></a><a href="/profile/history"><div class="link">
+            <div><i class="fa fa-book fa-3x"></i></div>
+            <p>Mine lån</p>
+
+        </div></a><a href="/profile/my_recomendations"><div class="link">
+            <div><i class="fa fa-thumbs-o-up fa-3x"></i> <i class="fa fa-thumbs-o-down fa-3x"></i></div>
+            <p>Mine anmeldelser</p>
+        </div></a>
+    </div>
+    <span id="span"><a href="start.html"><i class="fa fa-times"></i></a></span>
+</div>
+
+{% endblock %}
+

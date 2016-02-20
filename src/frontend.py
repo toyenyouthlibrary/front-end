@@ -12,6 +12,10 @@ app.config['SECRET_KEY'] = 'temmelighemmelig'
 
 forbiddenNames = ["søren klype"]
 
+@app.route("/")
+def welcome():
+    return flask.render_template('user_interface/startscreen/welcome.html')
+
 @app.route("/create/", methods=['GET', 'POST'])
 def create_user():
     if flask.request.form:
@@ -31,14 +35,64 @@ def create_user():
 
     return flask.render_template('user_interface/create user/lag_brukerinfo.html')
 
-@app.route("/")
-def welcome():
-    return flask.render_template('user_interface/startscreen/welcome.html')
+@app.route("/create/scan/")
+def create_scan():
+    return flask.render_template('user_interface/create user/create_scanrfid.html')
 
+@app.route("/create/chooserfid/")
+def create_setrfid():
+    return flask.render_template('user_interface/create user/lag_pin.html')
+
+@app.route("/create/confirmrfid/")
+def create_confirmrfid():
+    return flask.render_template('user_interface/create user/confirm_pin.html')
+
+@app.route("/create/creationvalid/")
+def create_sucsess():
+    return flask.render_template('user_interface/create user/lagd_bruker.html')
+
+@app.route("/create/rules/")
+def create_rules():
+    return flask.render_template('user_interface/create user/regler.html')
+
+#Ask the user if she wants an adult to confirm the account registration now or not
+@app.route("/create/adultconfirm/")
+def create_adult_confirm():
+    return flask.render_template('user_interface/create user/voksengodkjennelse.html')
+
+@app.route("/create/adultconfirmcheckbox/")
+def create_adult_confirm_checkbox():
+    return flask.render_template('user_interface/create user/voksengodkjennelsen.html')
 
 @app.route("/start/")
 def startscreen():
     return flask.render_template('user_interface/startscreen/start.html')
+
+
+
+@app.route("/profile/my_recomendations/")
+def my__recomendations():
+    return flask.render_template('user_interface/login and profile/login_anmeldelser.html')
+
+@app.route("/profile/history/")
+def profile_history():
+    return flask.render_template('user_interface/login and profile/login_lan.html')
+
+@app.route("/profile/menu/")
+def profile_menu():
+    return flask.render_template('user_interface/login and profile/login_main.html')
+
+@app.route("/profile/pin/")
+def profile_pin():
+    return flask.render_template('user_interface/login and profile/login_pin.html')
+
+@app.route("/profile/scanRFID/")
+def profile_scanRFID():
+    return flask.render_template('user_interface/login and profile/login_scan.html')
+
+@app.route("/profile/change_info/")
+def profile_change_info():
+    return flask.render_template('user_interface/login and profile/login_profil.html')
 
 """
 @app.route("/create/", methods=['GET', 'POST'])

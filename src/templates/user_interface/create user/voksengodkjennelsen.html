@@ -1,0 +1,46 @@
+{% extends "user_interface/base_user.html" %}
+{% block title %}{{"Velkommen"}}{% endblock %}
+
+{% block styleinline %}
+<link rel="stylesheet" href="fortawesome/font-awesome-4.5.0/css/font-awesome.min.css">
+ <style>
+        p:first-of-type{
+            float:right;
+        }
+
+        p:nth-of-type(2){
+            padding-top: 10vh;
+            width: 50%;
+            display: block;
+        }
+
+        p:nth-of-type(3){
+            margin-top: 1em;
+            width: 50%;
+        }
+
+        p:nth-of-type(4){
+            margin-top: 1em;
+        }
+
+        #span{
+            position: absolute;
+            bottom: 0;
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div id="container">
+    <p>Lage en bruker</p>
+    <p class="bold">Voksengodkjennelse</p>
+    <p>Jeg erkl&aelig;rer herved at Navn Navnesen kan:</p>
+    <p>
+        <input type="checkbox" name="laneboker" /> L&aring;ne bilder<br>
+        <input type="checkbox" name="fotograferes" /> Bli tatt bilder av
+    </p>
+    <span id="span"><a href="start.html"><i class="fa fa-times"></i></a> &nbsp; <a href="regler.html"><i class="fa fa-arrow-right"></i></a></span>
+</div>
+{% endblock %}

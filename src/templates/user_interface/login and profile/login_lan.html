@@ -1,0 +1,81 @@
+{% extends "user_interface/base_user.html" %}
+{% block title %}{{"Velkommen"}}{% endblock %}
+
+{% block styleinline %}
+<link rel="stylesheet" href="fortawesome/font-awesome-4.5.0/css/font-awesome.min.css">
+    <style>
+            #lan, #table{
+                vertical-align: top;
+                display: inline-block;
+                margin-top: 1em;
+            }
+
+            #lan{
+                width: 200px;
+                text-align: center;
+            }
+
+            #table{
+                width: calc(100% - 200px);
+            }
+
+            table{
+                width: 100%;
+            }
+
+            th{
+                text-align: left;
+            }
+            td, th{
+                padding-bottom: 5px;
+            }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div id="container">
+    <!--<p id="p">Lage en bruker</p>-->
+    <div id="lan">
+        <i class="fa fa-book fa-3x"></i>
+        <p>Mine l&aring;n</p>
+    </div><div id="table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Tittel</th>
+                    <th>Forfatter</th>
+                    <th>L&aring;n</th>
+                    <th>Retur</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Navn</td>
+                    <td>Navn Navnesen</td>
+                    <td>08.08.16</td>
+                    <td>Ikke returnert</td>
+                </tr><tr>
+                    <td>Navn</td>
+                    <td>Navn Navnesen</td>
+                    <td>15.01.16</td>
+                    <td>11.02.16</td>
+                </tr><tr>
+                    <td>Navn</td>
+                    <td>Navn Navnesen</td>
+                    <td>14.01.16</td>
+                    <td>11.02.16</td>
+                </tr><tr>
+                    <td>Navn</td>
+                    <td>Navn Navnesen</td>
+                    <td>10.12.15</td>
+                    <td>01.01.16</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <span id="span"><a href="login_main.html"><i class="fa fa-arrow-left"></i></a> &nbsp; <a href="start.html"><i class="fa fa-times"></i></a></span>
+</div>
+
+{% endblock %}
