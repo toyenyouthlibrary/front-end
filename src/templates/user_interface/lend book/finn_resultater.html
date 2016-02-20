@@ -1,0 +1,68 @@
+{% extends "user_interface/base_user.html" %}
+{% block title %}{{"Velkommen"}}{% endblock %}
+
+{% block styleinline %}
+<link rel="stylesheet" href="fortawesome/font-awesome-4.5.0/css/font-awesome.min.css">
+<style>
+        p:first-of-type{
+            float:right;
+        }
+
+        p:nth-of-type(2){
+            width: 50%;
+            display: block;
+        }
+        p:nth-of-type(2) span{
+            height: 80px;
+            line-height: 80px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        table{
+            width: 90%;
+            margin-top: 1em;
+        }
+        th{
+            text-align: left;
+        }
+        td, th{
+            padding-bottom: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div id="container">
+    <p>L&aring;ne</p>
+    <p><span><i class="fa fa-search fa-3x"></i><span> &nbsp; Resultater</span></span></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Tittel</th>
+                <th>Forfatter</th>
+                <th>Type</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr onclick="window.location.href = 'bok_info.html?id=1';">
+                <td>Navn</td>
+                <td>Navn Navnesen</td>
+                <td>Bok</td>
+                <td>Ledig</td>
+            </tr><tr onclick="window.location.href = 'bok_info.html?id=2';">
+                <td>Navn</td>
+                <td>-</td>
+                <td>Spill</td>
+                <td>L&aring;nt ut</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <span id="span"><a href="finn_sok.html"><i class="fa fa-arrow-left"></i></a> &nbsp; <a href="start.html"><i class="fa fa-times"></i></a></span>
+</div>
+
+{% endblock %}

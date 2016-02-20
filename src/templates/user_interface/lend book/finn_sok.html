@@ -1,0 +1,75 @@
+{% extends "user_interface/base_user.html" %}
+{% block title %}{{"Velkommen"}}{% endblock %}
+
+{% block styleinline %}
+<link rel="stylesheet" href="fortawesome/font-awesome-4.5.0/css/font-awesome.min.css">
+<style>
+        p:first-of-type{
+            float:right;
+        }
+
+        p:nth-of-type(2){
+            padding-top: 10vh;
+            width: 50%;
+            display: block;
+        }
+        p:nth-of-type(2) span{
+            height: 80px;
+            line-height: 80px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        input{
+            margin-top: 2em;
+            width: 40%;
+            border: 0;
+            outline: 0;
+            border-bottom: 2px solid black;
+        }
+
+        p:nth-of-type(3){
+            margin-top: 1em;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div id="container">
+    <p>L&aring;ne</p>
+    <p><span><i class="fa fa-search fa-3x" style="cursor: pointer;"></i><span> &nbsp; Finn noe &aring; l&aring;ne</span></span></p>
+    <input type="text" name="search" maxlength=300 placeholder="Forfatter / Tittel / etc." />
+    <p>Du kan s&oslash;ke p&aring; hva du vil. Det er lurt &aring; s&oslash;ke p&aring; tittel eller navnet p&aring; forfatteren. Men, du kan ogs&aring; s&oslash;ke p&aring; ting  som interesserer deg. F. eks. fotball, kj&aelig;rlighet eller godteri.</p>
+
+    <span id="span"><a href="start.html"><i class="fa fa-arrow-left"></i></a> &nbsp; <a href="start.html"><i class="fa fa-times"></i></a></span>
+</div>
+
+<script>
+window.onload = function(){
+    var input = document.getElementsByTagName("input")[0];
+    input.focus();
+    document.body.addEventListener("keypress", function(event){
+        if(event.keyCode == 13){
+            //Gå til neste side
+            sok();
+        }
+    });
+
+    document.getElementsByTagName("i")[0].addEventListener("click", function(){
+        sok();
+    });
+};
+
+function sok(){
+    //Gå til neste side
+    var input = document.getElementsByTagName("input")[0];
+    if(input.value == ""){
+        input.className += " formInvalid";
+    }else{
+        window.location.href = 'finn_resultater.html?qry=' + input.value.replace(" ", "+");
+    }
+}
+</script>
+
+{% endblock %}

@@ -70,6 +70,13 @@ def startscreen():
 
 
 
+
+
+
+
+
+
+
 @app.route("/profile/my_recomendations/")
 def my__recomendations():
     return flask.render_template('user_interface/login and profile/login_anmeldelser.html')
@@ -93,6 +100,44 @@ def profile_scanRFID():
 @app.route("/profile/change_info/")
 def profile_change_info():
     return flask.render_template('user_interface/login and profile/login_profil.html')
+
+
+
+
+
+
+
+
+@app.route("/lend/wrongpin/")
+def lend_wrong_pin():
+    return flask.render_template('user_interface/lend book/lan_feil_pin.html')
+
+@app.route("/lend/enterpin/")
+def lend_enterpin():
+    return flask.render_template('user_interface/lend book/lan_skriv_pin.html')
+
+@app.route("/lend/scan/")
+def lend_scan():
+    return flask.render_template('user_interface/lend book/lan_scan.html')
+
+@app.route("/lend/verified/")
+def lend_verified():
+    return flask.render_template('user_interface/lend book/lan_godkjent.html')
+
+@app.route("/lend/search/")
+def lend_search():
+    return flask.render_template('user_interface/lend book/finn_sok.html')
+
+@app.route("/lend/searchresults/")
+def lend_searchresults():
+    return flask.render_template('user_interface/lend book/finn_resultater.html')
+
+@app.route("/lend/bookinfo/")
+def lend_bookinfo():
+    return flask.render_template('user_interface/lend book/bok_info.html')
+
+
+
 
 """
 @app.route("/create/", methods=['GET', 'POST'])

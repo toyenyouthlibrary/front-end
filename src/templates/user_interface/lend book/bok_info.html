@@ -1,0 +1,168 @@
+{% extends "user_interface/base_user.html" %}
+{% block title %}{{"Velkommen"}}{% endblock %}
+
+{% block styleinline %}
+<link rel="stylesheet" href="fortawesome/font-awesome-4.5.0/css/font-awesome.min.css">
+<style>
+        p:first-of-type{
+            float:right;
+        }
+
+        p:nth-of-type(2){
+            width: 50%;
+            display: block;
+        }
+        p:nth-of-type(2) span{
+            height: 80px;
+            line-height: 80px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        #img, #info{
+            display: inline-block;
+            vertical-align: top;
+            margin-top: 1em;
+        }
+        #img{
+            width: 200px;
+            height: 400px;
+        }
+        #img img{
+            width: 100%;
+            min-height: 300px;
+        }
+        #img #stars{
+            width: 100%;
+            text-align: center;
+            display: block;
+        }
+        #img #stars i{
+            margin: 0 2px;
+        }
+
+        #info{
+            width: calc(100% - 230px);
+            margin-left: 30px;
+            position: relative;
+        }
+
+        #info h3, #info h4{
+            margin-bottom: 0.5em;
+        }
+
+        #info p{
+            margin-bottom: 1em;
+            display: block;
+            width: 100%;
+        }
+
+        .span2{
+            float:right;
+            padding: 15px;
+            cursor: pointer;
+        }
+        /* Synopsis og Anmeldelser (popup) */
+        #synopsis, #anmeldelser{
+            height: 100%;
+            display: block;
+            overflow-y: scroll;
+            position: absolute;
+            top: 0;
+            background-color: white;
+        }
+
+        .anmeldelse{
+            display: block;
+            float:left;
+        }
+        .anmeldelse:first-of-type{
+            width: calc(100% - 61px);
+        }
+        #anmeldelser p{
+            margin-bottom: 0;
+            display: block;
+            width: initial;
+            position: relative;
+            float: none;
+        }
+        #anmeldelser .stars{
+            margin-bottom: 1em;
+            display: block;
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div id="container">
+    <p>L&aring;ne</p>
+    <p><span><i class="fa fa-search fa-3x"></i><span> &nbsp; Resultat</span></span></p>
+
+    <div id="img">
+        <img />
+        <span id="stars"><i class="fa  fa-star"></i><i class="fa  fa-star"></i><i class="fa  fa-star-half-o"></i><i class="fa  fa-star-o"></i><i class="fa  fa-star-o"></i></span>
+    </div><div id="info">
+        <div id="short_info">
+            <h3>Ronja R&oslash;verdatter, Astrid Lindgren</h3>
+            <h4>Hylle: Eventyr</h4>
+            <h4>Status: Ledig</h4>
+            <p id="synops">Den natten Ronja ble f&oslash;dt, rullet torden over fjellene, ja, det var s&aring;nn en tordennatt at alle sm&aring;tusser som holdt til i Mattisskogen forskremt kr&oslash;p sammen i juler og jull. Bare... les mer</p>
+            <h4>Brukeres anmeldelser</h4>
+            <p id="anmelds">Jeg synes at boken var utrolig kul. Har sett Ronja p&aring; teater og likte... les mer</p>
+        </div>
+        <div id="synopsis" style="display: none;">
+            <span class="span2"><i class="fa fa-times"></i></a></span>
+            <h2>Synopsis</h2>
+            <p>Den natten Ronja ble f&oslash;dt, rullet torden over fjellene, ja, det var s&aring;nn en tordennatt at alle sm&aring;tusser som holdt til i Mattisskogen forskremt kr&oslash;p sammen i juler og jull.</p>
+
+        </div>
+        <div id="anmeldelser" style="display: none;">
+            <span class="span2"><i class="fa fa-times"></i></a></span>
+            <div class="anmeldelse">
+                <p><b>Lisa : </b>Jeg synes at boken var utrolig kul. Har sett Ronja p&aring teater og likte boken ogs&aring. Har lest noen andre av Astrid Lindgren. Dette er min favoritt</p>
+                <span class="stars"><i class="fa  fa-star"></i><i class="fa  fa-star"></i><i class="fa  fa-star"></i><i class="fa  fa-star"></i><i class="fa  fa-star"></i></span>
+            </div>
+            <div class="anmeldelse">
+                <p><b>Boyband : </b>Synes boken var barnslig. Gadd ikke &aring lese den ferdig.</p>
+                <span class="stars"><i class="fa  fa-star"></i><i class="fa  fa-star-o"></i><i class="fa  fa-star-o"></i><i class="fa  fa-star-o"></i><i class="fa  fa-star-o"></i></span>
+            </div>
+            <div class="anmeldelse">
+                <p><b>T&oslash;yentopp : </b>Likte den ganske godt.</p>
+                <span class="stars"><i class="fa  fa-star"></i><i class="fa  fa-star"></i><i class="fa  fa-star-o"></i><i class="fa  fa-star-o"></i><i class="fa  fa-star-o"></i></span>
+            </div>
+        </div>
+    </div>
+
+    <span id="span"><a href="finn_resultater.html"><i class="fa fa-arrow-left"></i></a> &nbsp; <a href="start.html"><i class="fa fa-times"></i></a></span>
+</div>
+
+<script>
+window.onload = function(){
+    var short_info = document.getElementById("short_info");
+    var synopsis = document.getElementById("synopsis");
+    synopsis.style.width = short_info.offsetWidth + "px";
+    var anmeldelser = document.getElementById("anmeldelser");
+    anmeldelser.style.width = short_info.offsetWidth + "px";
+
+    var span2s = document.getElementsByClassName("span2");
+    for(var i = 0; i < span2s.length; i++){
+        span2s[i].addEventListener("click", function(){
+            synopsis.style.display = "none";
+            anmeldelser.style.display = "none";
+        });
+    }
+
+    var anmelds = document.getElementById("anmelds");
+    anmelds.addEventListener("click", function(){
+        anmeldelser.style.display = "block";
+    });
+    var synops = document.getElementById("synops");
+    synops.addEventListener("click", function(){
+        synopsis.style.display = "block";
+    });
+};
+</script>
+
+{% endblock %}
