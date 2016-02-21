@@ -3,7 +3,7 @@ import backend
 
 
 def admin_login(username, password):
-    parameters = {'user': username, 'pass': password}
+    parameters = {'user_old': username, 'pass': password}
     response = backend.request('admin_login', data=parameters)
     jsonobject = json.loads(response.text)
 
