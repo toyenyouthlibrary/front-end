@@ -20,10 +20,10 @@ def welcome():
 def create_user():
     if flask.request.form:
         #Check if username is too edgy
-        if flask.request.form["fornavn"] in forbiddenNames:
+        if flask.request.form["username"] in forbiddenNames:
             return flask.render_template('user_old/error.html', error="Et slikt navn er ikke lov!")
 
-        user_ = user.User(**flask.request.form)
+        user_ = user.User(rfid=random.randrange(1,1000000), **flask.request.form)
 
         try:
             user_.create_in_database()
@@ -33,36 +33,36 @@ def create_user():
         flask.flash("Bruker med navn {} og RFID {} opprettet".format(user_.username, user_.rfid))
         return flask.redirect(flask.url_for('create_user'))
 
-    return flask.render_template('user/create user_old/lag_brukerinfo.html')
+    return flask.render_template('user/create_user/lag_brukerinfo.html')
 
 @app.route("/create/scan/")
 def create_scan():
-    return flask.render_template('user/create user_old/create_scanrfid.html')
+    return flask.render_template('user/create_user/create_scanrfid.html')
 
 @app.route("/create/chooserfid/")
 def create_setrfid():
-    return flask.render_template('user/create user_old/lag_pin.html')
+    return flask.render_template('user/create user/lag_pin.html')
 
 @app.route("/create/confirmrfid/")
 def create_confirmrfid():
-    return flask.render_template('user/create user_old/confirm_pin.html')
+    return flask.render_template('user/create user/confirm_pin.html')
 
 @app.route("/create/creationvalid/")
 def create_sucsess():
-    return flask.render_template('user/create user_old/lagd_bruker.html')
+    return flask.render_template('user/create user/lagd_bruker.html')
 
 @app.route("/create/rules/")
 def create_rules():
-    return flask.render_template('user/create user_old/regler.html')
+    return flask.render_template('user/create user/regler.html')
 
-#Ask the user_old if she wants an adult to confirm the account registration now or not
+#Ask the user if she wants an adult to confirm the account registration now or not
 @app.route("/create/adultconfirm/")
 def create_adult_confirm():
-    return flask.render_template('user/create user_old/voksengodkjennelse.html')
+    return flask.render_template('user/create user/voksengodkjennelse.html')
 
 @app.route("/create/adultconfirmcheckbox/")
 def create_adult_confirm_checkbox():
-    return flask.render_template('user/create user_old/voksengodkjennelsen.html')
+    return flask.render_template('user/create user/voksengodkjennelsen.html')
 
 @app.route("/start/")
 def startscreen():
@@ -161,19 +161,19 @@ def create_user():
     if flask.request.form:
         #Check if username is too edgy
         if flask.request.form["username"] in forbiddenNames:
-            return flask.render_template('user_old/error.html', error="Et slikt navn er ikke lov!")
+            return flask.render_template('user/error.html', error="Et slikt navn er ikke lov!")
 
-        user_ = user_old.User(**flask.request.form)
+        user_ = user.User(**flask.request.form)
 
         try:
             user_.create_in_database()
         except ConnectionError as err:
-            return flask.render_template('user_old/error.html', error=err)
+            return flask.render_template('user/error.html', error=err)
 
         flask.flash("Bruker med navn {} og RFID {} opprettet".format(user_.username, user_.rfid))
         return flask.redirect(flask.url_for('create_user'))
 
-    return flask.render_template('user_old/create_user.html')
+    return flask.render_template('user/create_user.html')
 
 
 class FormLendBook(flask_wtf.Form):
@@ -189,23 +189,23 @@ def lend_book():
             book.lend_book_rfid(flask.request.form["book_rfid"], flask.request.form["user_rfid"])
             flask.flash("Bok lånt!")
         except ConnectionError as err:
-            return flask.render_template('user_old/error.html', error=err)
+            return flask.render_template('user/error.html', error=err)
         flask.redirect(flask.url_for('lend_book'))
 
-    return flask.render_template('user_old/lend_book.html', form=form)
+    return flask.render_template('user/lend_book.html', form=form)
 
 
-@app.route('/user_old/<username>')
+@app.route('/user/<username>')
 def show_user_profile(username):
     try:
-        user_ = user_old.read_user_from_database(username)
+        user_ = user.read_user_from_database(username)
 
     except ConnectionError as err:
-        return flask.render_template('user_old/error.html', error=err)
+        return flask.render_template('user/error.html', error=err)
 
-    books_ = user_old.retrive_lended_books_by_user(username)
+    books_ = user.retrive_lended_books_by_user(username)
 
-    return flask.render_template('user_old/user_profile.html', username=user_.username, rfid=user_.rfid, details= user_.details, books=books_["books"])
+    return flask.render_template('user/user_profile.html', username=user_.username, rfid=user_.rfid, details= user_.details, books=books_["books"])
 
 
 @app.route('/admin/')
@@ -218,11 +218,11 @@ def login_admin():
     if flask.request.form:
         try:
 
-            admin.admin_login(flask.request.form["user_old"], flask.request.form["pass"])
+            admin.admin_login(flask.request.form["user"], flask.request.form["pass"])
 
         except ConnectionError as err:
-            # TODO Move error.html outside of user_old
-            return flask.render_template('user_old/error.html', error=err)
+            # TODO Move error.html outside of user
+            return flask.render_template('user/error.html', error=err)
 
         return flask.redirect(flask.url_for('admin_book'))
 
@@ -234,7 +234,7 @@ def admin_book():
     try:
         admin_ = admin.admin_fetch_all_books("109342903234")
     except ConnectionError as err:
-        return flask.render_template('user_old/error.html', error=err)
+        return flask.render_template('user/error.html', error=err)
 
     return flask.render_template('admin/books_in_database.html', books=admin_["books"])
 
@@ -244,7 +244,7 @@ def admin_lent_books():
     try:
         admin_ = admin.admin_get_lent_books("109342903234")
     except ConnectionError as err:
-        return flask.render_template('user_old/error.html', error=err)
+        return flask.render_template('user/error.html', error=err)
 
     return flask.render_template('admin/lent_books.html', history=admin_["history"])
 
@@ -254,7 +254,7 @@ def admin_users_in_database():
     try:
         admin_ = admin.admin_get_users("109342903234")
     except ConnectionError as err:
-        return flask.render_template('user_old/error.html', error=err)
+        return flask.render_template('user/error.html', error=err)
 
 
     return flask.render_template('admin/users_in_database.html', users=admin_["users"])

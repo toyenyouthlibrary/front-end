@@ -17,6 +17,7 @@ class User:
         parameters = dict(username=self.username, rfid=self.rfid, **self.details)
 
         response = backend.request('create_user', data=parameters)
+        print(response.text)
         jsonobject = json.loads(response.text)
 
         if jsonobject["error"]:

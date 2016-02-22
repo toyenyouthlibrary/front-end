@@ -35,7 +35,7 @@
 
 <div id="container">
     <p>Lage en bruker</p>
-    <form>
+    <form method="post" action="{{ url_for('create_user') }}">
         <table>
             <thead>
                 <tr>
@@ -44,26 +44,26 @@
             </thead>
             <tbody>
                 <tr>
-                    <td colspan=2><input type="text" name="fornavn" maxlength=300 placeholder="Fornavn" /></td>
+                    <td colspan=2><input type="text" name="firstname" maxlength=300 placeholder="Fornavn" /></td>
                 </tr><tr>
-                    <td colspan=2><input type="text" name="etternavn" maxlength=300 placeholder="Etternavn" /></td>
+                    <td colspan=2><input type="text" name="lastname" maxlength=300 placeholder="Etternavn" /></td>
                 </tr><tr>
-                    <td colspan=2><input type="text" name="fodselsdag" maxlength=300 placeholder="F&oslash;dselsdag (dd.mm.&aring;&aring;&aring;&aring;)" /></td>
+                    <td colspan=2><input type="text" name="birth" maxlength=300 placeholder="F&oslash;dselsdag (dd.mm.&aring;&aring;&aring;&aring;)" /></td>
                 </tr><tr>
-                    <td colspan=1><input type="text" name="gateadresse" maxlength=300 placeholder="Gateadresse" /></td>
-                    <td><input type="text" maxlength=100 name="gatenr" placeholder="Nr." /></td>
+                    <td colspan=1><input type="text" name="address" maxlength=300 placeholder="Gateadresse" /></td>
+                    <td><input type="text" maxlength=100 name="address_nr" placeholder="Nr." /></td>
                 </tr><tr>
-                    <td colspan=2><input type="text" name="skole" maxlength=300 placeholder="Skole" /></td>
+                    <td colspan=2><input type="text" name="school" maxlength=300 placeholder="Skole" /></td>
                 </tr><tr>
-                    <td colspan=2><input type="text" name="telefon" maxlength=300 placeholder="Telefon" /></td>
+                    <td colspan=2><input type="text" name="phone" maxlength=300 placeholder="Telefon" /></td>
                 </tr><tr>
-                    <td colspan=2><input type="text" name="epost" maxlength=300 placeholder="E-post" /></td>
+                    <td colspan=2><input type="text" name="email" maxlength=300 placeholder="E-post" /></td>
                 </tr><tr>
-                    <td colspan=2><input type="text" name="nick" maxlength=300 placeholder="Nick" /></td>
+                    <td colspan=2><input type="text" name="username" maxlength=300 placeholder="Nick" /></td>
                 </tr>
             </tbody>
         </table>
-        <span id="span"><a href="../../../../../../Downloads/design/design/start.html"><i class="fa fa-times"></i></a> &nbsp; <a href="javascript:neste('scan_objekt.html')"><i class="fa fa-arrow-right"></i></a></span>
+        <span id="span"><a href="start.html"><i class="fa fa-times"></i></a> &nbsp; <a  href="javascript:{}"  onclick="document.getElementsByTagName('form')[0].submit();"><i class="fa fa-arrow-right"></i></a></span>
     </form>
 
 </div>
