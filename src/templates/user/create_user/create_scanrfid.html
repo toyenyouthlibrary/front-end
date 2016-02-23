@@ -28,9 +28,29 @@
 <div id="container">
     <p>Logg inn</p>
     <p>Melding som sier at man skal holde objektet sitt der man skal holde objektet sitt.</p>
-    <img />
+    <img/>
 
-    <span id="span"><a href="start.html"><i class="fa fa-arrow-left"></i></a> &nbsp; <a href="start.html"><i class="fa fa-times"></i></a></span>
+    <br>
+    <br>
+    <br>
+
+    <form method="POST" action="{{ url_for('create_scan') }}">
+
+    <label for="rfid">Desired RFID:</label>
+    <input type="number" name="rfid" /><br />
+
+
+    <input type="submit" value="Go" />
+
+    </form>
+
+    <span id="span">
+        <a href="start.html">
+            <i class="fa fa-arrow-left"></i>
+    </a> &nbsp;
+
+        <a href=""><i class="fa fa-times"></i>
+        </a></span>
 </div>
 
 {% endblock %}

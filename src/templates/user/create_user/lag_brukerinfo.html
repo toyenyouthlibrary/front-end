@@ -2,7 +2,7 @@
 {% block title %}{{"Lag bruker"}}{% endblock %}
 
 {% block styleinline %}
-    <link rel="stylesheet" href="fortawesome/font-awesome-4.5.0/css/font-awesome.min.css">
+
     <style>
         p{
             float:right;
@@ -63,11 +63,12 @@
                 </tr>
             </tbody>
         </table>
-        <span id="span"><a href="start.html"><i class="fa fa-times"></i></a> &nbsp; <a  href="javascript:{}"  onclick="document.getElementsByTagName('form')[0].submit();"><i class="fa fa-arrow-right"></i></a></span>
+        <span id="span"><a href="{{ url_for('welcome') }}"><i class="fa fa-times"></i></a> &nbsp;
+            <a  href="javascript:{}"  onclick="document.getElementsByTagName('form')[0].submit();"><i class="fa fa-arrow-right"></i></a></span>
     </form>
 
 </div>
 
-<script src="../../../../../../Downloads/design/design/script.js"></script>
+<script src="http://localhost:5000/static/script.js"></script>
 
 {% endblock %}

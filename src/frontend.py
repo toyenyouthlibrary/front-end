@@ -11,6 +11,8 @@ app = flask.Flask(__name__)
 app.config['SECRET_KEY'] = 'temmelighemmelig'
 
 forbiddenNames = ["søren klype"]
+pincode = 0
+
 
 @app.route("/")
 def welcome():
@@ -31,21 +33,46 @@ def create_user():
             return flask.render_template('user_old/error.html', error=err)
 
         flask.flash("Bruker med navn {} og RFID {} opprettet".format(user_.username, user_.rfid))
-        return flask.redirect(flask.url_for('create_user'))
+        return flask.render_template('user/create_user/create_scanrfid.html')
 
     return flask.render_template('user/create_user/lag_brukerinfo.html')
 
-@app.route("/create/scan/")
+@app.route("/create/scan/", methods=['GET', 'POST'])
 def create_scan():
-    return flask.render_template('user/create_user/create_scanrfid.html')
 
-@app.route("/create/chooserfid/")
-def create_setrfid():
-    return flask.render_template('user/create user/lag_pin.html')
+    if flask.request.form:
+        rfid = flask.request.form["rfid"]
 
-@app.route("/create/confirmrfid/")
+    return flask.render_template('user/create_user/lag_pin.html')
+
+
+@app.route("/create/choosepin/", methods=['GET', 'POST'])
+def create_setpin():
+    if flask.request.form:
+        pincode = flask.request.form["pin1"] + flask.request.form["pin2"] + flask.request.form["pin3"] + flask.request.form["pin4"]
+        confirmPincode = flask.request.form["confirm_pin1"] + flask.request.form["confirm_pin2"] + flask.request.form["confirm_pin2"] + flask.request.form["confirm_pin2"]
+
+        if pincode == confirmPincode:
+            pin_ = user.set_user_pincode(str(pincode), "1")
+            return flask.render_template('user/create_user/voksengodkjennelse.html')
+        else:
+            print("Pinkodene samsvarer ikke")
+
+    return flask.render_template('user/create_user/lag_pin.html')
+
+"""
+@app.route("/create/confirmpin/", methods=['GET', 'POST'])
 def create_confirmrfid():
-    return flask.render_template('user/create user/confirm_pin.html')
+    if flask.request.form:
+        confirm_pincode = flask.request.form["pin1"] + flask.request.form["pin2"] + flask.request.form["pin3"] + flask.request.form["pin4"]
+        print("Pincode is " +  str(pincode))
+        print("Confirmed pincode is " + confirm_pincode)
+
+        if pincode == confirm_pincode:
+            print("Pincodes are the same")
+    return flask.render_template('user/create_user/confirm_pin.html')
+"""
+
 
 @app.route("/create/creationvalid/")
 def create_sucsess():

@@ -42,11 +42,47 @@
 
 {% block content %}
 
-<div id="container">
-    <p>Lage en bruker</p>
-    <p><i class="fa fa-pencil"></i>  <span>Velg en pinkode<br><input type="password" name="pin1" maxlength=1 placeholder=0 /><input type="password" name="pin2" maxlength=1 placeholder=0 /><input type="password" name="pin3" maxlength=1 placeholder=0 /><input type="password" name="pin4" maxlength=1 placeholder=0 /></span></p>
 
-    <span id="span"><a href="start.html"><i class="fa fa-times"></i></a> &nbsp; <a href="javascript:neste('gjenta_pin.html')"><i class="fa fa-arrow-right"></i></a></span>
+
+
+<div id="container">
+
+    <form action="{{ url_for('create_setpin') }}" method="post">
+
+    <p>Lage en bruker</p>
+    <p>
+        <i class="fa fa-pencil"></i>
+
+        <span>Velg en pinkode
+            <br>
+            <input type="password" name="pin1" maxlength=1 placeholder=0 />
+            <input type="password" name="pin2" maxlength=1 placeholder=0 />
+            <input type="password" name="pin3" maxlength=1 placeholder=0 />
+            <input type="password" name="pin4" maxlength=1 placeholder=0 />
+        </span>
+
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <span>Skriv inn pinkoden en gang til
+            <br>
+            <input type="password" name="confirm_pin1" maxlength=1 placeholder=0 />
+            <input type="password" name="confirm_pin2" maxlength=1 placeholder=0 />
+            <input type="password" name="confirm_pin3" maxlength=1 placeholder=0 />
+            <input type="password" name="confirm_pin4" maxlength=1 placeholder=0 />
+        </span>
+
+    </p>
+
+    <span id="span"><a href="start.html"><i class="fa fa-times"></i></a> &nbsp; <a href="javascript:neste()"><i class="fa fa-arrow-right"></i></a></span>
+
+    </form>
+
+    <script>var pin = true;</script>
+    <script src="http://localhost:5000/static/script.js"></script>
+
 </div>
 
 {% endblock %}

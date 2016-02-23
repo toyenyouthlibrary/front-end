@@ -25,6 +25,9 @@ class User:
 
         return jsonobject
 
+
+        return jsonObject
+
     def delete_in_database(self):
         parameters = dict(username=self.username)
 
@@ -36,6 +39,18 @@ class User:
 
         return jsonobject
 
+
+def set_user_pincode(pincode, rfid):
+        parameters = dict(pin=pincode, rfid=rfid)
+
+        response = backend.request('update_pin', data=parameters)
+        print(response.text)
+        jsonObject = json.loads(response.text)
+
+        if jsonObject["error"]:
+            raise ConnectionError("Feil i databasen: " + jsonObject["error"])
+
+        return jsonObject
 
 def read_user_from_database(username):
     parameters = dict(username=username)
