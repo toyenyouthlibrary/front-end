@@ -74,6 +74,36 @@ def create_confirmrfid():
 """
 
 
+@app.route("/login/")
+def login():
+
+    userRFID = "1"
+    if userRFID == 1:
+        return flask.render_template('user/login_profile/login_pin.html')
+
+    return flask.render_template('user/login_profile/login_scan.html')
+
+@app.route("/login/pincode/", methods=['GET', 'POST'])
+def login_pin():
+    if flask.request.form:
+
+        pincode = flask.request.form["pin1"] + flask.request.form["pin2"] + flask.request.form["pin3"] + flask.request.form["pin4"]
+
+        # FIXME - Get the userRFID from "/login/"
+        userRFID = "1"
+
+        #If the login is correct, the user will be sent to the profile menu screen
+        try:
+            user_ = user.login_user(userRFID, pincode)
+            return flask.render_template('user/login_profile/login_main.html')
+        except ConnectionError as err:
+            return flask.render_template('user_old/error.html', error=err)
+
+
+    return flask.render_template('user/login_profile/login_pin.html')
+
+
+
 @app.route("/create/creationvalid/")
 def create_sucsess():
     return flask.render_template('user/create user/lagd_bruker.html')

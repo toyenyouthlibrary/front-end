@@ -52,6 +52,19 @@ def set_user_pincode(pincode, rfid):
 
         return jsonObject
 
+def login_user(rfid, pin):
+    parameters = dict(rfid=rfid, pin=pin)
+
+    response = backend.request('login_user', data=parameters)
+    print(response.text)
+    jsonObject = json.loads(response.text)
+
+    if jsonObject["error"]:
+        raise ConnectionError("Feil i databasen: " + jsonObject["error"])
+
+    return jsonObject
+
+
 def read_user_from_database(username):
     parameters = dict(username=username)
 

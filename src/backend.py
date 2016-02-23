@@ -6,6 +6,7 @@ actions = {
     'get_user_info': 'get_user_info.php',
     'update_pin': 'update_pin.php',
     'delete_user': 'delete_user.php',
+    'login_user': 'login_user.php',
     'lend_book': 'lend_book.php',
     'deliver_book': 'deliver_book.php',
     'get_book_info': 'get_book_info.php',
