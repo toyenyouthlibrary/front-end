@@ -35,7 +35,10 @@
 
 <div id="container">
     <p>Logg inn</p>
-    <p>Velkommen, Nick!</p>
+
+    {% if username %}
+    <p>Velkommen, {{ username }}</p>
+    {% endif %}
     <div id="links">
         <a href="/profile/change_info"><div class="link">
             <div><i class="fa fa-user fa-3x"></i></div>

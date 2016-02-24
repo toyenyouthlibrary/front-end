@@ -18,6 +18,10 @@ pincode = 0
 def welcome():
     return flask.render_template('user/startscreen/welcome.html')
 
+@app.route("/start/")
+def start():
+    return flask.render_template('user/startscreen/start.html')
+
 @app.route("/create/", methods=['GET', 'POST'])
 def create_user():
     if flask.request.form:
@@ -33,9 +37,9 @@ def create_user():
             return flask.render_template('user_old/error.html', error=err)
 
         flask.flash("Bruker med navn {} og RFID {} opprettet".format(user_.username, user_.rfid))
-        return flask.render_template('user/create_user/create_scanrfid.html')
+        return flask.render_template('user/create_user/assign_user_rfid.html')
 
-    return flask.render_template('user/create_user/lag_brukerinfo.html')
+    return flask.render_template('user/create_user/enter_user_info.html')
 
 @app.route("/create/scan/", methods=['GET', 'POST'])
 def create_scan():
@@ -43,7 +47,7 @@ def create_scan():
     if flask.request.form:
         rfid = flask.request.form["rfid"]
 
-    return flask.render_template('user/create_user/lag_pin.html')
+    return flask.render_template('user/create_user/enter_pin.html')
 
 
 @app.route("/create/choosepin/", methods=['GET', 'POST'])
@@ -54,11 +58,11 @@ def create_setpin():
 
         if pincode == confirmPincode:
             pin_ = user.set_user_pincode(str(pincode), "1")
-            return flask.render_template('user/create_user/voksengodkjennelse.html')
+            return flask.render_template('user/create_user/adult_confirmation_yORn.html')
         else:
             print("Pinkodene samsvarer ikke")
 
-    return flask.render_template('user/create_user/lag_pin.html')
+    return flask.render_template('user/create_user/enter_pin.html')
 
 """
 @app.route("/create/confirmpin/", methods=['GET', 'POST'])
@@ -95,35 +99,51 @@ def login_pin():
         #If the login is correct, the user will be sent to the profile menu screen
         try:
             user_ = user.login_user(userRFID, pincode)
-            return flask.render_template('user/login_profile/login_main.html')
+
+            global sessionID
+            sessionID = user_["id"]
+            print("User logged in")
+
+            return flask.redirect(flask.url_for('profile_menu'))
+
         except ConnectionError as err:
             return flask.render_template('user_old/error.html', error=err)
 
 
     return flask.render_template('user/login_profile/login_pin.html')
 
+@app.route("/profile/menu/")
+def profile_menu():
+    try:
+        print("SessionID is ", sessionID)
+        user_info = user.read_user_from_database(sessionID)
 
+    except ConnectionError as err:
+        return flask.render_template('user_old/error.html', error=err)
 
+    return flask.render_template('user/login_profile/profile_menu.html', username=user_info["username"])
+
+"""
 @app.route("/create/creationvalid/")
 def create_sucsess():
     return flask.render_template('user/create user/lagd_bruker.html')
 
 @app.route("/create/rules/")
 def create_rules():
-    return flask.render_template('user/create user/regler.html')
+    return flask.render_template('user/create user/rules.html')
 
 #Ask the user if she wants an adult to confirm the account registration now or not
 @app.route("/create/adultconfirm/")
 def create_adult_confirm():
-    return flask.render_template('user/create user/voksengodkjennelse.html')
+    return flask.render_template('user/create user/adult_confirmation_yORn.html')
 
 @app.route("/create/adultconfirmcheckbox/")
 def create_adult_confirm_checkbox():
-    return flask.render_template('user/create user/voksengodkjennelsen.html')
+    return flask.render_template('user/create user/adult_confirmation_checkboxes.html')
 
 @app.route("/start/")
 def startscreen():
-    return flask.render_template('user/startscreen/start.html')
+    return flask.render_template('user/startscreen/startmenu.html')
 
 
 
@@ -142,9 +162,7 @@ def my__recomendations():
 def profile_history():
     return flask.render_template('user/login_profile/login_lan.html')
 
-@app.route("/profile/menu/")
-def profile_menu():
-    return flask.render_template('user/login_profile/login_main.html')
+
 
 @app.route("/profile/pin/")
 def profile_pin():
@@ -156,7 +174,7 @@ def profile_scanRFID():
 
 @app.route("/profile/change_info/")
 def profile_change_info():
-    return flask.render_template('user/login_profile/login_profil.html')
+    return flask.render_template('user/login_profile/profile_menu.html')
 
 
 
@@ -167,31 +185,31 @@ def profile_change_info():
 
 @app.route("/lend/wrongpin/")
 def lend_wrong_pin():
-    return flask.render_template('user/lend_book/lan_feil_pin.html')
+    return flask.render_template('user/lend_book/lend_wrong_pin.html')
 
 @app.route("/lend/enterpin/")
 def lend_enterpin():
-    return flask.render_template('user/lend_book/lan_skriv_pin.html')
+    return flask.render_template('user/lend_book/lend_enter_pincode.html')
 
 @app.route("/lend/scan/")
 def lend_scan():
-    return flask.render_template('user/lend_book/lan_scan.html')
+    return flask.render_template('user/lend_book/lend_scan_rfid.html')
 
 @app.route("/lend/verified/")
 def lend_verified():
-    return flask.render_template('user/lend_book/lan_godkjent.html')
+    return flask.render_template('user/lend_book/lend_succsess.html')
 
 @app.route("/lend/search/")
 def lend_search():
-    return flask.render_template('user/lend_book/finn_sok.html')
+    return flask.render_template('user/lend_book/search_book.html')
 
 @app.route("/lend/searchresults/")
 def lend_searchresults():
-    return flask.render_template('user/lend_book/finn_resultater.html')
+    return flask.render_template('user/lend_book/list_books.html')
 
 @app.route("/lend/bookinfo/")
 def lend_bookinfo():
-    return flask.render_template('user/lend_book/bok_info.html')
+    return flask.render_template('user/lend_book/book_info.html')
 
 
 
@@ -211,7 +229,7 @@ def deliver_delivered():
 @app.route("/deliver/scan")
 def deliver_scan():
     return flask.render_template('user/deliver_book/levere_scan.html')
-
+"""
 """
 @app.route("/create/", methods=['GET', 'POST'])
 def create_user():

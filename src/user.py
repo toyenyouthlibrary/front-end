@@ -65,8 +65,8 @@ def login_user(rfid, pin):
     return jsonObject
 
 
-def read_user_from_database(username):
-    parameters = dict(username=username)
+def read_user_from_database(id):
+    parameters = dict(id=id)
 
     response = backend.request('get_user_info', data=parameters)
     jsonobject = json.loads(response.text)
@@ -89,3 +89,4 @@ def retrive_lended_books_by_user(username):
     return jsonobject
 
 
+#read_user_from_database("SXjPhF7GyRDdPNVv8Bmo")

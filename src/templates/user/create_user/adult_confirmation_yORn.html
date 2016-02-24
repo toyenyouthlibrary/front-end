@@ -3,7 +3,7 @@
 
 {% block styleinline %}
 <link rel="stylesheet" href="fortawesome/font-awesome-4.5.0/css/font-awesome.min.css">
- <style>
+<style>
         p:first-of-type{
             float:right;
         }
@@ -20,7 +20,18 @@
         }
 
         p:nth-of-type(4){
-            margin-top: 1em;
+            margin-top: 4em;
+            margin-left: 2em;
+        }
+
+        .a{
+            display: inline-block;
+            text-align: center;
+            margin-right: 2em;
+        }
+
+        i, span{
+            display: block;
         }
 
         #span{
@@ -36,11 +47,9 @@
 <div id="container">
     <p>Lage en bruker</p>
     <p class="bold">Voksengodkjennelse</p>
-    <p>Jeg erkl&aelig;rer herved at Navn Navnesen kan:</p>
-    <p>
-        <input type="checkbox" name="laneboker" /> L&aring;ne bilder<br>
-        <input type="checkbox" name="fotograferes" /> Bli tatt bilder av
-    </p>
-    <span id="span"><a href="start.html"><i class="fa fa-times"></i></a> &nbsp; <a href="regler.html"><i class="fa fa-arrow-right"></i></a></span>
+    <p>Tekst om at vi trenger voksengodkjennelse for at man skal kunne låne.</p>
+    <p><a class="a" href="/create/adultconfirmcheckbox"><i class="fa fa-thumbs-o-up fa-2x"></i><span>Godkjenn n&aring;</span></a><a class="a" href="rules.html"><i class="fa fa-thumbs-o-down fa-2x"></i><span>Ikke n&aring;</span></a></p>
+    <span id="span"><a href="start.html"><i class="fa fa-times"></i></span>
 </div>
+
 {% endblock %}

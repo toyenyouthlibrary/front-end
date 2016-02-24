@@ -46,10 +46,10 @@ def get_book_info(bookrfid):
     return jsonobject
 
 
-def give_feeback(user_rfid, book_rfid, ratingtype, value):
+def give_feeback(userrfid, bookrfid, ratingtype, value):
     parameters = {
-        'user_rfid': user_rfid,
-        'book_rfid': book_rfid,
+        'user_rfid': userrfid,
+        'book_rfid': bookrfid,
         'type': ratingtype,
         'value': value,
     }
