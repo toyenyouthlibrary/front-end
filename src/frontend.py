@@ -20,16 +20,20 @@ def welcome():
 
 @app.route("/start/")
 def start():
-    return flask.render_template('user/startscreen/start.html')
+    return flask.render_template('user/startscreen/startmenu.html')
 
 @app.route("/create/", methods=['GET', 'POST'])
 def create_user():
     if flask.request.form:
+        print(flask.request.form)
         #Check if username is too edgy
         if flask.request.form["username"] in forbiddenNames:
             return flask.render_template('user_old/error.html', error="Et slikt navn er ikke lov!")
 
         user_ = user.User(rfid=random.randrange(1,1000000), **flask.request.form)
+
+
+
 
         try:
             user_.create_in_database()
