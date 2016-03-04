@@ -105,7 +105,7 @@ def login_pin():
             user_ = user.login_user(userRFID, pincode)
 
             global sessionID
-            sessionID = user_["id"]
+            sessionID = user_["sess_id"]
             print("User logged in")
 
             return flask.redirect(flask.url_for('profile_menu'))
