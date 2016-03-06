@@ -1,4 +1,5 @@
 import json
+
 import backend
 
 
@@ -55,7 +56,7 @@ def login_user(rfid, pin):
     parameters = dict(rfid=rfid, pin=pin)
 
     response = backend.request('login_user', data=parameters)
-    print(response.text)
+    print(response)
     jsonObject = json.loads(response.text)
 
     if jsonObject["error"]:
@@ -88,4 +89,3 @@ def retrive_lended_books_by_user(username):
     return jsonobject
 
 
-#read_user_from_database("SXjPhF7GyRDdPNVv8Bmo")
