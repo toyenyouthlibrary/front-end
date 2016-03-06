@@ -3,27 +3,13 @@ import backend
 import requests
 
 
-def lend_book_rfid(bookrfid, userrfid):
+def scan_book(rfid):
+
     parameters = {
-        'book_rfid': bookrfid,
-        'user_rfid': userrfid,
+        'rfid': rfid,
     }
-
-    response = backend.request('lend_book', data=parameters)
-    jsonobject = json.loads(response.text)
-
-    if jsonobject["error"]:
-        raise ConnectionError('Feil i databasen: ' + jsonobject["error"])
-
-    return jsonobject
-
-
-def deliver_book(bookrfid):
-    parameters = {
-        'book_rfid': bookrfid,
-    }
-
-    response = backend.request('deliver_book', data=parameters)
+    print(parameters)
+    response = backend.request('scan_book', data=parameters)
     jsonobject = json.loads(response.text)
 
     if jsonobject["error"]:

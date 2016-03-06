@@ -14,6 +14,33 @@ forbiddenNames = ["søren klype"]
 pincode = 0
 
 
+@app.route("/scan_book/", methods=['GET', 'POST'])
+def scan_book():
+    ids = 0
+    if flask.request.form:
+        ids = flask.request.form["text_rfid"].replace('\x00', '')
+
+        try:
+            book.scan_book(ids)
+
+        except ConnectionError as err:
+            return flask.render_template('user_old/error.html', error=err, rfid_targetfunction="scan_book")
+        return flask.render_template('user/lend_book/scan_succsess.html', rfid_targetfunction="scan_book")
+
+
+    return flask.render_template('user/lend_book/scan_book.html', ids=ids, rfid_targetfunction="scan_book")
+
+
+@app.route("/rfidtest/", methods=['GET', 'POST'])
+def rfid():
+    ids = 0
+    if flask.request.form:
+        ids = flask.request.form["text_rfid"].replace('\x00', '')
+
+
+
+    return flask.render_template('user/index.html', ids=ids)
+
 @app.route("/")
 def welcome():
     return flask.render_template('user/startscreen/welcome.html')
@@ -44,6 +71,18 @@ def create_user():
         return flask.render_template('user/create_user/assign_user_rfid.html')
 
     return flask.render_template('user/create_user/enter_user_info.html')
+
+@app.route("/create/setrfid/", methods=['GET', 'POST'])
+def scanrfid():
+    ids = 0
+    if flask.request.form:
+        ids = flask.request.form["text_rfid"]
+        ids = ids.split(";")
+
+
+
+    return flask.render_template('user/create_user/assign_user_rfid.html')
+
 
 @app.route("/create/scan/", methods=['GET', 'POST'])
 def create_scan():
@@ -197,11 +236,11 @@ def lend_enterpin():
 
 @app.route("/lend/scan/")
 def lend_scan():
-    return flask.render_template('user/lend_book/lend_scan_rfid.html')
+    return flask.render_template('user/lend_book/scan_book.html')
 
 @app.route("/lend/verified/")
 def lend_verified():
-    return flask.render_template('user/lend_book/lend_succsess.html')
+    return flask.render_template('user/lend_book/scan_succsess.html')
 
 @app.route("/lend/search/")
 def lend_search():
@@ -340,7 +379,7 @@ def admin_users_in_database():
 """
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
     '''
     Use this if you want other people on the same network access the web-page too
     app.run(host='0.0.0.0', debug=True)

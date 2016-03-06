@@ -1,0 +1,50 @@
+{% extends "user/base_user.html" %}
+{% block scanrfid %}
+<form id="form_rfid" method="post" action="{{ url_for(rfid_targetfunction) }}">
+    <input type="hidden" id="text_rfid" name="text_rfid">
+</form>
+
+<script>
+    $(document).ready(function(){
+        var pressed = false;
+        var chars = [];
+        $(window).keypress(function(e) {
+            var interval = setInterval(function(){
+                clearInterval(interval);
+            },1);
+
+            chars.push(String.fromCharCode(e.which));
+
+            if (pressed == false) {
+                setTimeout(function(){
+                    if (chars.length >= 32) {
+                        var rfid = [];
+                        for (var i = 0; i < chars.length; i++) {
+                            if (chars[i] != '\x00') {
+                                rfid.push(chars[i]);
+                            }
+                        }
+                        var barcode = rfid.join("");
+                        console.log("Barcode Scanned: " + barcode);
+                        tagInput(barcode);
+                    }
+                    chars = [];
+                    pressed = false;
+                },1000);
+            }
+            pressed = true;
+        });
+    });
+
+    function tagInput(rfid){
+        document.getElementById("text_rfid").value = rfid;
+        document.getElementById("form_rfid").submit();
+        console.log("Barcode is valid");
+    }
+
+</script>
+
+{% endblock %}
+
+</body>
+</html>

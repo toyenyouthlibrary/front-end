@@ -3,18 +3,17 @@ import backend
 
 
 class User:
-    def __init__(self, username, rfid, database_id=None, **kwargs):
+    def __init__(self, username, database_id=None, **kwargs):
         self.username = username
-        self.rfid = rfid
         self.database_id = database_id
         self.details = kwargs
 
     def __str__(self):
         details_str = ', '.join(['{}: {}'.format(k, v) for k, v in self.details.items()])
-        return '{} ({}) - {}'.format(self.username, self.rfid, details_str)
+        return '{} ({}) - {}'.format(self.username, details_str)
 
     def create_in_database(self):
-        parameters = dict(username=self.username, rfid=self.rfid, **self.details)
+        parameters = dict(username=self.username, **self.details)
 
         response = backend.request('create_user', data=parameters)
         print(response.text)
