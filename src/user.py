@@ -11,7 +11,7 @@ class User:
 
     def __str__(self):
         details_str = ', '.join(['{}: {}'.format(k, v) for k, v in self.details.items()])
-        return '{} ({}) - {}'.format(self.username, details_str)
+        return '{} - {}'.format(self.username, details_str)
 
     def create_in_database(self):
         parameters = dict(username=self.username, **self.details)
@@ -52,11 +52,12 @@ def set_user_pincode(pincode, rfid):
 
         return jsonObject
 
-def login_user(rfid, pin):
-    parameters = dict(rfid=rfid, pin=pin)
+
+def login_user(rfid):
+    parameters = dict(rfid=rfid)
 
     response = backend.request('login_user', data=parameters)
-    print(response)
+    print(response.text)
     jsonObject = json.loads(response.text)
 
     if jsonObject["error"]:
@@ -65,20 +66,20 @@ def login_user(rfid, pin):
     return jsonObject
 
 
-def read_user_from_database(sessionID):
-    parameters = dict(sess_id=sessionID)
+def read_user_from_database(id):
+    parameters = dict(id=id)
 
     response = backend.request('get_user_info', data=parameters)
     jsonobject = json.loads(response.text)
-    print(response.text)
+
     if jsonobject["error"]:
         raise ConnectionError('Feil i databasen: ' + jsonobject["error"])
 
-    return User(**jsonobject)
+    return jsonobject
 
 
-def retrive_lended_books_by_user(username):
-    parameters = dict(username=username)
+def retrive_lended_books_by_user(id):
+    parameters = dict(id=id)
 
     response = backend.request('get_lended_books', data=parameters)
     jsonobject = json.loads(response.text)

@@ -39,43 +39,43 @@
     <div id="lan">
         <i class="fa fa-book fa-3x"></i>
         <p>Mine l&aring;n</p>
-    </div><div id="table">
+    </div>
+
+    {% if books %}
+    <div id="table">
+
         <table>
-            <thead>
-                <tr>
-                    <th>Tittel</th>
-                    <th>Forfatter</th>
-                    <th>L&aring;n</th>
-                    <th>Retur</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Navn</td>
-                    <td>Navn Navnesen</td>
-                    <td>08.08.16</td>
-                    <td>Ikke returnert</td>
-                </tr><tr>
-                    <td>Navn</td>
-                    <td>Navn Navnesen</td>
-                    <td>15.01.16</td>
-                    <td>11.02.16</td>
-                </tr><tr>
-                    <td>Navn</td>
-                    <td>Navn Navnesen</td>
-                    <td>14.01.16</td>
-                    <td>11.02.16</td>
-                </tr><tr>
-                    <td>Navn</td>
-                    <td>Navn Navnesen</td>
-                    <td>10.12.15</td>
-                    <td>01.01.16</td>
-                </tr>
-            </tbody>
+            <tr>
+                <th>
+                    Tittel
+                </th>
+                <th>
+                    Forfatter
+                </th>
+                <th>
+                    Utlånsdato
+                </th>
+                <th>
+                    Innleveringsdato
+                </th>
+
+            </tr>
+            {% for book in books %}
+
+            <tr style="width:100%">
+                <td> {{ book["title"] }}</td>
+                <td> {{ book["author"] }}</td>
+                <td> {{ book["outDate"] }}</td>
+                <td> {{ book["inDate"] }}</td>
+            </tr>
+            {% endfor %}
         </table>
     </div>
-    
-    <span id="span"><a href="profile_menu.html"><i class="fa fa-arrow-left"></i></a> &nbsp; <a href="start.html"><i class="fa fa-times"></i></a></span>
+    {% endif %}
+
+
+    <span id="span"><a href="/profile/menu/"><i class="fa fa-arrow-left"></i></a> &nbsp; <a href="start.html"><i
+            class="fa fa-times"></i></a></span>
 </div>
 
 {% endblock %}

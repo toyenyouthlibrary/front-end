@@ -1,11 +1,8 @@
-import flask
-import book
-import user
-import flask_wtf
-import wtforms
 import random
-import admin
-from flask_table import Table, Col, LinkCol
+
+import book
+import flask
+import user
 
 app = flask.Flask(__name__)
 app.config['SECRET_KEY'] = 'temmelighemmelig'
@@ -123,10 +120,23 @@ def create_confirmrfid():
 
 @app.route("/login/")
 def login():
+    try:
+        user_ = user.login_user("1")
+
+        global sessionID
+        sessionID = user_["sessionID"]
+        print("User logged in")
+
+        return flask.redirect(flask.url_for('profile_menu'))
+
+    except ConnectionError as err:
+        return flask.render_template('user_old/error.html', error=err)
+
 
     userRFID = "1"
     if userRFID == 1:
         return flask.render_template('user/login_profile/login_pin.html')
+
 
     return flask.render_template('user/login_profile/login_scan.html')
 
@@ -141,7 +151,7 @@ def login_pin():
 
         #If the login is correct, the user will be sent to the profile menu screen
         try:
-            user_ = user.login_user(userRFID, pincode)
+            user_ = user.login_user(userRFID)
 
             global sessionID
             sessionID = user_["sess_id"]
@@ -159,12 +169,38 @@ def login_pin():
 def profile_menu():
     try:
         print("SessionID is ", sessionID)
-        user_info = user.read_user_from_database(sessionID)
+        usr = user.read_user_from_database(sessionID)
 
     except ConnectionError as err:
         return flask.render_template('user_old/error.html', error=err)
 
-    return flask.render_template('user/login_profile/profile_menu.html', username=user_info["username"])
+    return flask.render_template('user/login_profile/profile_menu.html', username=usr["username"])
+
+
+@app.route("/profile/history/")
+def lent_books_history():
+    try:
+        print("SessionID is ", sessionID)
+        usr = user.retrive_lended_books_by_user(sessionID)
+
+        return flask.render_template('user/login_profile/login_lan.html', books=usr["books"])
+    except ConnectionError as err:
+        return flask.render_template('user_old/error.html', error=err)
+
+    return flask.render_template('user/login_profile/profile_menu.html')
+
+
+@app.route("/profile/change_info/")
+def profile_info():
+    try:
+        print("SessionID is ", sessionID)
+        usr = user.read_user_from_database(sessionID)
+
+        return flask.render_template('user/login_profile/profile_info.html', info=usr)
+    except ConnectionError as err:
+        return flask.render_template('user_old/error.html', error=err)
+
+    return flask.render_template('user/login_profile/profile_info.html')
 
 """
 @app.route("/create/creationvalid/")
@@ -187,14 +223,6 @@ def create_adult_confirm_checkbox():
 @app.route("/start/")
 def startscreen():
     return flask.render_template('user/startscreen/startmenu.html')
-
-
-
-
-
-
-
-
 
 
 @app.route("/profile/my_recomendations/")
