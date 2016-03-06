@@ -195,8 +195,8 @@ def profile_info():
     try:
         print("SessionID is ", sessionID)
         usr = user.read_user_from_database(sessionID)
-
-        return flask.render_template('user/login_profile/profile_info.html', info=usr)
+        print(usr)
+        return flask.render_template('user/login_profile/profile_info.html', userinfo=usr)
     except ConnectionError as err:
         return flask.render_template('user_old/error.html', error=err)
 
