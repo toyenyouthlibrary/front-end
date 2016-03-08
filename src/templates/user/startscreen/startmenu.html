@@ -29,11 +29,11 @@
 {% block content %}
 
 <div id="container">
-    <a href="/create/">Lag en bruker</a><!--
- --><a href="/scan_book/">Lån bok</a><!--
- --><a href="/login/">Logg inn</a><!--
- --><a href="/scan_book/">Lever bok</a><!--
- --><a href="finn_sok.html">Finn media</a>
+    <a href="{{ url_for('create_user') }}">Lag en bruker</a><!--
+ --><a href="{{ url_for('scan_book') }}">Lån bok</a><!--
+ --><a href="{{ url_for('login') }}">Logg inn</a><!--
+ --><a href="{{ url_for('scan_book') }}">Lever bok</a><!--
+ --><a href="">Finn media</a>
 </div>
 
 {% endblock %}
