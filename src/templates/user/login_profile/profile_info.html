@@ -61,28 +61,39 @@
     <div id="profil">
         <i class="fa fa-user fa-3x"></i>
         <p>Min profil</p>
-    </div><table>
+    </div>
+
+
+    {% if userinfo %}
+
+    <table>
         <tbody>
+            <br>
+
             <tr>
-                <td colspan=2><input type="text" name="fornavn" maxlength=300 placeholder="Fornavn" /></td>
+                <td colspan=2><input type="text" name="fornavn" value="{{userinfo["firstname"]}}" maxlength=300 placeholder="Fornavn" /></td>
             </tr><tr>
-                <td colspan=2><input type="text" name="etternavn" maxlength=300 placeholder="Etternavn" /></td>
+                <td colspan=2><input type="text" name="etternavn" value="{{userinfo["lastname"]}}" maxlength=300 placeholder="Etternavn" /></td>
             </tr><tr>
-                <td colspan=2><input type="text" name="fodselsdag" maxlength=300 placeholder="F&oslash;dselsdag (dd.mm.&aring;&aring;&aring;&aring;)" /></td>
+                <td colspan=2><input type="text" name="fodselsdag" value="{{userinfo["birth"]}} "maxlength=300 placeholder="F&oslash;dselsdag (dd.mm.&aring;&aring;&aring;&aring;)" /></td>
             </tr><tr>
-                <td colspan=1><input type="text" name="gateadresse" maxlength=300 placeholder="Gateadresse" /></td>
+                <td colspan=1><input type="text" name="gateadresse"  maxlength=300 placeholder="Gateadresse" /></td>
                 <td><input type="text" maxlength=100 name="gatenr" placeholder="Nr." /></td>
             </tr><tr>
-                <td colspan=2><input type="text" name="skole" maxlength=300 placeholder="Skole" /></td>
+                <td colspan=2><input type="text" name="skole"  maxlength=300 placeholder="Skole" /></td>
             </tr><tr>
                 <td colspan=2><input type="text" name="telefon" maxlength=300 placeholder="Telefon" /></td>
             </tr><tr>
                 <td colspan=2><input type="text" name="epost" maxlength=300 placeholder="E-post" /></td>
             </tr><tr>
-                <td colspan=2><input type="text" name="nick" maxlength=300 placeholder="Nick" /></td>
+                <td colspan=2><input type="text" name="nick" value="{{userinfo["username"]}}" maxlength=300 placeholder="Nick" /></td>
             </tr>
         </tbody>
-    </table><div id="info">
+    </table>
+
+    {% endif %}
+
+    <div id="info">
         <h4>Voksengodkjennelse</h4>
         <p>Tekst om at vi trenger voksengodkjennelse for at man skal kunne l&aring;ne.</p>
         <div id="thumb">

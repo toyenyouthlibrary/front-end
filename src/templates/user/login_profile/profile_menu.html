@@ -40,13 +40,12 @@
     <p>Velkommen, {{ username }}</p>
     {% endif %}
     <div id="links">
-        <a href="{{ url_for('profile_info') }}">
-            <div class="link">
+        <a href="/profile/change_info"><div class="link">
             <div><i class="fa fa-user fa-3x"></i></div>
             <p>Min profil</p>
 
         </div>
-        </a><a href="{{ url_for('lent_books_history') }}">
+        </a><a href="/profile/history/">
         <div class="link">
             <div><i class="fa fa-book fa-3x"></i></div>
             <p>Mine lån</p>
@@ -58,7 +57,7 @@
             <p>Mine anmeldelser</p>
         </div></a>
     </div>
-    <span id="span"><a href="{{ url_for('welcome') }}"><i class="fa fa-times"></i></a></span>
+    <span id="span"><a href="/"><i class="fa fa-times"></i></a></span>
 </div>
 
 {% endblock %}
