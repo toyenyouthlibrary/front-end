@@ -1,5 +1,4 @@
 import random
-
 import book
 import flask
 import user
