@@ -8,12 +8,17 @@ def scan_book(rfid):
     parameters = {
         'rfid': rfid,
     }
-    print(parameters)
+
     response = backend.request('scan_book', data=parameters)
     jsonobject = json.loads(response.text)
 
     if jsonobject["error"]:
         raise ConnectionError('Feil i databasen: ' + jsonobject["error"])
+
+    #Check for error by each book, for instance that the book was not found in the database
+    for i in jsonobject["status"]:
+        if i["error"]:
+            raise ConnectionError('Feil i databasen: ' + i["error"])
 
     return jsonobject
 

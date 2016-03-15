@@ -9,18 +9,24 @@ app.config['SECRET_KEY'] = 'temmelighemmelig'
 forbiddenNames = ["søren klype"]
 pincode = 0
 
-
+#Lend and deliver book stations
 @app.route("/scan_book/", methods=['GET', 'POST'])
 def scan_book():
     ids = 0
     if flask.request.form:
-        ids = flask.request.form["text_rfid"].replace('\x00', '')
 
+        #Gets the user rfid and book rfid or just the book rfid from JS rfid scanning script
+        ids = flask.request.form["text_rfid"].replace('\x00', '')
+        print(ids)
         try:
+            #Sends the rfids to backend trough the API
             book.scan_book(ids)
 
         except ConnectionError as err:
+            #Displays an error page with an error if something went wrong, e.g. the book is not registered
             return flask.render_template('user_old/error.html', error=err, rfid_targetfunction="scan_book")
+
+        #Returns a site displaying a message that everything went well
         return flask.render_template('user/lend_book/scan_succsess.html', rfid_targetfunction="scan_book")
 
 
