@@ -17,21 +17,29 @@ def scan_book():
 
         #Gets the user rfid and book rfid or just the book rfid from JS rfid scanning script
         ids = flask.request.form["text_rfid"].replace('\x00', '')
-        print(ids)
+
         try:
             #Sends the rfids to backend trough the API
-            book.scan_book(ids)
+            global book_
+            book_ = book.scan_book(ids)
+            print(book_)
 
         except ConnectionError as err:
             #Displays an error page with an error if something went wrong, e.g. the book is not registered
-            return flask.render_template('user_old/error.html', error=err, rfid_targetfunction="scan_book")
+            return flask.render_template('user/scanning_station/lane_levere_feil.html', error=err, rfid_targetfunction="scan_book")
 
-        #Returns a site displaying a message that everything went well
-        return flask.render_template('user/lend_book/scan_succsess.html', rfid_targetfunction="scan_book")
+        if book_["type"] == "lend":
+            return flask.render_template('user/scanning_station/lane_levere_lant.html', rfid_targetfunction="scan_book", status=book_["status"], name=book_["username"])
 
+        elif book_["type"] == "deliver":
+            return flask.render_template('user/scanning_station/lane_levere_levert.html', rfid_targetfunction="scan_book", status=book_["status"], name=book_["username"])
 
-    return flask.render_template('user/lend_book/scan_book.html', ids=ids, rfid_targetfunction="scan_book")
+    return flask.render_template('user/scanning_station/lane_levere_forside.html', ids=ids, rfid_targetfunction="scan_book")
 
+@app.route("/putback/")
+def putbookback():
+
+    return flask.render_template('user/scanning_station/lane_levere_sett_pa_plass.html', status=book_["status"])
 
 @app.route("/rfidtest/", methods=['GET', 'POST'])
 def rfid():

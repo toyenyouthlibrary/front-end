@@ -9,8 +9,12 @@ def scan_book(rfid):
         'rfid': rfid,
     }
 
+    print(parameters)
+
     response = backend.request('scan_book', data=parameters)
+
     jsonobject = json.loads(response.text)
+
 
     if jsonobject["error"]:
         raise ConnectionError('Feil i databasen: ' + jsonobject["error"])
