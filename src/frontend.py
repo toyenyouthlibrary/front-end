@@ -17,7 +17,7 @@ def scan_book():
 
         #Gets the user rfid and book rfid or just the book rfid from JS rfid scanning script
         ids = flask.request.form["text_rfid"].replace('\x00', '')
-        ids = "1;" + ids
+
         try:
             #Sends the rfids to backend trough the API
             global book_
