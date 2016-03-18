@@ -1,0 +1,45 @@
+{% extends "user/base_user.html" %}
+{% block title %}{{"Låne og Levere"}}{% endblock %}
+
+{% block styleinline %}
+<link href="{{ url_for('static', filename='newstyle.css') }}" rel="stylesheet" />
+<style>
+    body{
+        background-color: #1d4a6c;
+    }
+
+</style>
+{% endblock %}
+{% block content %}
+    <div id="deichman_logo">
+        <img src="../../../static/imgs/deichman_logo.png" />
+    </div><div id="biblo_logo">
+        <img src="../../../static/imgs/biblo_logo.png" />
+    </div>
+    <div id="text">
+        <table cellspacing=0>
+
+            {% if name %}
+                <th>Takk, {{ name }}! Du har levert tilbake:</th>
+                <th>Gi stjerne:</th>
+            {% endif %}
+
+            {% for book in status %}
+                <tr>
+                    <td> {{ book["book_info"]["title"] }} </td>
+                    <td><img src="../../../static/imgs/stars.png" /></td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <a href="{{ url_for('putbookback') }}" style="position: absolute;bottom: 10px;right: 10px;"><img src="../../../static/imgs/arrow_right_black.png" /></a>
+
+    </div>
+    <div id="footnotes" class="bottom_left">
+        <a href="{{ url_for('scan_book') }}"><img src="../../../static/imgs/cross.png"></a>
+    </div>
+    <div id="footnotes" class="bottom_right">
+        <img src="../../../static/imgs/lane_levere_p.png" />
+    </div>
+
+{% endblock %}
