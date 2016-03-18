@@ -16,12 +16,12 @@
 {% endblock %}
 {% block content %}
     <div id="deichman_logo">
-        <img src="../../../static/imgs/deichman_logo.png" />
+        <img src="{{ url_for('static', filename='imgs/deichman_logo.png') }}" />
     </div><div id="biblo_logo">
-        <img src="../../../static/imgs/biblo_logo.png" />
+        <img src="{{ url_for('static', filename='imgs/biblo_logo.png') }}" />
     </div>
     <div id="footnotes" class="bottom_left">
-        <img src="../../../static/imgs/scan_objekter_p.png" />
+        <img src="{{ url_for('static', filename='imgs/scan_objekter_p.png') }}" />
     </div>
 
 {% endblock %}
