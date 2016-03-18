@@ -14,9 +14,9 @@
 
 {% block content %}
     <div id="deichman_logo">
-        <img src="../../../static/imgs/deichman_logo.png" />
+        <img src="{{ url_for('static', filename='imgs/deichman_logo.png') }}" />
     </div><div id="biblo_logo">
-        <img src="../../../static/imgs/biblo_logo.png" />
+        <img src="{{ url_for('static', filename='imgs/biblo_logo.png') }}" />
     </div>
     <div id="text">
 
@@ -38,9 +38,9 @@
     </div>
 
     <div id="footnotes" class="bottom_left">
-        <a href="{{ url_for('scan_book') }}"><img src="../../../static/imgs/cross.png"></a>
+        <a href="{{ url_for('scan_book') }}"><img src="{{ url_for('static', filename='imgs/cross.png') }}"></a>
     </div>
     <div id="footnotes" class="bottom_right">
-        <img src="../../../static/imgs/lane_levere_p.png" />
+        <img src="{{ url_for('static', filename='imgs/lane_levere_p.png') }}" />
     </div>
 {% endblock %}
