@@ -4,30 +4,25 @@
 
 <h2>Brukernavn: {{username}}</h2>
 
-{% if userID %}
-<b>User ID:</b> {{userID}}<br>
-{% endif %}
-
-
-
-{% if firstname %}
-<b>Fornavn:</b> {{firstname}}
+<b>User ID:</b> {{details.userID}}</b>
 <br>
-{% endif %}
 
-
-
-{% if email %}
-<b>Email:</b> {{email}}
+<b>Fullt navn:</b> {{details.firstname}} {{details.lastname}}
 <br>
-{% endif %}
 
+<b>Fødselsdato:</b> {{details.birth}}
+<br>
 
+<b>Kjønn:</b> {{details.sex}}
+<br>
 
-{% if rfid %}
-<b>RFID:</b> {{rfid}}
-{% endif %}
+<b>Klasse:</b> {{details.class}}
+<br>
 
+<b>Adresse:</b> {{details.address}}
+<br>
+
+<p></p>
 <br>
 <br>
 
@@ -64,6 +59,7 @@
     {% endfor %}
     </table>
 {% endif %}
+
 
 <a href="{{ url_for('create_user') }}" class="btn btn-default">Legg til bruker</a>
 

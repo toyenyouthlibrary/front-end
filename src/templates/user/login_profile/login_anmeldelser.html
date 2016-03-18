@@ -1,0 +1,69 @@
+{% extends "user/base_user.html" %}
+{% block title %}{{"Velkommen"}}{% endblock %}
+
+{% block styleinline %}
+<link rel="stylesheet" href="fortawesome/font-awesome-4.5.0/css/font-awesome.min.css">
+     <style>
+            #anmeldelser, #anmeldelser_div{
+                vertical-align: top;
+                display: inline-block;
+                margin-top: 1em;
+            }
+
+            #anmeldelser{
+                width: 200px;
+                text-align: center;
+            }
+            #anmeldelser p{
+                margin-top: 10px;
+            }
+
+            #anmeldelser_div{
+                width: calc(100% - 220px);
+                margin-left: 20px;
+            }
+
+            .anmeldelse{
+                display: block;
+            }
+            #anmeldelser_div p{
+                margin-bottom: 0;
+                display: block;
+                width: initial;
+                position: relative;
+            }
+            #anmeldelser_div .stars{
+                margin-bottom: 1em;
+                display: block;
+                margin-top: 5px;
+            }
+     </style>
+{% endblock %}
+{% block content %}
+
+<div id="container">
+    <!--<p id="p">Lage en bruker</p>-->
+    <div id="anmeldelser">
+        <i class="fa fa-thumbs-o-up fa-3x"></i> &nbsp; <i class="fa fa-thumbs-o-down fa-3x"></i>
+        <p>Mine anmeldelser</p>
+    </div><div id="anmeldelser_div">
+            <div class="anmeldelse">
+                <p><b>Ronja R&oslash;verdatter : </b>Jeg synes at boken var utrolig kul. Har sett Ronja p&aring teater og likte boken ogs&aring. Har lest noen andre av Astrid Lindgren. Dette er min favoritt</p>
+                <span class="stars"><i class="fa  fa-star"></i><i class="fa  fa-star"></i><i class="fa  fa-star"></i><i class="fa  fa-star"></i><i class="fa  fa-star"></i></span>
+            </div>
+            <div class="anmeldelse">
+                <p><b>Gl&oslash;dende hjertesliga : </b>Synes boken var barnslig. Gadd ikke &aring lese den ferdig.</p>
+                <span class="stars"><i class="fa  fa-star"></i><i class="fa  fa-star-o"></i><i class="fa  fa-star-o"></i><i class="fa  fa-star-o"></i><i class="fa  fa-star-o"></i></span>
+            </div>
+            <div class="anmeldelse">
+                <p><b>Stupekontroll : </b>Likte den ganske godt.</p>
+                <span class="stars"><i class="fa  fa-star"></i><i class="fa  fa-star"></i><i class="fa  fa-star-o"></i><i class="fa  fa-star-o"></i><i class="fa  fa-star-o"></i></span>
+            </div>
+        </div>
+
+    <span id="span"><a href="profile_menu.html"><i class="fa fa-arrow-left"></i></a> &nbsp; <a
+            href="{{ url_for('welcome') }}"><i class="fa fa-times"></i></a></span>
+</div>
+
+{% endblock %}
+

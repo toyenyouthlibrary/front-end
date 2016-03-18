@@ -2,10 +2,30 @@
 {% block title %}{{"Oversikt over lånte bøker"}}{% endblock %}
 
 
+
 {% block content %}
 
+<script>
+    var $rows = $('#table tr');
+    $('#search').keyup(function() {
+
+        var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+            reg = RegExp(val, 'i'),
+            text;
+
+        $rows.show().filter(function() {
+            text = $(this).text().replace(/\s+/g, ' ');
+            return !reg.test(text);
+        }).hide();
+    });
+</script>
+
+<br>
+<br>
+
 {% if history %}
-<div style="width: calc(100vw - 200px);margin-left: 200px;">
+    <div style="width: calc(100vw - 200px);margin-left: 200px;">
+    <input id="input" type="text" id="search" placeholder="Type to search">
     <table>
       <tr>
         <th>

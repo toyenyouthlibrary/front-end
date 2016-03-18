@@ -1,0 +1,27 @@
+{% extends "user/base_rfid.html" %}
+{% block title %}{{"Låne og Levere"}}{% endblock %}
+
+{% block styleinline %}
+
+<link href="{{ url_for('static', filename='newstyle.css') }}" rel="stylesheet" />
+<style>
+    body{
+        background-color: #d14d03;
+        background-image: url('{{ url_for('static', filename='imgs/laneoglever_h1.png') }}');
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+        
+</style>
+{% endblock %}
+{% block content %}
+    <div id="deichman_logo">
+        <img src="{{ url_for('static', filename='imgs/deichman_logo.png') }}" />
+    </div><div id="biblo_logo">
+        <img src="{{ url_for('static', filename='imgs/biblo_logo.png') }}" />
+    </div>
+    <div id="footnotes" class="bottom_left">
+        <img src="{{ url_for('static', filename='imgs/scan_objekter_p.png') }}" />
+    </div>
+
+{% endblock %}

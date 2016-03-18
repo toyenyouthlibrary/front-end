@@ -3,31 +3,26 @@ import backend
 import requests
 
 
-def lend_book_rfid(bookrfid, userrfid):
+def scan_book(rfid):
+
     parameters = {
-        'book_rfid': bookrfid,
-        'user_rfid': userrfid,
+        'rfid': rfid,
     }
 
-    response = backend.request('lend_book', data=parameters)
+    print(parameters)
+
+    response = backend.request('scan_book', data=parameters)
+
     jsonobject = json.loads(response.text)
+
 
     if jsonobject["error"]:
         raise ConnectionError('Feil i databasen: ' + jsonobject["error"])
 
-    return jsonobject
-
-
-def deliver_book(bookrfid):
-    parameters = {
-        'book_rfid': bookrfid,
-    }
-
-    response = backend.request('deliver_book', data=parameters)
-    jsonobject = json.loads(response.text)
-
-    if jsonobject["error"]:
-        raise ConnectionError('Feil i databasen: ' + jsonobject["error"])
+    #Check for error by each book, for instance that the book was not found in the database
+    for i in jsonobject["status"]:
+        if i["error"]:
+            raise ConnectionError('Feil i databasen: ' + i["error"])
 
     return jsonobject
 
@@ -46,10 +41,10 @@ def get_book_info(bookrfid):
     return jsonobject
 
 
-def give_feeback(user_rfid, book_rfid, ratingtype, value):
+def give_feeback(userrfid, bookrfid, ratingtype, value):
     parameters = {
-        'user_rfid': user_rfid,
-        'book_rfid': book_rfid,
+        'user_rfid': userrfid,
+        'book_rfid': bookrfid,
         'type': ratingtype,
         'value': value,
     }

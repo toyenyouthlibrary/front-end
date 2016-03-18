@@ -1,0 +1,49 @@
+{% extends "user/base_user.html" %}
+{% block title %}{{"Opprett bruker"}}{% endblock %}
+
+
+{% block content %}
+
+<h1><span class="label label-primary">Opprett en bruker</span></h1>
+<br>
+
+
+<form method="POST" action="{{ url_for('create_user') }}">
+
+    <label for="username">Brukernavn:</label>
+    <input type="text" name="username" /><br />
+
+    <label for="firstname">Fornavn:</label>
+    <input type="text" name="firstname" /><br />
+
+    <label for="lastname">Etternavn:</label>
+    <input type="text" name="lastname" /><br />
+
+    <label for="birth">Fødselsdato:</label>
+    <input type="text" name="birth" /><br />
+
+    <label for="sex">Kjønn:</label>
+    <input type="text" name="sex" /><br />
+
+    <label for="class">Klasse:</label>
+    <input type="text" name="class" /><br />
+
+    <label for="school">Skole:</label>
+    <input type="text" name="school" /><br />
+
+    <label for="password">Passord:</label>
+    <input type="text" name="password" /><br />
+
+    <label for="address">Adresse:</label>
+    <input type="text" name="address" /><br />
+
+    <label for="rfid">RFID:</label>
+    <input type="number" name="rfid" /><br />
+
+    <input type="submit" value="Go!" />
+
+    </form>
+
+<!---<a href="{{ url_for('welcome') }}" class="btn btn-default">Logg inn</a>--->
+
+{% endblock %}

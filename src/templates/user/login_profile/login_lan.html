@@ -1,0 +1,81 @@
+{% extends "user/base_user.html" %}
+{% block title %}{{"Velkommen"}}{% endblock %}
+
+{% block styleinline %}
+<link rel="stylesheet" href="fortawesome/font-awesome-4.5.0/css/font-awesome.min.css">
+    <style>
+            #lan, #table{
+                vertical-align: top;
+                display: inline-block;
+                margin-top: 1em;
+            }
+
+            #lan{
+                width: 200px;
+                text-align: center;
+            }
+
+            #table{
+                width: calc(100% - 200px);
+            }
+
+            table{
+                width: 100%;
+            }
+
+            th{
+                text-align: left;
+            }
+            td, th{
+                padding-bottom: 5px;
+            }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div id="container">
+    <!--<p id="p">Lage en bruker</p>-->
+    <div id="lan">
+        <i class="fa fa-book fa-3x"></i>
+        <p>Mine l&aring;n</p>
+    </div>
+
+    {% if books %}
+    <div id="table">
+
+        <table>
+            <tr>
+                <th>
+                    Tittel
+                </th>
+                <th>
+                    Forfatter
+                </th>
+                <th>
+                    Utlånsdato
+                </th>
+                <th>
+                    Innleveringsdato
+                </th>
+
+            </tr>
+            {% for book in books %}
+
+            <tr style="width:100%">
+                <td> {{ book["title"] }}</td>
+                <td> {{ book["author"] }}</td>
+                <td> {{ book["outDate"] }}</td>
+                <td> {{ book["inDate"] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+
+
+    <span id="span"><a href="/profile/menu/"><i class="fa fa-arrow-left"></i></a> &nbsp; <a href="start.html"><i
+            class="fa fa-times"></i></a></span>
+</div>
+
+{% endblock %}

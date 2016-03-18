@@ -1,0 +1,138 @@
+{% extends "user/base_user.html" %}
+{% block title %}{{"Velkommen"}}{% endblock %}
+
+{% block styleinline %}
+<link rel="stylesheet" href="fortawesome/font-awesome-4.5.0/css/font-awesome.min.css">
+<style>
+        #p{
+            float:right;
+        }
+
+        p:nth-of-type(2){
+            width: 50%;
+            display: block;
+        }
+        p:nth-of-type(2) span{
+            height: 80px;
+            line-height: 80px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        img, #info{
+            display: inline-block;
+            vertical-align: top;
+            margin-top: 1em;
+        }
+        img{
+            width: 200px;
+            height: 300px;
+        }
+
+        #info{
+            width: calc(100% - 230px);
+            margin-left: 30px;
+            position: relative;
+        }
+
+        #info h4{
+            margin-bottom: 0.5em;
+        }
+
+        #thumbs{
+            width: 50%;
+            margin-top: 1em;
+            margin-left: 1em;
+        }
+
+        #thumbs div{
+            display: inline-block;
+            text-align: center;
+            margin-right: 3em;
+            cursor: pointer;
+        }
+        #thumbs div i, #thumbs div span{
+            display: block;
+        }
+
+        #enig_div, #ikke_enig_div{
+            position: absolute;
+            top: 0;
+            background-color: white;
+        }
+
+        #enig_div p, #ikke_enig_div p{
+            margin-bottom: 2em;
+        }
+
+        #ikke_enig_div select{
+            min-width: 300px;
+            padding: 2px;
+        }
+
+        .span2{
+            float:right;
+            padding: 15px;
+            cursor: pointer;
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div id="container">
+    <p id="p">Levere</p>
+    <p><span><span>Kategori</span></span></p>
+    <img /><div id="info">
+        <h4>Boken er i kategorien Eventyr.</h4>
+        <p>Er du enig i det?</p>
+        <div id="thumbs"><div id="enig"><i class="fa  fa-thumbs-o-up fa-2x"></i><span>Enig</span></div><div id="ikke_enig"><i class="fa fa-thumbs-o-down fa-2x"></i><span>Ikke Enig</span></div></div>
+        <div id="enig_div" style="display: none;">
+            <p>Topp! Sett den p&aring; plass i hyllen:</p>
+            <h4>Eventyr</h4>
+        </div><div id="ikke_enig_div" style="display: none;">
+            <p>Ok, hvilken kategori passer da?</p>
+            <select>
+                <option value="Eventyr">Eventyr</option>
+                <option value="Action">Action</option>
+                <option value="Lesehest">Lesehest</option>
+                <option value="Mysterier">Mysterier</option>
+                <option value="Skrekk">Skrekk</option>
+            </select>
+        </div>
+    </div>
+
+    <span id="span"><a href="bok_kommentar.html"><i class="fa fa-arrow-left"></i></a> &nbsp; <a href="start.html"><i class="fa fa-times"></i></a></span>
+    <span id="span" class="right"><a href="start.html"><i class="fa fa-arrow-right"></i></a></span>
+</div>
+
+<script>
+window.onload = function(){
+    var thumbs_div = document.getElementById("thumbs");
+    var thumbs = thumbs_div.getElementsByTagName("div");
+    for(var i = 0; i < thumbs.length; i++){
+        var container = document.getElementById(thumbs[i].id + "_div");
+        container.style.width = document.getElementById("info").offsetWidth + "px";
+        container.style.height = document.getElementById("info").offsetHeight + "px";
+        thumbs[i].addEventListener("click", function(){
+            document.getElementById(this.id + "_div").style.display = "block";
+
+            document.getElementById("span").children[0].href = "javascript:close();";
+        });
+    }
+};
+
+function close(){
+    var thumbs_div = document.getElementById("thumbs");
+    var thumbs = thumbs_div.getElementsByTagName("div");
+    for(var i = 0; i < thumbs.length; i++){
+        var container = document.getElementById(thumbs[i].id + "_div");
+        container.style.display = "none";
+    }
+    document.getElementById("span").children[0].href = "bok_kommentar.html";
+}
+
+</script>
+
+{% endblock %}

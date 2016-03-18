@@ -1,0 +1,74 @@
+{% extends "user/base_user.html" %}
+{% block title %}{{"Lag bruker"}}{% endblock %}
+
+{% block styleinline %}
+
+    <style>
+        p{
+            float:right;
+        }
+
+        table th{
+            text-align: left;
+        }
+
+        table tr td input{
+            width: 60px;
+            padding: 5px 5px 5px 0px;
+            border: 0;
+            border-bottom: 2px solid black;
+            outline: 0;
+            margin-bottom: 0.5em;
+        }
+        table tr td:first-of-type input{
+            width: 400px;
+        }
+
+        #span{
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div id="container">
+    <p>Lage en bruker</p>
+    <form method="post" action="{{ url_for('create_user') }}">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan=2><i class="fa fa-pencil"></i> Fyll inn</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan=2><input type="text" name="firstname" maxlength=300 placeholder="Fornavn" /></td>
+                </tr><tr>
+                    <td colspan=2><input type="text" name="lastname" maxlength=300 placeholder="Etternavn" /></td>
+                </tr><tr>
+                    <td colspan=2><input type="text" name="birth" maxlength=300 placeholder="F&oslash;dselsdag (dd.mm.&aring;&aring;&aring;&aring;)" /></td>
+                </tr><tr>
+                    <td colspan=1><input type="text" name="address" maxlength=300 placeholder="Gateadresse" /></td>
+                    <td><input type="text" maxlength=100 name="address_nr" placeholder="Nr." /></td>
+                </tr><tr>
+                    <td colspan=2><input type="text" name="school" maxlength=300 placeholder="Skole" /></td>
+                </tr><tr>
+                    <td colspan=2><input type="text" name="phone" maxlength=300 placeholder="Telefon" /></td>
+                </tr><tr>
+                    <td colspan=2><input type="text" name="email" maxlength=300 placeholder="E-post" /></td>
+                </tr><tr>
+                    <td colspan=2><input type="text" name="username" maxlength=300 placeholder="Nick" /></td>
+                </tr>
+            </tbody>
+        </table>
+        <span id="span"><a href="{{ url_for('welcome') }}"><i class="fa fa-times"></i></a> &nbsp;
+            <a  href="javascript:{}"  onclick="document.getElementsByTagName('form')[0].submit();"><i class="fa fa-arrow-right"></i></a></span>
+    </form>
+
+</div>
+
+<script src="http://localhost:5000/static/script.js"></script>
+
+{% endblock %}

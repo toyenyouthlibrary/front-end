@@ -1,0 +1,34 @@
+{% extends "user/base_user.html" %}
+{% block title %}{{"Låne og Levere"}}{% endblock %}
+
+{% block styleinline %}
+
+<link href="{{ url_for('static', filename='newstyle.css') }}" rel="stylesheet" />
+<style>
+    body{
+        background-color: #1d4a6c;
+    }
+        
+</style>
+{% endblock %}
+{% block content %}
+
+    <div id="deichman_logo">
+        <img src="{{ url_for('static', filename='imgs/deichman_logo.png') }}" />
+    </div><div id="biblo_logo">
+        <img src="{{ url_for('static', filename='imgs/biblo_logo.png') }}" />
+    </div>
+    <div id="text">
+        <p>Ops.. Du forsøker å låne og levere samtidig!<br>
+        Vi har derfor ikke registrert noen lån eller leveringer.<br><br>
+        Begynn på nytt, og lån eller lever hver for seg!</p>
+
+    </div>
+    <div id="footnotes" class="bottom_left">
+        <a href="{{ url_for('scan_book') }}"><img src="{{ url_for('static', filename='imgs/cross.png') }}"></a>
+    </div>
+    <div id="footnotes" class="bottom_right">
+        <img src="{{ url_for('static', filename='imgs/lane_levere_p.png') }}" />
+    </div>
+
+{% endblock %}

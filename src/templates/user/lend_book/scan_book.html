@@ -1,0 +1,29 @@
+{% extends "user/base_rfid.html" %}
+{% block title %}Scan{% endblock %}
+
+{% block styleinline %}
+<link href="{{ url_for('static', filename='lendstyle.css') }}" rel="stylesheet" />
+    <style>
+        body{
+            background-color: #d14d03;
+            background-image: url('../../../static/imgs/laneoglever_h1.png');
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+
+
+<div id="deichman_logo">
+        <img src="../../../static/imgs/deichman_logo.png" />
+    </div><div id="biblo_logo">
+        <img src="../../../static/imgs/biblo_logo.png" />
+    </div>
+    <div id="footnotes" class="bottom_left">
+        <img src="../../../static/imgs/scan_objekter_p.png" />
+    </div>
+
+{% endblock %}

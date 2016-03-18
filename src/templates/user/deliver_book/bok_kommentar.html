@@ -1,0 +1,112 @@
+{% extends "user/base_user.html" %}
+{% block title %}{{"Velkommen"}}{% endblock %}
+
+{% block styleinline %}
+<link rel="stylesheet" href="fortawesome/font-awesome-4.5.0/css/font-awesome.min.css">
+<style>
+        p:first-of-type{
+            float:right;
+        }
+
+        p:nth-of-type(2){
+            width: 50%;
+            display: block;
+        }
+        p:nth-of-type(2) span{
+            height: 80px;
+            line-height: 80px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        img, #info{
+            display: inline-block;
+            vertical-align: top;
+            margin-top: 1em;
+        }
+        img{
+            width: 200px;
+            height: 300px;
+        }
+
+        #info{
+            width: calc(100% - 230px);
+            margin-left: 30px;
+        }
+
+        textarea{
+            width: 80%;
+            height: 200px;
+            padding: 5px;
+            background: url(http://i.stack.imgur.com/ynxjD.png) repeat-y;
+            width: 600px;
+            height: 300px;
+            font: normal 14px verdana;
+            line-height: 25px;
+            padding: 2px 10px;
+            border: solid 1px #ddd;
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div id="container">
+    <p>Levere</p>
+    <p><span><i class="fa fa-pencil fa-3x"></i><span> &nbsp; Hva synes du?</span></span></p>
+    <img /><div id="info">
+        <textarea placeholder="Hvis du vil skriv noe om boken"></textarea>
+    </div>
+
+    <span id="span"><a href="bok_levert.html"><i class="fa fa-arrow-left"></i></a> &nbsp; <a href="start.html"><i class="fa fa-times"></i></a></span>
+    <span id="span" class="right"><a href="bok_kategori.html"><i class="fa fa-arrow-right"></i></a></span>
+</div>
+
+<script>
+window.onload = function(){
+    var stars_given = -1;
+    var stars_div = document.getElementById("stars");
+    var stars = stars_div.getElementsByTagName("i");
+    var color_original = "#000000";
+    for(var i = 0; i < stars.length; i++){
+        stars[i].addEventListener("mouseover", function(){
+            var index = getIndex(stars, this);
+            for(var x = 0; x < stars.length; x++){
+                var color = color_original;
+                if(x <= index){
+                    color = "#FF0000";
+                }
+                stars[x].style.color = color;
+            }
+        });
+        stars[i].addEventListener("mouseout", function(){
+            for(var x = 0; x < stars.length; x++){
+                if(stars_given == -1){
+                    stars[x].style.color = color_original;
+                }else{
+                    var color = color_original;
+                    if(x < stars_given){
+                        var color = "#FF0000";
+                    }
+                    stars[x].style.color = color;
+                }
+            }
+        });
+        stars[i].addEventListener("click", function(){
+            stars_given = getIndex(stars, this) + 1;
+        });
+    }
+};
+
+function getIndex(array, element){
+    for(var z = 0; z < array.length;z++){
+        if(array[z] == element){
+            return z;
+        }
+    }
+    return -1;
+}
+</script>
+
+{% endblock %}

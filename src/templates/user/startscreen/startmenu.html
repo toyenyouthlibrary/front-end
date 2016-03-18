@@ -1,0 +1,38 @@
+{% extends "user/base_user.html" %}
+{% block title %}{{"Startskjerm"}}{% endblock %}
+
+{% block styleinline %}
+    <style>
+        #container{
+            width: 80%;
+            height: 60vh;
+            margin-top: 20vh;
+        }
+        a{
+            color: black;
+            text-decoration: none;
+            display: inline-block;
+            vertical-align: top;
+            width: calc(50% - 20px);
+            font-size: 20pt;
+            padding: 10px;
+        }
+        a:nth-of-type(2n + 1){
+            margin-bottom: 15vh;
+        }
+        a:nth-of-type(2n){
+            float:right;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div id="container">
+    <a href="http://norbye.com/-other-/liblog/api/admin/?debug&id=109342903234">Adminpanel</a><!--
+ --><a href="{{ url_for('scan_book') }}">Lånestasjon</a><!--
+ --><a href="{{ url_for('login') }}">Søkestasjon</a><!--
+ -->
+</div>
+
+{% endblock %}

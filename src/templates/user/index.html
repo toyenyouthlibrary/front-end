@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+</head>
+<body>
+
+<!-- Her er formen -->
+
+<form id="form_rfid" method="post" action="index.html">
+    <input type="hidden" id="text_rfid" name="text_rfid">
+</form>
+
+<!-- Ignorer alt under denne linja -->
+
+<script>
+    $(document).ready(function(){
+        var pressed = false;
+        var chars = [];
+        $(window).keypress(function(e) {
+            var interval = setInterval(function(){
+                clearInterval(interval);
+            },1);
+
+            chars.push(String.fromCharCode(e.which));
+
+            if (pressed == false) {
+                setTimeout(function(){
+                    if (chars.length >= 32) {
+                        var rfid = [];
+                        for (var i = 0; i < chars.length; i++) {
+                            if (chars[i] != '\x00') {
+                                rfid.push(chars[i]);
+                            }
+                        }
+                        var barcode = rfid.join("");
+                        console.log("Barcode Scanned: " + barcode);
+                        tagInput(barcode);
+                    }
+                    chars = [];
+                    pressed = false;
+                },1000);
+            }
+            pressed = true;
+        });
+    });
+
+    function tagInput(rfid){
+        document.getElementById("text_rfid").value = rfid;
+        document.getElementById("form_rfid").submit();
+        console.log("Barcode is valid");
+    }
+
+</script>
+
+</body>
+</html>

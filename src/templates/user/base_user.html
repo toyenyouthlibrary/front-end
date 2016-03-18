@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %} - LibLog</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/ css" href="{{ url_for('static', filename='user_style.css') }}">
+    <!-- Use this block to include inline css in the HTML file -->
+    {% block styleinline %}{% endblock %}
+
+    <!-- CSS file global for all the HTML files -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="http://norbye.com/addons/font-awesome-4.5.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+
 </head>
 <body>
 {% for message in get_flashed_messages() %}
@@ -17,6 +21,12 @@
 </div>
 {% endfor %}
 
-{% block content %}{% endblock %}
+{% block content %}
+
+{% endblock %}
+
+{% block scanrfid %}{% endblock %}
+
+
 </body>
 </html>
