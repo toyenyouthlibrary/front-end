@@ -11,6 +11,12 @@
 </style>
 {% endblock %}
 {% block content %}
+    <form id="form_stars" action="{{ url_for('putbookback') }}" method="POST" style="visibility: hidden">
+        {% for book in status %}
+            <input type="hidden" name="stars" id="stars">
+        {% endfor %}
+    </form>
+
     <div id="deichman_logo">
         <img src="{{ url_for('static', filename='imgs/deichman_logo.png') }}" />
     </div><div id="biblo_logo">
@@ -21,18 +27,27 @@
 
             {% if name %}
                 <th>Takk, {{ name }}! Du har levert tilbake:</th>
-                <th>Gi stjerne:</th>
+                <th colspan="6">Gi stjerne:</th>
             {% endif %}
 
             {% for book in status %}
-                <tr>
-                    <td> {{ book["book_info"]["title"] }} </td>
-                    <td><img src="{{ url_for('static', filename='imgs/stars.png') }}" /></td>
-                </tr>
+
+            <tr>
+                <td> {{ book["book_info"]["title"] }} </td>
+                <td><img id="star_1" src="{{ url_for('static', filename='imgs/stars/utenfyll.png') }}" onclick="star_toggle(1)"/></td>
+                <td><img id="star_2" src="{{ url_for('static', filename='imgs/stars/utenfyll.png') }}" onclick="star_toggle(2)"/></td>
+                <td><img id="star_3" src="{{ url_for('static', filename='imgs/stars/utenfyll.png') }}" onclick="star_toggle(3)"/></td>
+                <td><img id="star_4" src="{{ url_for('static', filename='imgs/stars/utenfyll.png') }}" onclick="star_toggle(4)"/></td>
+                <td><img id="star_5" src="{{ url_for('static', filename='imgs/stars/utenfyll.png') }}" onclick="star_toggle(5)"/></td>
+                <td><img id="star_6" src="{{ url_for('static', filename='imgs/stars/utenfyll.png') }}" onclick="star_toggle(6)"/></td>
+            </tr>
+
             {% endfor %}
         </table>
 
-        <a href="{{ url_for('putbookback') }}" style="position: absolute;bottom: 10px;right: 10px;"><img src="{{ url_for('static', filename='imgs/arrow_right_black.png') }}" /></a>
+        <a href="#" onclick="enter_stars()" style="position: absolute;bottom: 10px;right: 10px;"><img src="{{ url_for('static', filename='imgs/arrow_right_black.png') }}" /></a>
+
+
 
     </div>
     <div id="footnotes" class="bottom_left">
@@ -41,5 +56,33 @@
     <div id="footnotes" class="bottom_right">
         <img src="{{ url_for('static', filename='imgs/lane_levere_p.png') }}" />
     </div>
+
+    <script>
+    var stars = [false, false, false, false, false, false];
+
+    function star_toggle(x) {
+        for (var i = 6; i > 0; i--) {
+            if (i > x) {
+                stars[i] = false;
+                document.getElementById("star_" + i).src = "{{ url_for('static', filename='imgs/stars/utenfyll.png') }}";
+            } else {
+                stars[i] = true;
+                document.getElementById("star_" + i).src = "{{ url_for('static', filename='imgs/stars/fyll.png') }}";
+            }
+        }
+    }
+
+    function enter_stars() {
+        var num = 0;
+        for (var i = 0; i < 6; i++) {
+            if (stars[i]) {
+                num++;
+            }
+        }
+        document.getElementById("stars").value = num;
+        document.getElementById("form_stars").submit();
+    }
+
+    </script>
 
 {% endblock %}

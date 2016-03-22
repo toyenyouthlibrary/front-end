@@ -16,14 +16,16 @@ def scan_book():
     if flask.request.form:
 
         #Gets the user rfid and book rfid or just the book rfid from JS rfid scanning script
+        global ids
         ids = flask.request.form["text_rfid"].replace('\x00', '')
-
+        #ids = "1;" + ids
         try:
             #Sends the rfids to backend trough the API
             global book_
             book_ = book.scan_book(ids)
-
+            print(book_)
         except ConnectionError as err:
+            print(err)
             #Displays an error page with an error if something went wrong, e.g. the book is not registered
             return flask.render_template('user/scanning_station/lane_levere_feil.html', error=err, rfid_targetfunction="scan_book")
 
@@ -38,8 +40,16 @@ def scan_book():
 
 
 
-@app.route("/putback/")
+@app.route("/putback/", methods=['GET', 'POST'])
 def putbookback():
+    stars = 0
+    if flask.request.form:
+        stars = flask.request.form["stars"]
+
+        #Send userRFID, bookRFID and the amount of stars given by the user
+        #book.give_feedback(ids, "star", stars)
+        print("RFID: ", ids)
+        print("Stars: ", stars)
 
     return flask.render_template('user/scanning_station/lane_levere_sett_pa_plass.html', status=book_["status"])
 
