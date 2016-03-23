@@ -22,7 +22,7 @@ def scan_book():
         #Gets the user rfid and book rfid or just the book rfid from JS rfid scanning script
         global ids
         ids = flask.request.form["text_rfid"].replace('\x00', '')
-        #ids = "1;" + ids
+
         try:
             #Sends the rfids to backend trough the API
             global book_
@@ -49,13 +49,15 @@ def putbookback():
     stars = 0
     if flask.request.form:
         stars = flask.request.form["stars"]
-
+        type = "star"
         #Send userRFID, bookRFID and the amount of stars given by the user
-        #book.give_feedback(ids, "star", stars)
+        bookfeedback = book.give_feedback(ids, type, stars)
         print("RFID: ", ids)
         print("Stars: ", stars)
 
     return flask.render_template('user/scanning_station/lane_levere_sett_pa_plass.html', status=book_["status"])
+
+
 
 @app.route("/rfidtest/", methods=['GET', 'POST'])
 def rfid():

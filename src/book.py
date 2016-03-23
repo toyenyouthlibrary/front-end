@@ -41,17 +41,18 @@ def get_book_info(bookrfid):
     return jsonobject
 
 
-def give_feeback(userrfid, bookrfid, ratingtype, value):
+def give_feedback(rfid, ratingtype, value):
+    #ratingtype "star"
     parameters = {
-        'user_rfid': userrfid,
-        'book_rfid': bookrfid,
+        'rfid': rfid,
         'type': ratingtype,
         'value': value,
     }
-
+    print("PARAMETERS", parameters)
     response = backend.request('give_feedback', data=parameters)
+    print(response)
     jsonobject = json.loads(response.text)
-
+    print(jsonobject)
     if jsonobject["error"]:
         raise ConnectionError('Feil i databasen: ' + jsonobject["error"])
 
