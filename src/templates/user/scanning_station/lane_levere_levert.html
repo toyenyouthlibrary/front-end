@@ -5,7 +5,7 @@
 <link href="{{ url_for('static', filename='newstyle.css') }}" rel="stylesheet" />
 <style>
     body{
-        background-color: #1d4a6c;
+        background-color: #4c9041;
     }
 
 </style>
@@ -45,8 +45,7 @@
             {% endfor %}
         </table>
 
-        <a href="#" onclick="enter_stars()" style="position: absolute;bottom: 10px;right: 10px;"><img src="{{ url_for('static', filename='imgs/arrow_right_black.png') }}" /></a>
-
+        <a href="#" onclick="enter_stars()" style="position: absolute;bottom: 10px;right: 10px;"><img style="width:25px" src="{{ url_for('static', filename='imgs/arrow_right_black.png') }}" /></a>
 
 
     </div>
@@ -54,7 +53,7 @@
         <a href="{{ url_for('scan_book') }}"><img src="{{ url_for('static', filename='imgs/cross.png') }}"></a>
     </div>
     <div id="footnotes" class="bottom_right">
-        <img src="{{ url_for('static', filename='imgs/lane_levere_p.png') }}" />
+        <img src="{{ url_for('static', filename='imgs/Levere.png') }}" />
     </div>
 
     <script>

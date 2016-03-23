@@ -9,6 +9,10 @@ app.config['SECRET_KEY'] = 'temmelighemmelig'
 forbiddenNames = ["søren klype"]
 pincode = 0
 
+@app.route("/lend")
+def lend():
+    return flask.render_template('user/scanning_station/lane_levere_feil.html')
+
 #Lend and deliver book stations
 @app.route("/scan_book/", methods=['GET', 'POST'])
 def scan_book():
