@@ -1,7 +1,7 @@
 * {margin: 0; padding: 0;}
 @font-face {
     font-family: SofiaProBlack;
-    src: url('font.otf');
+    src: url('Mostardesign%20-%20Sofia%20Pro%20Black%202.otf');
 
 }
 
@@ -31,6 +31,7 @@ body, input{
     -ms-transform: rotate(-35deg); /* IE 9 */
     -webkit-transform: rotate(-35deg); /* Chrome, Safari, Opera */
     transform: rotate(-15deg);
+    font-family: SofiaProBlack;
     position: absolute;
     font-size: 45pt;
     display: inline-block;
@@ -43,6 +44,7 @@ body, input{
 
 #text{
     background-color: white;
+    font-family: SofiaProBlack;
     display: block;
     margin-top: 200px;
     margin-left: 160px;

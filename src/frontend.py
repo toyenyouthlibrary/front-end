@@ -57,7 +57,15 @@ def putbookback():
 
     return flask.render_template('user/scanning_station/lane_levere_sett_pa_plass.html', status=book_["status"])
 
+@app.route("/")
+def welcome():
+    return flask.render_template('user/startscreen/welcome.html')
 
+@app.route("/start/")
+def start():
+    return flask.render_template('user/startscreen/startmenu.html')
+
+"""
 
 @app.route("/rfidtest/", methods=['GET', 'POST'])
 def rfid():
@@ -68,14 +76,6 @@ def rfid():
 
 
     return flask.render_template('user/index.html', ids=ids)
-
-@app.route("/")
-def welcome():
-    return flask.render_template('user/startscreen/welcome.html')
-
-@app.route("/start/")
-def start():
-    return flask.render_template('user/startscreen/startmenu.html')
 
 @app.route("/create/", methods=['GET', 'POST'])
 def create_user():
@@ -135,7 +135,7 @@ def create_setpin():
 
     return flask.render_template('user/create_user/enter_pin.html')
 
-"""
+
 @app.route("/create/confirmpin/", methods=['GET', 'POST'])
 def create_confirmrfid():
     if flask.request.form:
@@ -146,7 +146,6 @@ def create_confirmrfid():
         if pincode == confirm_pincode:
             print("Pincodes are the same")
     return flask.render_template('user/create_user/confirm_pin.html')
-"""
 
 
 @app.route("/login/")
@@ -233,7 +232,7 @@ def profile_info():
 
     return flask.render_template('user/login_profile/profile_info.html')
 
-"""
+
 @app.route("/create/creationvalid/")
 def create_sucsess():
     return flask.render_template('user/create user/lagd_bruker.html')
@@ -331,8 +330,7 @@ def deliver_delivered():
 @app.route("/deliver/scan")
 def deliver_scan():
     return flask.render_template('user/deliver_book/levere_scan.html')
-"""
-"""
+
 @app.route("/create/", methods=['GET', 'POST'])
 def create_user():
     if flask.request.form:
