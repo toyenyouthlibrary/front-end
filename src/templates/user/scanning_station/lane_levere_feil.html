@@ -18,10 +18,12 @@
     </div><div id="biblo_logo">
         <img src="{{ url_for('static', filename='imgs/biblo_logo.png') }}" />
     </div>
+
+
     <div id="text">
-        <p>Ops.. Du forsøker å låne og levere samtidig!<br>
-        Vi har derfor ikke registrert noen lån eller leveringer.<br><br>
-        Begynn på nytt, og lån eller lever hver for seg!</p>
+        {% if error %}
+        <p>{{ error }}</p>
+        {% endif %}
 
     </div>
     <div id="footnotes" class="bottom_left">

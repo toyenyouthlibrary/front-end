@@ -41,25 +41,22 @@ def get_book_info(bookrfid):
     return jsonobject
 
 
-def give_feedback(rfid, ratingtype, value):
+def give_feedback(rfid, username, ratingtype, value):
     #ratingtype "star"
     parameters = {
         'rfid': rfid,
+        'username': username,
         'type': ratingtype,
         'value': value,
     }
-    print("PARAMETERS", parameters)
+
     response = backend.request('give_feedback', data=parameters)
-    print(response)
     jsonobject = json.loads(response.text)
-    print(jsonobject)
+
     if jsonobject["error"]:
         raise ConnectionError('Feil i databasen: ' + jsonobject["error"])
 
     return jsonobject
 
 
-def google_books():
-    r = requests.get('https://www.googleapis.com/books/v1/volumes?q=isbn:9788245003642')
-    jsonobject = json.loads(r.text)
 

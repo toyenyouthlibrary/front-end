@@ -2,6 +2,7 @@ import random
 import book
 import flask
 import user
+import html
 
 app = flask.Flask(__name__)
 app.config['SECRET_KEY'] = 'temmelighemmelig'
@@ -29,14 +30,17 @@ def scan_book():
             book_ = book.scan_book(ids)
             print(book_)
         except ConnectionError as err:
-            print(err)
+
+
             #Displays an error page with an error if something went wrong, e.g. the book is not registered
-            return flask.render_template('user/scanning_station/lane_levere_feil.html', error=err, rfid_targetfunction="scan_book")
+            return flask.render_template('user/scanning_station/lane_levere_feil.html', error=html.unescape(str(err)), rfid_targetfunction="scan_book")
 
         if book_["type"] == "lend":
             return flask.render_template('user/scanning_station/lane_levere_lant.html', rfid_targetfunction="scan_book", status=book_["status"], name=book_["username"])
 
         elif book_["type"] == "deliver":
+            global username
+            username = book_["username"]
             return flask.render_template('user/scanning_station/lane_levere_levert.html', rfid_targetfunction="scan_book", status=book_["status"], name=book_["username"])
 
     #return flask.render_template('user/scanning_station/lane_levere_forside.html', ids=ids, rfid_targetfunction="scan_book")
@@ -50,12 +54,15 @@ def putbookback():
     if flask.request.form:
         stars = flask.request.form["stars"]
         type = "star"
-        #Send userRFID, bookRFID and the amount of stars given by the user
-        bookfeedback = book.give_feedback(ids, type, stars)
-        print("RFID: ", ids)
-        print("Stars: ", stars)
 
-    return flask.render_template('user/scanning_station/lane_levere_sett_pa_plass.html', status=book_["status"])
+        try:
+            bookfeedback = book.give_feedback(ids, username, type, stars)
+            print(bookfeedback)
+        except ConnectionError as err:
+            return flask.render_template('user/scanning_station/lane_levere_feil.html', error=html.unescape(str(err)), rfid_targetfunction="scan_book")
+
+        return flask.render_template('user/scanning_station/lane_levere_sett_pa_plass.html', status=book_["status"])
+
 
 @app.route("/")
 def welcome():
