@@ -13,6 +13,16 @@
 {% endblock %}
 
 {% block content %}
+
+    <a id="link" href="{{ url_for('scan_book') }}"></a>
+
+    <script>
+        setTimeout(function() {
+            window.location.href = $("a")[0].href;
+         }, 15000);
+
+    </script>
+
     <div id="deichman_logo">
         <img src="{{ url_for('static', filename='imgs/deichman_logo.png') }}" />
     </div><div id="biblo_logo">
