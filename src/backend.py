@@ -1,6 +1,8 @@
 import requests
 
-base_url = "http://norbye.com/-other-/liblog/api/"
+#base_url = "http://norbye.com/-other-/liblog/api/"
+base_url = "tung.deichman.no/api/"
+
 actions = {
     'create_user': 'create_user.php',
     'get_user_info': 'get_user_info.php',
