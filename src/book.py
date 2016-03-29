@@ -41,10 +41,11 @@ def get_book_info(bookrfid):
     return jsonobject
 
 
-def give_feeback(userrfid, bookrfid, ratingtype, value):
+def give_feedback(rfid, username, ratingtype, value):
+    #ratingtype "star"
     parameters = {
-        'user_rfid': userrfid,
-        'book_rfid': bookrfid,
+        'rfid': rfid,
+        'username': username,
         'type': ratingtype,
         'value': value,
     }
@@ -58,7 +59,4 @@ def give_feeback(userrfid, bookrfid, ratingtype, value):
     return jsonobject
 
 
-def google_books():
-    r = requests.get('https://www.googleapis.com/books/v1/volumes?q=isbn:9788245003642')
-    jsonobject = json.loads(r.text)
 

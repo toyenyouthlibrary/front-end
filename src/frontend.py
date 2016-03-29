@@ -2,12 +2,17 @@ import random
 import book
 import flask
 import user
+import html
 
 app = flask.Flask(__name__)
 app.config['SECRET_KEY'] = 'temmelighemmelig'
 
 forbiddenNames = ["søren klype"]
 pincode = 0
+
+@app.route("/lend")
+def lend():
+    return flask.render_template('user/scanning_station/lane_levere_feil.html')
 
 #Lend and deliver book stations
 @app.route("/scan_book/", methods=['GET', 'POST'])
@@ -16,22 +21,26 @@ def scan_book():
     if flask.request.form:
 
         #Gets the user rfid and book rfid or just the book rfid from JS rfid scanning script
+        global ids
         ids = flask.request.form["text_rfid"].replace('\x00', '')
 
         try:
             #Sends the rfids to backend trough the API
             global book_
             book_ = book.scan_book(ids)
-
+            print(book_)
         except ConnectionError as err:
-            print("Error", err)
+
+
             #Displays an error page with an error if something went wrong, e.g. the book is not registered
-            return flask.render_template('user/scanning_station/lane_levere_feil.html', error=err, rfid_targetfunction="scan_book")
+            return flask.render_template('user/scanning_station/lane_levere_feil.html', error=html.unescape(str(err)), rfid_targetfunction="scan_book")
 
         if book_["type"] == "lend":
             return flask.render_template('user/scanning_station/lane_levere_lant.html', rfid_targetfunction="scan_book", status=book_["status"], name=book_["username"])
 
         elif book_["type"] == "deliver":
+            global username
+            username = book_["username"]
             return flask.render_template('user/scanning_station/lane_levere_levert.html', rfid_targetfunction="scan_book", status=book_["status"], name=book_["username"])
 
     #return flask.render_template('user/scanning_station/lane_levere_forside.html', ids=ids, rfid_targetfunction="scan_book")
@@ -39,10 +48,31 @@ def scan_book():
 
 
 
-@app.route("/putback/")
+@app.route("/putback/", methods=['GET', 'POST'])
 def putbookback():
+    stars = 0
+    if flask.request.form:
+        stars = flask.request.form["stars"]
+        type = "star"
 
-    return flask.render_template('user/scanning_station/lane_levere_sett_pa_plass.html', status=book_["status"])
+        try:
+            bookfeedback = book.give_feedback(ids, username, type, stars)
+            print(bookfeedback)
+        except ConnectionError as err:
+            return flask.render_template('user/scanning_station/lane_levere_feil.html', error=html.unescape(str(err)), rfid_targetfunction="scan_book")
+
+        return flask.render_template('user/scanning_station/lane_levere_sett_pa_plass.html', status=book_["status"])
+
+
+@app.route("/")
+def welcome():
+    return flask.render_template('user/startscreen/welcome.html')
+
+@app.route("/start/")
+def start():
+    return flask.render_template('user/startscreen/startmenu.html')
+
+"""
 
 @app.route("/rfidtest/", methods=['GET', 'POST'])
 def rfid():
@@ -53,14 +83,6 @@ def rfid():
 
 
     return flask.render_template('user/index.html', ids=ids)
-
-@app.route("/")
-def welcome():
-    return flask.render_template('user/startscreen/welcome.html')
-
-@app.route("/start/")
-def start():
-    return flask.render_template('user/startscreen/startmenu.html')
 
 @app.route("/create/", methods=['GET', 'POST'])
 def create_user():
@@ -120,7 +142,7 @@ def create_setpin():
 
     return flask.render_template('user/create_user/enter_pin.html')
 
-"""
+
 @app.route("/create/confirmpin/", methods=['GET', 'POST'])
 def create_confirmrfid():
     if flask.request.form:
@@ -131,7 +153,6 @@ def create_confirmrfid():
         if pincode == confirm_pincode:
             print("Pincodes are the same")
     return flask.render_template('user/create_user/confirm_pin.html')
-"""
 
 
 @app.route("/login/")
@@ -218,7 +239,7 @@ def profile_info():
 
     return flask.render_template('user/login_profile/profile_info.html')
 
-"""
+
 @app.route("/create/creationvalid/")
 def create_sucsess():
     return flask.render_template('user/create user/lagd_bruker.html')
@@ -316,8 +337,7 @@ def deliver_delivered():
 @app.route("/deliver/scan")
 def deliver_scan():
     return flask.render_template('user/deliver_book/levere_scan.html')
-"""
-"""
+
 @app.route("/create/", methods=['GET', 'POST'])
 def create_user():
     if flask.request.form:
