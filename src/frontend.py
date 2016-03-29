@@ -24,6 +24,7 @@ def scan_book():
             book_ = book.scan_book(ids)
 
         except ConnectionError as err:
+            print("Error", err)
             #Displays an error page with an error if something went wrong, e.g. the book is not registered
             return flask.render_template('user/scanning_station/lane_levere_feil.html', error=err, rfid_targetfunction="scan_book")
 

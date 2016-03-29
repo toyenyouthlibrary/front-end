@@ -12,7 +12,7 @@ def scan_book(rfid):
     print(parameters)
 
     response = backend.request('scan_book', data=parameters)
-
+    print(response)
     jsonobject = json.loads(response.text)
 
 
