@@ -39,8 +39,14 @@ def scan_book():
             return flask.render_template('user/scanning_station/lane_levere_lant.html', rfid_targetfunction="scan_book", status=book_["status"], name=book_["username"])
 
         elif book_["type"] == "deliver":
-            global username
-            username = book_["username"]
+            global userRFID
+            userRFID = book_["userRFID"]
+            print(book_)
+
+            for i in book_["status"]:
+                global bookRFID
+                bookRFID = i["book_info"]["rfid"]
+
             return flask.render_template('user/scanning_station/lane_levere_levert.html', rfid_targetfunction="scan_book", status=book_["status"], name=book_["username"])
 
     #return flask.render_template('user/scanning_station/lane_levere_forside.html', ids=ids, rfid_targetfunction="scan_book")
@@ -55,9 +61,13 @@ def putbookback():
         stars = flask.request.form["stars"]
         type = "star"
 
+        print("IDs: ", ids)
+        print("userRFID: ", userRFID)
+        print("bookrfid: ", bookRFID)
+
         try:
-            bookfeedback = book.give_feedback(ids, username, type, stars)
-            print(bookfeedback)
+            bookfeedback = book.give_feedback(bookRFID, userRFID, type, stars)
+
         except ConnectionError as err:
             return flask.render_template('user/scanning_station/lane_levere_feil.html', error=html.unescape(str(err)), rfid_targetfunction="scan_book")
 

@@ -41,11 +41,11 @@ def get_book_info(bookrfid):
     return jsonobject
 
 
-def give_feedback(rfid, username, ratingtype, value):
+def give_feedback(rfid, userrfid, ratingtype, value):
     #ratingtype "star"
     parameters = {
         'rfid': rfid,
-        'username': username,
+        'userrfid': userrfid,
         'type': ratingtype,
         'value': value,
     }

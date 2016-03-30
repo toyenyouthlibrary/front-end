@@ -33,14 +33,14 @@
             <tr>
 
                 <th>Topp! Sett p&aring; plass:</th>
-                <th>Hylle</th>
+                <th>Hylle:</th>
 
             {% for book in status %}
 
                 <tr>
 
                     <td> {{ book["book_info"]["title"] }} </td>
-                    <td> {{ book["book_info"]["shelf"] }}, kategori </td>
+                    <td> {{ book["book_info"]["shelf"] }} </td>
                 </tr>
             {% endfor %}
 
