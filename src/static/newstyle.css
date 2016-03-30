@@ -5,6 +5,12 @@
 
 }
 
+@font-face {
+    font-family: SofiaProMedium;
+    src: url('Mostardesign%20-%20Sofia%20Pro%20Medium.otf');
+
+}
+
 body{
     height: 100%;
     width: 100%;
@@ -64,6 +70,7 @@ body, input{
 }
 #text table tr td{
     vertical-align: middle;
+    font-family: SofiaProMedium;
 }
 
 #frem_tilbake img{
