@@ -12,7 +12,7 @@ pincode = 0
 
 @app.route("/lend")
 def lend():
-    return flask.render_template('user/scanning_station/lane_levere_feil.html')
+    return flask.render_template('user/scanning_station/lane_levere_levert.html')
 
 #Lend and deliver book stations
 @app.route("/scan_book/", methods=['GET', 'POST'])
